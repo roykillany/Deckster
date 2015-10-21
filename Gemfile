@@ -28,6 +28,7 @@ gem 'paperclip', '~> 3.0'
 gem 'aws-sdk', '~> 1.5.7'
 gem 'faker', '1.3.0'
 gem 'backbone-on-rails'
+gem 'thin'
 
 group :development, :test do
   gem 'byebug'

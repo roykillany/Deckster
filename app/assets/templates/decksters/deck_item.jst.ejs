@@ -1,0 +1,12 @@
+<div class="deck-container">
+	<div class="title"><%= deck.escape("title") %></div>
+	<ul class="card-container">
+		<% deck.cards().each(function(card) { %>
+			<li class="card-item">
+				<div class="quantity"><%= card.get("quantity") %></div> <div class="name"><%= card.get("name") %></div>
+				<img class="image hidden" src="<%= card.get('image_url') %>">
+			</li>
+		<% }) %>
+	</ul>
+	<div class="image-viewer"></div>
+</div>

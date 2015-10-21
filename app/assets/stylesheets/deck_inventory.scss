@@ -1,0 +1,42 @@
+.decks-inventory {
+	height: 100%;
+	.decks-container {
+		height: 100%;
+		.deck-item {
+			height: 100%;
+			margin: 0 30%;
+			.deck-container {
+				height: 100%;
+				padding-top: 20%;
+				.title {
+
+				}
+				.card-container {
+					float: left;
+					width: 50%;
+					.card-item {
+						.quantity, .name {
+							display: inline-block;
+						}
+						.quantity {
+
+						}
+						.name {
+							cursor: pointer;
+						}
+						.image {
+						}
+					}
+				}
+			}
+			.image-viewer {
+				float: right;
+				width: 223px;
+				height: 310px;
+				background-image: url("http://hydra-media.cursecdn.com/mtgsalvation.gamepedia.com/thumb/f/f8/Magic_card_back.jpg/200px-Magic_card_back.jpg");
+				background-repeat: no-repeat;
+				background-size: 100%;
+			}
+		}
+	}
+}

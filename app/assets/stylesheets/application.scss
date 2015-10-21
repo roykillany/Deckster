@@ -11,5 +11,31 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require font-awesome.min
  *= require_self
  */
+
+html, head, title, body, h1, a, h2, h3, nav, span, form, input, label, button, nav, ul, li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  color: inherit;
+  text-decoration: inherit;
+  text-align: inherit;
+  vertical-align: inherit;
+  box-sizing: inherit;
+  list-style: none;
+}
+
+html, body {
+  height: 100%;
+}
+
+#content {
+	padding-top: 50px;
+  height: 100%;
+}

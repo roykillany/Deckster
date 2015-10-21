@@ -1,6 +1,10 @@
 class Api::UsersController < ApplicationController
 	wrap_parameters false
 
+	def curr_user
+		render json: Api::UserSerializer.new(current_user)
+	end
+
 	def index
 		@users = User.all
 		render json: ActiveModel::ArraySerializer.new(@users, { each_serializer: Api::UserSerializer })
@@ -14,8 +18,9 @@ class Api::UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
+			@user.create_profile
 			log_in(@user)
-			render json: @user
+			render json: Api::UserSerializer.new(@user)
 		else
 			render json: @user.errors.full_messages, status: 422
 		end
