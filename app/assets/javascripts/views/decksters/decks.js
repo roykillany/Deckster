@@ -3,6 +3,17 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 
 	className: "decks-inventory",
 
+	ui: {
+		hideNavBtn: ".fa-chevron-right",
+		showNavBtn: ".fa-chevron-left",
+		deckNav: ".decks-nav"
+	},
+
+	events: {
+		"click .fa-chevron-right": "toggleDeckNav",
+		"click .fa-chevron-left": "toggleDeckNav"
+	},
+
 	initialize: function() {
 		var self = this;
 
@@ -30,5 +41,20 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 		this.attachSubviews();
 
 		return this;
+	},
+
+	toggleDeckNav: function(e) {
+		console.log(e);
+		var target = $(e.currentTarget),
+			deckNav = this.$(this.ui.deckNav),
+			showNavBtn = this.$(this.ui.showNavBtn);
+
+		if(target.hasClass("right")) {
+			deckNav.addClass("closed");
+			showNavBtn.show();
+		} else if(target.hasClass("left")) {
+			deckNav.removeClass("closed");
+			showNavBtn.hide();
+		}
 	}
 });

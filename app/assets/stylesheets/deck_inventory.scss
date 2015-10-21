@@ -4,12 +4,13 @@
 		height: 100%;
 		.deck-item {
 			height: 100%;
-			margin: 0 30%;
+			margin: 0 20%;
+			min-height: 520px;
 			.deck-container {
 				height: 100%;
 				padding-top: 20%;
 				.title {
-
+					margin-bottom: 20px;
 				}
 				.card-container {
 					float: left;
@@ -22,7 +23,10 @@
 
 						}
 						.name {
-							cursor: pointer;
+							&:hover {
+								cursor: pointer;
+								font-weight: bold;
+							}
 						}
 						.image {
 						}
@@ -36,6 +40,46 @@
 				background-image: url("http://hydra-media.cursecdn.com/mtgsalvation.gamepedia.com/thumb/f/f8/Magic_card_back.jpg/200px-Magic_card_back.jpg");
 				background-repeat: no-repeat;
 				background-size: 100%;
+			}
+		}
+	}
+	.decks-nav {
+		position: fixed;
+		top: 50%;
+		transform: translateY(-50%);
+		right: 0;
+		width: 100px;
+		height: 200px;
+		&.closed {
+			right: -82px;
+			.fa-chevron-left {
+				display: block;
+			}
+		}
+		&:not(closed):hover > .fa-chevron-right {
+			display: block;
+		}
+		.fa-chevron-left, .fa-chevron-right {
+			height: 100%;
+			width: 18px;
+			line-height: 200px;
+			display: none;
+			float: left;
+			&:hover {
+				cursor: pointer;
+				display: block;
+			}
+		}
+		.decks-list {
+			height: 100%;
+			border: 1px solid black;
+			float: right;
+			width: 80px;
+			.deck-item {
+				border-bottom: 1px solid black;
+				&:hover {
+					cursor: pointer;
+				}
 			}
 		}
 	}

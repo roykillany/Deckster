@@ -1,1 +1,12 @@
 <div class="decks-container"></div>
+<nav class="decks-nav">
+	<i class="fa fa-chevron-left left"></i>
+	<i class="fa fa-chevron-right right"></i>
+	<ul class="decks-list">
+		<% decks.each(function(deck) { %>
+			<li class="deck-item" data-deck-id="<%= deck.id %>">
+				<%= deck.escape("title") %>
+			</li>
+		<% }) %>
+	</ul>
+</div>

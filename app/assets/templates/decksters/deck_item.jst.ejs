@@ -1,4 +1,4 @@
-<div class="deck-container">
+<div class="deck-container" data-deck-id="<%= deck.id %>">
 	<div class="title"><%= deck.escape("title") %></div>
 	<ul class="card-container">
 		<% deck.cards().each(function(card) { %>
