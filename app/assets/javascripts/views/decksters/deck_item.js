@@ -13,11 +13,18 @@ Deckster.Views.deckItemView = Backbone.View.extend({
 		"mouseleave .name": "toggleImage"
 	},
 
+	initialize: function(opts) {
+		this.idx = opts.idx
+	},
+
 	render: function() {
-		console.log("DECK ITEM", this.model);
 		var content = this.template({
-			deck: this.model
+			deck: this.model,
+			idx: this.idx
 		});
+		if(this.idx === 0) {
+			this.$el.addClass("active");
+		}
 		this.$el.html(content);
 		return this;
 	},

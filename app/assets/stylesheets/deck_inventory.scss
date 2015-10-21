@@ -6,6 +6,10 @@
 			height: 100%;
 			margin: 0 20%;
 			min-height: 520px;
+			display: none;
+			&.active {
+				display: block;
+			}
 			.deck-container {
 				height: 100%;
 				padding-top: 20%;
@@ -77,6 +81,9 @@
 			width: 80px;
 			.deck-item {
 				border-bottom: 1px solid black;
+				&.active {
+					font-weight: bold;
+				}
 				&:hover {
 					cursor: pointer;
 				}

@@ -11,27 +11,28 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 
 	events: {
 		"click .fa-chevron-right": "toggleDeckNav",
-		"click .fa-chevron-left": "toggleDeckNav"
+		"click .fa-chevron-left": "toggleDeckNav",
+		"click .decks-nav .deck-item": "showDeck"
 	},
 
 	initialize: function() {
 		var self = this;
 
 		this.listenTo(this.collection, "add", this.addDeck);
-		this.collection.each(function(item) {
-			self.addDeck(item);
+		this.collection.each(function(item, idx) {
+			self.addDeck(item, idx);
 		});
 	},
 
-	addDeck: function(deck) {
+	addDeck: function(deck, idx) {
 		var deckItemView = new Deckster.Views.deckItemView({
-			model: deck
+			model: deck,
+			idx: idx
 		});
 		this.addSubview(".decks-container", deckItemView);
 	},
 
 	render: function() {
-		console.log("SUBVIEWS", this.subviews());
 		var content = this.template({
 				decks: this.collection
 			}),
@@ -56,5 +57,22 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 			deckNav.removeClass("closed");
 			showNavBtn.hide();
 		}
+	},
+
+	showDeck: function(e) {
+		var targetDeckId = $(e.currentTarget).data("deck-id"),
+			currentDeckBtn = this.$("nav .deck-item.active"),
+			nextDeckBtn = this.$("nav .deck-item[data-deck-id='" + targetDeckId + "']"),
+			currentDeck = this.$(".decks-container .deck-item.active"),
+			nextDeck = this.$(".decks-container .deck-container[data-deck-id='" + targetDeckId + "']");
+
+		console.log(currentDeck);
+		console.log(currentDeckBtn);
+		console.log(nextDeck);
+		console.log(nextDeckBtn);
+		currentDeck.removeClass("active");
+		currentDeckBtn.removeClass("active");
+		nextDeck.parent().addClass("active");
+		nextDeckBtn.addClass("active");
 	}
 });
