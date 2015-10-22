@@ -1,38 +1,70 @@
+$header-height: 60px;
+
 #header {
 	position: fixed;
 	left: 0;
 	right: 0;
-	height: 60px;
-	background-color: black;
-	color: white;
-	padding: 0 20px;
-	& > div:first-child {
+	height: $header-height;
+	.header {
 		height: 100%;
-	}
-	.greeting, #logout {
-		height: 100%;
-		line-height: 60px;
-	}
-	.greeting {
-		float: left;
-		.username {
+		background-color: black;
+		color: white;
+		padding: 0 20px;
+		.in {
+			display: block;
+		}
+		.out {
+			display: none;
+		}
+		.greeting, #logout {
+			height: 100%;
+			line-height: $header-height;
+		}
+		.greeting {
+			float: left;
+			.username {
+				float: right;
+				margin-left: 10px;
+			}
+		}
+		#logout, #signin {
 			float: right;
-			margin-left: 10px;
+			.btn {
+				margin: 14px;
+				padding: 0 8px;
+				height: 50%;
+				line-height: 30px;
+				border: 1px solid white;
+				border-radius: 4px;
+				&:hover {
+					cursor: pointer;
+					background-color: white;
+					color: black;
+				}
+			}
+		}
+		#signin {
+			.username, .password, .btn {
+				display: inline-block;
+			}
 		}
 	}
-	#logout {
-		float: right;
-		.btn {
-			margin: 14px;
-			padding: 0 8px;
-			height: 50%;
-			line-height: 30px;
-			border: 1px solid white;
-			border-radius: 4px;
-			&:hover {
-				cursor: pointer;
-				background-color: white;
-				color: black;
+	.header.inactive {
+		background-color: white;
+		color: black;
+		.in {
+			display: none;
+		}
+		.out {
+			display: block;
+		}
+		#logout, #signin {
+			.btn {
+				border: 1px solid black;
+				&:hover {
+					background-color: black;
+					color: white;
+				}
 			}
 		}
 	}

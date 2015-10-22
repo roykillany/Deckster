@@ -1,5 +1,15 @@
-<h1 class="greeting">Welcome <div class="username"><%= model.get("username") %></div></h1>
+<h1 class="greeting in">Welcome <div class="username"><%= model.get("username") %></div></h1>
+<div id="logout" class="in">
+	<div class="btn">Sign Out</div>
+</div>
 
-<div id="logout">
-	<div class="btn">Log Out</div>
+<h1 class="greeting out">DECKSTER</h1>
+<div id="signin" class="out">
+	<label class="username" for="username">
+		<input class="username" type="text" name="user[username]" value="" placeholder="username">
+	</label>
+	<label class="password" for="password">
+		<input class="password" type="password" name="user[password]" value="" placeholder="password">
+	</label>
+	<div class="btn">Sign In</div>
 </div>

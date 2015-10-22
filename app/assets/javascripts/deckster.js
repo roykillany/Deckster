@@ -10,7 +10,8 @@ window.Deckster = {
     location.hash = "";
   	this.router = new Deckster.Routers.Router({
   		$rootEl: $("#content"),
-      $headerEl: $("#header")
+      $headerEl: $("#header"),
+      $footerEl: $("#footer")
   	});
 
     this.getSession();
@@ -29,11 +30,13 @@ window.Deckster = {
         });
         self.currentUser.set(data);
         self._loadHeader();
+        self._loadFooter();
       },
       error: function(resp) {
         Backbone.history.start();
         self.currentUser.set({ signedIn: false });
         self._loadHeader();
+        self._loadFooter();
       }
     });
   },
@@ -44,6 +47,12 @@ window.Deckster = {
     });
 
     $("#header").html(headerView.render().$el);
+  },
+
+  _loadFooter: function() {
+    var footerView = new Deckster.Views.footerView();
+
+    $("#footer").html(footerView.render().$el);
   }
 };
 

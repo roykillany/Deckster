@@ -2,6 +2,7 @@
 	height: 100%;
 	.decks-container {
 		height: 100%;
+		overflow: hidden;
 		.deck-item {
 			height: 100%;
 			margin: 0 20%;
@@ -11,8 +12,8 @@
 				display: block;
 			}
 			.deck-container {
-				height: 100%;
-				padding-top: 20%;
+				height: 65%;
+				transform: translateY(26%);
 				.title {
 					margin-bottom: 20px;
 				}

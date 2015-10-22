@@ -1,9 +1,9 @@
 Deckster.Views.RootView = Backbone.View.extend({
 	template: JST["index"],
 
+	className: "landing",
+
 	ui: {
-		loginID: ".login .username",
-		loginPW: ".login .password",
 		signupID: ".signup .username",
 		signupPW: ".signup .password",
 		signupEmail: ".signup .email"
@@ -11,7 +11,6 @@ Deckster.Views.RootView = Backbone.View.extend({
 
 	events: {
 		"click #signup": "signUp",
-		"click #login": "logIn"
 	},
 
 	initialize: function() {
@@ -63,9 +62,7 @@ Deckster.Views.RootView = Backbone.View.extend({
 	},
 
 	navToProfile: function() {
-		console.log(Deckster.currentUser);
 		if(!Deckster.currentUser.isSignedIn()) {
-			console.log("MISS");
 			return;
 		}
 			
