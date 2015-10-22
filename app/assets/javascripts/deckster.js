@@ -50,7 +50,9 @@ window.Deckster = {
   },
 
   _loadFooter: function() {
-    var footerView = new Deckster.Views.footerView();
+    var footerView = new Deckster.Views.footerView({
+      model: this.currentUser
+    });
 
     $("#footer").html(footerView.render().$el);
   }
