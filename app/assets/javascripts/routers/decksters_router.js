@@ -11,7 +11,8 @@ Deckster.Routers.Router = Backbone.Router.extend({
 	routes: {
 		"": "index",
 		"profile/me": "ownProfileNav",
-		"decks/me": "ownDeckViewNav"
+		"decks/me": "ownDeckViewNav",
+		"decks/add": "addDeckNav",
 	},
 
 	index: function() {
@@ -49,6 +50,16 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		});
 
 		this._swapView(ownDeckView);
+	},
+
+	addDeckNav: function() {
+		var callback = this.addDeckNav.bind(this);
+
+		if(!this._requireSignedIn(callback)) { return; };
+
+		var addDeckView = new Deckster.Views.addDeckView();
+
+		this._swapView(addDeckView);
 	},
 
 	_requireSignedIn: function(callback) {
