@@ -10,7 +10,8 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 
 	events: {
 		"click #logout": "logOut",
-		"click #signin .btn": "logIn"
+		"click #signin .btn": "logIn",
+		"click .nav-item": "navToPage"
 	},
 
 	initialize: function() {
@@ -44,7 +45,7 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 
 	logIn: function(e) {
 		e.preventDefault();
-		
+
 		var self = this,
 			username = $(this.ui.loginID).val(),
 			password = $(this.ui.loginPW).val(),
@@ -55,4 +56,10 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 
 		Deckster.currentUser.signIn(options)
 	},
+
+	navToPage: function(e) {
+		var pageName = $(e.currentTarget).data("url");
+
+		Backbone.history.navigate(pageName, { trigger: true });
+	}
 });
