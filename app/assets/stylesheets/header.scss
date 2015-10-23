@@ -27,7 +27,9 @@ $header-height: 60px;
 
 				}
 				.nav-item {
-
+					&:hover {
+						cursor: pointer;
+					}
 				}
 			}
 		}
@@ -37,6 +39,10 @@ $header-height: 60px;
 		}
 		.greeting {
 			float: left;
+			cursor: pointer;
+			&:hover .main-nav {
+				display: block;
+			}
 		}
 		#logout, #signin {
 			float: right;
