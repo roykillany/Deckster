@@ -1,9 +1,20 @@
-<h1 class="greeting in">Welcome <div class="username"><%= model.get("username") %></div></h1>
+<h1 class="greeting">
+	DECKSTER
+	<nav class="main-nav">
+		<ul class="nav-container">
+			<li class="nav-item" id="nav-search"></li>
+			<li class="nav-item">PROFILE</li>
+			<li class="nav-item">ADD A DECK</li>
+			<li class="nav-item">DECKS</li>
+			<li class="nav-item">COLLECTION</li>
+		</ul>
+	</nav>
+</h1>
+
 <div id="logout" class="in">
-	<div class="btn">Sign Out</div>
+	<a class="btn" id="out-btn" href="#out-btn">Sign Out</a>
 </div>
 
-<h1 class="greeting out">DECKSTER</h1>
 <div id="signin" class="out">
 	<label class="username" for="username">
 		<input class="username" type="text" name="user[username]" value="" placeholder="username">
@@ -11,5 +22,5 @@
 	<label class="password" for="password">
 		<input class="password" type="password" name="user[password]" value="" placeholder="password">
 	</label>
-	<div class="btn">Sign In</div>
+	<a class="btn" id="in-btn" href="#in-btn">Sign In</a>
 </div>

@@ -33,6 +33,8 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 	},
 
 	logOut: function(e) {
+		e.preventDefault();
+
 		var options = {
 			success: Deckster.router._goHome
 		};
@@ -41,6 +43,8 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 	},
 
 	logIn: function(e) {
+		e.preventDefault();
+		
 		var self = this,
 			username = $(this.ui.loginID).val(),
 			password = $(this.ui.loginPW).val(),
