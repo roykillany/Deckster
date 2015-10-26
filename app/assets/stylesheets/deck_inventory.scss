@@ -80,6 +80,7 @@
 			border: 1px solid black;
 			float: right;
 			width: 80px;
+			overflow: scroll;
 			.deck-item {
 				border-bottom: 1px solid black;
 				&.active {
