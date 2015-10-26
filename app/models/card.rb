@@ -17,4 +17,8 @@ class Card < ActiveRecord::Base
 	accepts_nested_attributes_for :join_colors, :allow_destroy => true
 	accepts_nested_attributes_for :join_sub_types, :allow_destroy => true
 	accepts_nested_attributes_for :join_super_types, :allow_destroy => true
+
+	def color_identity
+		self.colors.pluck(:name)
+	end
 end
