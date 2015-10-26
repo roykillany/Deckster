@@ -13,16 +13,8 @@ class Card < ActiveRecord::Base
 	has_many :join_super_types, dependent: :destroy
 	has_many :super_types, through: :join_super_types
 
-	before_create :create_join_card_types
-
 	accepts_nested_attributes_for :join_card_types, :allow_destroy => true
 	accepts_nested_attributes_for :join_colors, :allow_destroy => true
 	accepts_nested_attributes_for :join_sub_types, :allow_destroy => true
 	accepts_nested_attributes_for :join_super_types, :allow_destroy => true
-
-	def create_join_card_types
-		p "____________________________"
-		p self
-		p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-	end
 end
