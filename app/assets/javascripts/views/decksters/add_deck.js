@@ -5,19 +5,27 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 
 	ui: {
 		listUpload: "#list-upload",
-		deckTitle: "#deck-upload .title"
+		deckTitle: "#deck-upload .title",
+		errors: "#upload-errors"
 	},
 
 	events: {
 		"click #add-deck": "createDeck",
+		"keyup #deck-upload .title": "validateTitle"
 	},
 
 	initialize: function(opts) {
+		var self = this;
 
+		this.errors = {
+			"cardName": [],
+			"title": false
+		}
 	},
 
 	render: function() {
 		var content = this.template();
+
 		this.$el.html(content);
 		return this;
 	},
@@ -27,7 +35,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			cardList = this._createCards(rawList),
 			title = this.$(this.ui.deckTitle).val(),
 			self = this;
-
 
 		cardList.map(function(el, idx, arr) {
 			var name = el.get("name"),
@@ -45,7 +52,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 						});
 
 						if(resp.length === 0) {
-							self.errors.push(name);
+							self.errors["cardName"].push(name);
 							if(lastIdx) {
 								self._saveDeck(arr.filter(self._filterErrors), title);
 								return null;
@@ -84,6 +91,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 	},
 
 	_createCards: function(list) {
+		if(list.length === 0) { return []; };
 		var parseData = function(el) {
 				var splitEl = el.match(/^(\d+) (.+)/);
 
@@ -117,14 +125,16 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			},
 			self = this;
 
-
-		deck.save(params, {
-			success: function(resp) {
-				Deckster.currentUser.decks().add(deck);
-				alert(self.errors);
-				self.navToDecks();
-			}
-		});
+		if(this.hasErrors) {
+			this.displayErrors();
+		} else {
+			deck.save(params, {
+				success: function(resp) {
+					Deckster.currentUser.decks().add(deck);
+					self.navToDecks();
+				}
+			});
+		}
 	},
 
 	navToDecks: function(e) {
@@ -158,4 +168,30 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			return true;
 		}
 	},
+
+	displayErrors: function() {
+		alert(this.errors);
+		console.log(this.errors);
+		var errorContainer = this.$(this.ui.errors),
+			key;
+
+		// CREATE ERROR VIEW AND PASS IN ERRORS
+
+		// for(key in this.errors) {
+		// 	if(key === "title" && this.errors[key] === false) {
+		// 		errorContainer.append()
+		// 	}
+		// }
+	},
+
+	validateTitle: function(e) {
+		console.log(e);
+		if($(e.currentTarget).val()) {
+			this.errors["title"] = true;
+		}
+	},
+
+	hasErrors: function() {
+		!this.errors["title"] && this.errors["cardName"].length > 0
+	}
 });

@@ -12,7 +12,6 @@ Deckster.Views.profileView = Backbone.CompositeView.extend({
 	},
 
 	initialize: function(opts) {
-		this.errors = [];
 	},
 
 	render: function() {
