@@ -24,7 +24,7 @@ Deckster.Models.User = Backbone.Model.extend({
 	},
 
 	decks: function() {
-		if(!this._decks) {
+		if(!this._decks && this.get("decks")) {
 			var decks = this.get("decks").map(function(deck) {
 				var cards = deck["cards"];
 				
@@ -44,7 +44,7 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 	url: "/sessions",
 
 	initialize: function(options) {
-		// this.listenTo(this, "change", this.fireSessionEvent);
+		this.listenTo(this, "change", this.fireSessionEvent);
 	},
 
 	isSignedIn: function() {

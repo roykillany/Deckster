@@ -12,7 +12,8 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 	events: {
 		"click .fa-chevron-right": "toggleDeckNav",
 		"click .fa-chevron-left": "toggleDeckNav",
-		"click .decks-nav .deck-item": "showDeck"
+		"click .decks-nav .deck-item": "showDeck",
+		"scroll": "scrollDeckNav"
 	},
 
 	initialize: function() {
@@ -73,5 +74,9 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 		currentDeckBtn.removeClass("active");
 		nextDeck.parent().addClass("active");
 		nextDeckBtn.addClass("active");
+	},
+
+	scrollDeckNav: function(e) {
+		console.log(e);
 	}
 });

@@ -53,7 +53,6 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 			imageUrl = card.siblings(".image").attr("src"),
 			imageBox = this.$(this.ui.imageBox);
 
-		console.log("SHOW", card, e, imageUrl, imageBox);
 		if(eventType === "mouseenter") {
 			imageBox.attr("style", "background-image: url('" + imageUrl + "');");
 		} else {

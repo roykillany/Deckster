@@ -1,11 +1,6 @@
-// _.extend(Backbone.Router.prototype, {
-//   refresh: function () { var tmp = Backbone.history.fragment; this.navigate(tmp + (new Date).getTime()); this.navigate(tmp, { trigger: true }); }
-// });
-
 Deckster.Routers.Router = Backbone.Router.extend({
 	initialize: function(options) {
 		this.$rootEl = options.$rootEl;
-		// window.location.reload();
 	},
 
 	routes: {
@@ -15,12 +10,15 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		"decks/add": "addDeckNav",
 	},
 
-	index: function() {
+	index: function(callback) {
+		if(!this._requireSignedOut(callback)){ return; }
+
 		if(Deckster.currentUser.isSignedIn()) {
 			this.ownProfileNav();
 		} else {
 			var indexView = new Deckster.Views.RootView({
-				model: Deckster.currentUser
+				model: Deckster.currentUser,
+				callback: callback
 			});
 
 			this._swapView(indexView);
@@ -28,39 +26,37 @@ Deckster.Routers.Router = Backbone.Router.extend({
 	},
 
 	ownProfileNav: function() {
-		var callback = this.ownProfileNav.bind(this),
-			profile = Deckster.currentUser.profile();
+		var callback = this.ownProfileNav.bind(this);
 		if(!this._requireSignedIn(callback)) { return; };
 
-		var ownProfileView = new Deckster.Views.profileView({
-			model: profile
-		});
+		var profile = Deckster.currentUser.profile(),
+			ownProfileView = new Deckster.Views.profileView({
+				model: profile
+			});
 
 		this._swapView(ownProfileView);
 	},
 
 	ownDeckViewNav: function() {
-		var callback = this.ownDeckViewNav.bind(this),
-			decks = Deckster.currentUser.decks();
-
+		var callback = this.ownDeckViewNav.bind(this);
 		if(!this._requireSignedIn(callback)) { return; };
-
-		var ownDeckView = new Deckster.Views.deckView({
-			collection: decks
-		});
+	
+		var decks = Deckster.currentUser.decks(),
+			ownDeckView = new Deckster.Views.deckView({
+				collection: decks
+			});
 
 		this._swapView(ownDeckView);
 	},
 
 	addDeckNav: function() {
-		var callback = this.addDeckNav.bind(this),
-			profile = Deckster.currentUser.profile();
-
+		var callback = this.addDeckNav.bind(this);
 		if(!this._requireSignedIn(callback)) { return; };
 
-		var addDeckView = new Deckster.Views.addDeckView({
-			model: profile
-		});
+		var	profile = Deckster.currentUser.profile(),
+			addDeckView = new Deckster.Views.addDeckView({
+				model: profile
+			});
 
 		this._swapView(addDeckView);
 	},
@@ -68,12 +64,22 @@ Deckster.Routers.Router = Backbone.Router.extend({
 	_requireSignedIn: function(callback) {
 		if(!Deckster.currentUser.isSignedIn()) {
 			callback = callback || this._goHome.bind(this);
-			this.signIn(callback);
+			this.index(callback);
 			return false;
 		}
 
 		return true;
 	},
+
+	_requireSignedOut: function(callback){
+    if(Deckster.currentUser.isSignedIn()){
+      callback = callback || this._goHome.bind(this);
+      callback();
+      return false;
+    }
+
+    return true;
+  },
 
 	_goHome: function() {
 		Backbone.history.navigate("", { trigger: true });

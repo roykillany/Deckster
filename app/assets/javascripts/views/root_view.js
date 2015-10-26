@@ -13,9 +13,10 @@ Deckster.Views.RootView = Backbone.View.extend({
 		"click #signup": "signUp",
 	},
 
-	initialize: function() {
+	initialize: function(opts) {
 		var self = this;
-		this.listenTo(Deckster.currentUser, "change", self.navToProfile);
+		this.callback = opts.callback;
+		this.listenTo(Deckster.currentUser, "signIn", self.signInCallback);
 	},
 
 	render: function() {
@@ -61,11 +62,11 @@ Deckster.Views.RootView = Backbone.View.extend({
 		Deckster.currentUser.signIn(options)
 	},
 
-	navToProfile: function() {
-		if(!Deckster.currentUser.isSignedIn()) {
-			return;
+	signInCallback: function() {
+		if(this.callback) {
+			this.callback();
+		} else {
+			Backbone.history.navigate("profile/me", { trigger: true });
 		}
-			
-		Backbone.history.navigate("profile/me", { pushState: true, trigger: true });
 	}
 });

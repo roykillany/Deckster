@@ -7,7 +7,7 @@ window.Deckster = {
   initialize: function() {
   	this.currentUser = new Deckster.Models.CurrentUser();
 
-    location.hash = "";
+    // location.hash = "";
   	this.router = new Deckster.Routers.Router({
   		$rootEl: $("#content"),
       $headerEl: $("#header"),
