@@ -53,11 +53,14 @@ Deckster.Routers.Router = Backbone.Router.extend({
 	},
 
 	addDeckNav: function() {
-		var callback = this.addDeckNav.bind(this);
+		var callback = this.addDeckNav.bind(this),
+			profile = Deckster.currentUser.profile();
 
 		if(!this._requireSignedIn(callback)) { return; };
 
-		var addDeckView = new Deckster.Views.addDeckView();
+		var addDeckView = new Deckster.Views.addDeckView({
+			model: profile
+		});
 
 		this._swapView(addDeckView);
 	},

@@ -2,7 +2,16 @@ class Api::DecksController < ApplicationController
 	wrap_parameters false
 
 	def create
-		@deck = Deck.create(deck_params)
+		card_types = {}
+		colors = {}
+		params[:deck][:cards_attributes].each do |card|
+			card_types["#{card['name']}"] = card[:card_types]
+			colors["#{card['name']}"] = card[:colors]
+		end
+
+		@deck = Deck.includes(:cards).create(deck_params)
+
+		create_dependencies(card_types, colors, @deck.cards)
 
 		begin
 			@deck.save!
@@ -24,6 +33,8 @@ class Api::DecksController < ApplicationController
 		if dparams[:cards_attributes].is_a?(Array)
 			cparams = dparams[:cards_attributes]
 			cparams.map do |param|
+				p "|||||||||||||||||||"
+				p param
 				param[:rarity] = param[:rarity].capitalize
 				param[:rarity] = param[:rarity] == "Basic" ? "Common" : param[:rarity]
 				param[:mana_cost] = param[:mana_cost].empty? ? "0" : param[:mana_cost].gsub(/\{|\}/, "")
@@ -31,5 +42,34 @@ class Api::DecksController < ApplicationController
 		end
 
 		dparams
+	end
+
+	def create_dependencies(types, colors, cards)
+		cards.each do |card|
+			types["#{card.name}"].each do |t|
+				ct_id = CardType.where({name: t.capitalize}).pluck(:id).first
+				jct = JoinCardType.new({card_id: card.id, card_type_id: ct_id})
+
+				begin
+					jct.save!
+				rescue => e
+					p "***********"
+					p e.message
+					p e.backtrace
+				end
+			end
+			colors["#{card.name}"].each do |c|
+				color_id = Color.where({name: c.capitalize}).pluck(:id).first
+				jc = JoinColor.new({card_id: card.id, color_id: color_id})
+
+				begin
+					jc.save!
+				rescue => e
+					p "***********"
+					p e.message
+					p e.backtrace
+				end
+			end
+		end
 	end
 end

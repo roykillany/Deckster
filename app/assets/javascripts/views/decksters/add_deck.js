@@ -127,7 +127,12 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		});
 	},
 
+	navToDecks: function(e) {
+		Backbone.history.navigate("decks/me", { trigger: true });
+	},
+
 	_formatResp: function(data) {
+		console.log(data);
 		if (data === undefined) { return; };
 		var editions = data.editions.filter(function(ed) {
 				if(ed["multiverse_id"] === 0) {
@@ -142,6 +147,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			mana_cost: data.cost,
 			image_url: edition["image_url"],
 			rarity: edition["rarity"],
+			card_types: data.types
 		});
 	},
 
