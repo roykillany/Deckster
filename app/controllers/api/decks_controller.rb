@@ -11,6 +11,10 @@ class Api::DecksController < ApplicationController
 
 		@deck = Deck.includes(:cards).create(deck_params)
 
+		p "                                    "
+		p @deck
+		p @deck.cards
+
 		create_dependencies(card_types, colors, @deck.cards)
 
 		begin
@@ -45,6 +49,8 @@ class Api::DecksController < ApplicationController
 	end
 
 	def create_dependencies(types, colors, cards)
+		p types
+		p colors
 		cards.each do |card|
 			types["#{card.name}"].each do |t|
 				ct_id = CardType.where({name: t.capitalize}).pluck(:id).first
@@ -58,16 +64,18 @@ class Api::DecksController < ApplicationController
 					p e.backtrace
 				end
 			end
-			colors["#{card.name}"].each do |c|
-				color_id = Color.where({name: c.capitalize}).pluck(:id).first
-				jc = JoinColor.new({card_id: card.id, color_id: color_id})
+			unless colors["#{card.name}"].nil?
+				colors["#{card.name}"].each do |c|
+					color_id = Color.where({name: c.capitalize}).pluck(:id).first
+					jc = JoinColor.new({card_id: card.id, color_id: color_id})
 
-				begin
-					jc.save!
-				rescue => e
-					p "***********"
-					p e.message
-					p e.backtrace
+					begin
+						jc.save!
+					rescue => e
+						p "***********"
+						p e.message
+						p e.backtrace
+					end
 				end
 			end
 		end

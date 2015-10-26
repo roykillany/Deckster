@@ -1,12 +1,44 @@
+<% console.log(counts); %>
 <div class="deck-container" data-deck-id="<%= deck.id %>">
 	<div class="title"><%= deck.escape("title") %></div>
-	<ul class="card-container">
-		<% deck.cards().each(function(card) { %>
-			<li class="card-item">
-				<div class="quantity"><%= card.get("quantity") %></div> <div class="name"><%= card.get("name") %></div>
-				<img class="image hidden" src="<%= card.get('image_url') %>">
+	<div class="card-container">
+		<div class="category">
+			<li class="label">Creatures 
+				<div class="count">
+					<%= counts["creature"] %>
+				</div>
 			</li>
-		<% }) %>
-	</ul>
+			<ul class="creature">	
+			</ul>
+		</div>
+		<div class="category">
+			<li class="label">Noncreature Spells 
+				<div class="count">
+					<%= counts["non-creature"] %>
+				</div>
+			</li>
+			<ul class="non-creature">	
+			</ul>
+		</div>
+		<ul class="instant hidden">
+		</ul>
+		<ul class="sorcery hidden">
+		</ul>
+		<ul class="artifact hidden">
+		</ul>
+		<ul class="enchantment hidden">
+		</ul>
+		<ul class="planeswalker hidden">
+		</ul>
+		<div class="category">
+			<li class="label">Lands 
+				<div class="count">
+					<%= counts["land"] %>
+				</div>
+			</li>
+			<ul class="land">
+			</ul>
+		</div>
+	</div>
 	<div class="image-viewer"></div>
 </div>

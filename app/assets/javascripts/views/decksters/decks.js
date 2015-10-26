@@ -66,10 +66,6 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 			currentDeck = this.$(".decks-container .deck-item.active"),
 			nextDeck = this.$(".decks-container .deck-container[data-deck-id='" + targetDeckId + "']");
 
-		console.log(currentDeck);
-		console.log(currentDeckBtn);
-		console.log(nextDeck);
-		console.log(nextDeckBtn);
 		currentDeck.removeClass("active");
 		currentDeckBtn.removeClass("active");
 		nextDeck.parent().addClass("active");
