@@ -6,12 +6,14 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 	ui: {
 		listUpload: "#list-upload",
 		deckTitle: "#deck-upload .title",
-		errors: "#upload-errors"
+		errors: "#upload-errors",
+		cardCount: ".card-count"
 	},
 
 	events: {
 		"click #add-deck": "createDeck",
-		"keyup #deck-upload .title": "validateTitle"
+		"keyup #deck-upload .title": "validateTitle",
+		"keyup #list-upload": "updateCardCount"
 	},
 
 	initialize: function(opts) {
@@ -92,27 +94,36 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 
 	_createCards: function(list) {
 		if(list.length === 0) { return []; };
-		var parseData = function(el) {
-				var splitEl = el.match(/^(\d+) (.+)/);
-
-				return [splitEl[1], splitEl[2]]
-			},
-			makeCard = function(card) {
-				var quantity = card[0],
-					name = card[1];
-
-				cards.push(new Deckster.Models.Card({name: name, quantity: quantity}));
-			},
+		var self = this,
+			
 			cards = [];
 
 		list.replace(/\s*\n\r?/g, '<br />')
 			.replace(/^\s*/, "")
 			.split(/<br \/>/)
-			.map(parseData)
-			.forEach(makeCard);
+			.map(self._parseData)
+			.forEach(self._makeCard);
 
 
 		return cards;
+	},
+
+	_parseData: function(el) {
+		var splitEl = el.match(/^(\d+) (.+)/);
+
+		if(splitEl === null) {
+			return []
+		} else {
+			return [splitEl[1], splitEl[2]]
+		}
+		
+	},
+
+	_makeCard: function(card) {
+		var quantity = card[0],
+			name = card[1];
+
+		cards.push(new Deckster.Models.Card({name: name, quantity: quantity}));
 	},
 
 	_saveDeck: function(cards, title) {
@@ -193,5 +204,31 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 
 	hasErrors: function() {
 		!this.errors["title"] && this.errors["cardName"].length > 0
+	},
+
+	updateCardCount: function(e) {
+		var self = this,
+			rawCards = this.$(this.ui.listUpload).val(),
+			cardsCount = rawCards.replace(/\s*\n\r?/g, '<br />')
+				.replace(/^\s*/, "")
+				.split(/<br \/>/)
+				.map(self._parseData)
+				.reduce(function(prevVal, currVal, idx, arr) {
+					if(arr[0].length === 0 || arr.length === 0) {
+						console.log("SHIT");
+						return 0;
+					}
+					console.log(arr);
+					console.log(prevVal);
+					console.log(currVal);
+					return prevVal + parseInt(currVal[0]);
+				}, 0),
+			cardCounter = this.$(this.ui.cardCount);
+
+		if(cardsCount > 0 && rawCards !== "") {
+			cardCounter.html("" + cardsCount + " cards total");
+		}	else if (rawCards === "") {
+			cardCounter.html("");
+		}
 	}
 });
