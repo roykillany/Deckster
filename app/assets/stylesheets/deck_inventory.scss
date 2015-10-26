@@ -20,20 +20,26 @@
 				.card-container {
 					float: left;
 					width: 50%;
-					.card-item {
-						.quantity, .name {
+					.category {
+						padding-bottom: 5px;
+						.count {
 							display: inline-block;
 						}
-						.quantity {
-
-						}
-						.name {
-							&:hover {
-								cursor: pointer;
-								font-weight: bold;
+						.card-item {
+							.quantity, .name {
+								display: inline-block;
 							}
-						}
-						.image {
+							.quantity {
+
+							}
+							.name {
+								&:hover {
+									cursor: pointer;
+									font-weight: bold;
+								}
+							}
+							.image {
+							}
 						}
 					}
 				}

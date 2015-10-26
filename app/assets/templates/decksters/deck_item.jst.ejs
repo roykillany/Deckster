@@ -4,18 +4,22 @@
 	<div class="card-container">
 		<div class="category">
 			<li class="label">Creatures 
-				<div class="count">
-					<%= counts["creature"] %>
-				</div>
+				<% if(counts["creature"] > 0) { %>
+					<div class="count">
+						(<%= counts["creature"] %>)
+					</div>
+				<% }; %>
 			</li>
 			<ul class="creature">	
 			</ul>
 		</div>
 		<div class="category">
 			<li class="label">Noncreature Spells 
-				<div class="count">
-					<%= counts["non-creature"] %>
-				</div>
+				<% if(counts["non-creature"] > 0) { %>
+					<div class="count">
+						(<%= counts["non-creature"] %>)
+					</div>
+				<% }; %>
 			</li>
 			<ul class="non-creature">	
 			</ul>
@@ -31,10 +35,12 @@
 		<ul class="planeswalker hidden">
 		</ul>
 		<div class="category">
-			<li class="label">Lands 
-				<div class="count">
-					<%= counts["land"] %>
-				</div>
+			<li class="label">Lands
+				<% if(counts["land"] > 0) { %> 
+					<div class="count">
+						(<%= counts["land"] %>)
+					</div>
+				<% }; %>
 			</li>
 			<ul class="land">
 			</ul>
