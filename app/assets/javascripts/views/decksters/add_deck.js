@@ -95,14 +95,19 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 	_createCards: function(list) {
 		if(list.length === 0) { return []; };
 		var self = this,
-			
+			makeCard = function(card) {
+				var quantity = card[0],
+					name = card[1];
+
+				cards.push(new Deckster.Models.Card({name: name, quantity: quantity}));
+			},
 			cards = [];
 
 		list.replace(/\s*\n\r?/g, '<br />')
 			.replace(/^\s*/, "")
 			.split(/<br \/>/)
 			.map(self._parseData)
-			.forEach(self._makeCard);
+			.forEach(makeCard);
 
 
 		return cards;
@@ -119,13 +124,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		
 	},
 
-	_makeCard: function(card) {
-		var quantity = card[0],
-			name = card[1];
-
-		cards.push(new Deckster.Models.Card({name: name, quantity: quantity}));
-	},
-
 	_saveDeck: function(cards, title) {
 		var deck = new Deckster.Models.Deck(),
 			params = { deck: {
@@ -136,7 +134,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			},
 			self = this;
 
-		if(this.hasErrors) {
+		if(this.hasErrors()) {
 			this.displayErrors();
 		} else {
 			deck.save(params, {
@@ -153,7 +151,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 	},
 
 	_formatResp: function(data) {
-		console.log(data);
 		if (data === undefined) { return; };
 		var editions = data.editions.filter(function(ed) {
 				if(ed["multiverse_id"] === 0) {
@@ -203,7 +200,8 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 	},
 
 	hasErrors: function() {
-		!this.errors["title"] && this.errors["cardName"].length > 0
+		console.log(this.errors["title"] || this.errors["cardName"].length > 0);
+		return !this.errors["title"] || this.errors["cardName"].length > 0;
 	},
 
 	updateCardCount: function(e) {
