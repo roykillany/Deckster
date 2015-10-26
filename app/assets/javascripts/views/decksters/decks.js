@@ -48,14 +48,17 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 		console.log(e);
 		var target = $(e.currentTarget),
 			deckNav = this.$(this.ui.deckNav),
-			showNavBtn = this.$(this.ui.showNavBtn);
+			showNavBtn = this.$(this.ui.showNavBtn),
+			hideNavBtn = this.$(this.ui.hideNavBtn);
 
 		if(target.hasClass("right")) {
 			deckNav.addClass("closed");
 			showNavBtn.show();
+			hideNavBtn.hide();
 		} else if(target.hasClass("left")) {
 			deckNav.removeClass("closed");
 			showNavBtn.hide();
+			hideNavBtn.attr("style", "");
 		}
 	},
 

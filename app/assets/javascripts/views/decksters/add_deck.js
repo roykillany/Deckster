@@ -38,6 +38,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			title = this.$(this.ui.deckTitle).val(),
 			self = this;
 
+		console.log(rawList);
 		cardList.map(function(el, idx, arr) {
 			var name = el.get("name"),
 				lastIdx = idx === arr.length - 1;
@@ -125,6 +126,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 	},
 
 	_saveDeck: function(cards, title) {
+		console.log(cards);
 		var deck = new Deckster.Models.Deck(),
 			params = { deck: {
 					cards_attributes: cards,
@@ -193,14 +195,12 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 	},
 
 	validateTitle: function(e) {
-		console.log(e);
 		if($(e.currentTarget).val()) {
 			this.errors["title"] = true;
 		}
 	},
 
 	hasErrors: function() {
-		console.log(this.errors["title"] || this.errors["cardName"].length > 0);
 		return !this.errors["title"] || this.errors["cardName"].length > 0;
 	},
 
@@ -216,9 +216,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 						console.log("SHIT");
 						return 0;
 					}
-					console.log(arr);
-					console.log(prevVal);
-					console.log(currVal);
 					return prevVal + parseInt(currVal[0]);
 				}, 0),
 			cardCounter = this.$(this.ui.cardCount);
