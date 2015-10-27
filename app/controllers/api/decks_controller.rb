@@ -11,17 +11,13 @@ class Api::DecksController < ApplicationController
 
 		@deck = Deck.includes(:cards).create(deck_params)
 
-		p "                                    "
-		p @deck
-		p @deck.cards
-
 		create_dependencies(card_types, colors, @deck.cards)
 
 		begin
 			@deck.save!
 			render json: Api::DeckSerializer.new(@deck)
 		rescue => e
-			p "*************"
+			p "******decks*******"
 			p e.message
 			p e.backtrace
 			render json: { error: e.message }, status: 422
@@ -37,8 +33,6 @@ class Api::DecksController < ApplicationController
 		if dparams[:cards_attributes].is_a?(Array)
 			cparams = dparams[:cards_attributes]
 			cparams.map do |param|
-				p "|||||||||||||||||||"
-				p param
 				param[:rarity] = param[:rarity].capitalize
 				param[:rarity] = param[:rarity] == "Basic" ? "Common" : param[:rarity]
 				param[:mana_cost] = param[:mana_cost].empty? ? "0" : param[:mana_cost].gsub(/\{|\}/, "")
@@ -59,7 +53,7 @@ class Api::DecksController < ApplicationController
 				begin
 					jct.save!
 				rescue => e
-					p "***********"
+					p "*****types*****"
 					p e.message
 					p e.backtrace
 				end
@@ -72,7 +66,7 @@ class Api::DecksController < ApplicationController
 					begin
 						jc.save!
 					rescue => e
-						p "***********"
+						p "*****colors*****"
 						p e.message
 						p e.backtrace
 					end

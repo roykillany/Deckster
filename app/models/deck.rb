@@ -15,6 +15,7 @@ class Deck < ActiveRecord::Base
 	def avg_cmc
 		nlc = self.nonland_cards
 
+		return 0 if nlc.count == 0
 		(nlc.inject(0) { |sum, c| sum + c.cmc } / nlc.count.to_f).round(2)
 	end
 
