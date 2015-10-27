@@ -50,23 +50,11 @@ Deckster.Views.RootView = Backbone.View.extend({
 		});
 	},
 
-	logIn: function(e) {
-		var self = this,
-			username = $(this.ui.loginID).val(),
-			password = $(this.ui.loginPW).val(),
-			options = {
-				username: username,
-				password: password,
-			};
-
-		Deckster.currentUser.signIn(options)
-	},
-
 	signInCallback: function() {
 		if(this.callback) {
 			this.callback();
 		} else {
 			Backbone.history.navigate("profile/me", { trigger: true });
 		}
-	}
+	},
 });

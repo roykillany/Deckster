@@ -6,6 +6,8 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 	ui: {
 		loginID: "#signin input.username",
 		loginPW: "#signin input.password",
+		pwError: ".password .errors",
+		nameError: ".username .errors"
 	},
 
 	events: {
@@ -45,6 +47,7 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 
 	logIn: function(e) {
 		e.preventDefault();
+		this.clearErrors();
 
 		var self = this,
 			username = $(this.ui.loginID).val(),
@@ -52,6 +55,7 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 			options = {
 				username: username,
 				password: password,
+				error: this.showErrors.bind(this)
 			};
 
 		Deckster.currentUser.signIn(options)
@@ -61,5 +65,24 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 		var pageName = $(e.currentTarget).data("url");
 
 		Backbone.history.navigate(pageName, { trigger: true });
+	},
+
+	showErrors: function(errors) {
+		var pwErrorDiv = this.$(this.ui.pwError),
+			nameErrorDiv = this.$(this.ui.nameError);
+
+		if(errors.name) {
+			nameErrorDiv.html(errors.name);
+		} else {
+			pwErrorDiv.html(errors.pw);
+		}
+	},
+
+	clearErrors: function() {
+		var pwErrorDiv = this.$(this.ui.pwError),
+			nameErrorDiv = this.$(this.ui.nameError);
+
+		pwErrorDiv.empty();
+		nameErrorDiv.empty();
 	}
 });

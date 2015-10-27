@@ -10,13 +10,16 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.includes(:profile).find_by_credentials(user_params[:username], user_params[:password])
+    @user = User.includes(profile: [decks: :cards]).find_by_credentials(user_params[:username], user_params[:password])
     if @user
       log_in(@user)
       render json: Api::UserSerializer.new(@user)
     else
-      @user = User.new(user_params)
-      render json: { ok: "0" } , status: 422
+      if User.exists?({username: user_params[:username]})
+        render json: { err: { pw: "That password is incorrect" } }, status: 422
+      else  
+        render json: { err: { name: "That username doesn't exist" } }, status: 422
+      end
     end
   end
 

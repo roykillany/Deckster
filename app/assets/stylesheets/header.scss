@@ -72,6 +72,10 @@ $header-height: 60px;
 			.username, .password, .btn {
 				display: inline-block;
 			}
+			.errors {
+				position: absolute;
+				color: red;
+			}
 		}
 	}
 	.header.inactive {

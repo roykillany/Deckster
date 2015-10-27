@@ -69,8 +69,9 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 				});
 				model.set(data);
 			},
-			error: function() {
-				options.success && options.error();
+			error: function(errors) {
+				var err = errors.responseJSON.err;
+				options.error && options.error(err);
 			}
 		});
 	},
