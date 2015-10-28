@@ -1,0 +1,68 @@
+.decks-inventory {
+	.decks-container {
+		.deck-item {
+			height: 100%;
+			margin: 0 20%;
+			min-height: 520px;
+			display: none;
+			&.active {
+				display: block;
+			}
+			.deck-container {
+				height: 65%;
+				transform: translateY(26%);
+				.deck-menu {
+					position: absolute;
+					left: -191px;
+					li {
+						&:hover {
+							cursor: pointer;
+						}
+					}
+				}
+				.content-container {
+					.title {
+						margin-bottom: 20px;
+					}
+					.card-container {
+						float: left;
+						width: 50%;
+						.category {
+							padding-bottom: 5px;
+							.count {
+								display: inline-block;
+							}
+							.card-item {
+								.quantity, .name {
+									display: inline-block;
+								}
+								.quantity {
+
+								}
+								.name {
+									&:hover {
+										cursor: pointer;
+										font-weight: bold;
+									}
+								}
+								.image {
+								}
+							}
+						}
+					}
+				}
+				.chart-container {
+					
+				}
+			}
+			.image-viewer {
+				float: right;
+				width: 223px;
+				height: 310px;
+				background-image: url("http://hydra-media.cursecdn.com/mtgsalvation.gamepedia.com/thumb/f/f8/Magic_card_back.jpg/200px-Magic_card_back.jpg");
+				background-repeat: no-repeat;
+				background-size: 100%;
+			}
+		}
+	}
+}

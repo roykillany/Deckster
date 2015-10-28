@@ -1,57 +1,63 @@
 <div class="deck-container" data-deck-id="<%= deck.id %>">
-	<div class="title"><%= deck.escape("title") %></div>
-	<div class="card-container">
-		<div class="category">
-			<li class="label">Creatures 
-				<% if(counts["creature"] > 0) { %>
-					<div class="count">
-						(<%= counts["creature"] %>)
-					</div>
-				<% }; %>
-			</li>
-			<ul class="creature">	
+	<ul class="deck-menu">
+		<li class="view-deck" data-view="deck">View Deck</li>
+		<li class="view-chart" data-view="charts">View Charts</li>
+	</ul>
+	<div class="content-container">
+		<div class="title"><%= deck.escape("title") %></div>
+		<div class="card-container">
+			<div class="category">
+				<li class="label">Creatures 
+					<% if(counts["creature"] > 0) { %>
+						<div class="count">
+							(<%= counts["creature"] %>)
+						</div>
+					<% }; %>
+				</li>
+				<ul class="creature">	
+				</ul>
+			</div>
+			<div class="category">
+				<li class="label">Noncreature Spells 
+					<% if(counts["non-creature"] > 0) { %>
+						<div class="count">
+							(<%= counts["non-creature"] %>)
+						</div>
+					<% }; %>
+				</li>
+				<ul class="non-creature">	
+				</ul>
+			</div>
+			<ul class="instant hidden">
 			</ul>
-		</div>
-		<div class="category">
-			<li class="label">Noncreature Spells 
-				<% if(counts["non-creature"] > 0) { %>
-					<div class="count">
-						(<%= counts["non-creature"] %>)
-					</div>
-				<% }; %>
-			</li>
-			<ul class="non-creature">	
+			<ul class="sorcery hidden">
 			</ul>
-		</div>
-		<ul class="instant hidden">
-		</ul>
-		<ul class="sorcery hidden">
-		</ul>
-		<ul class="artifact hidden">
-		</ul>
-		<ul class="enchantment hidden">
-		</ul>
-		<ul class="planeswalker hidden">
-		</ul>
-		<div class="category">
-			<li class="label">Lands
-				<% if(counts["land"] > 0) { %> 
-					<div class="count">
-						(<%= counts["land"] %>)
-					</div>
-				<% }; %>
-			</li>
-			<ul class="land">
+			<ul class="artifact hidden">
 			</ul>
+			<ul class="enchantment hidden">
+			</ul>
+			<ul class="planeswalker hidden">
+			</ul>
+			<div class="category">
+				<li class="label">Lands
+					<% if(counts["land"] > 0) { %> 
+						<div class="count">
+							(<%= counts["land"] %>)
+						</div>
+					<% }; %>
+				</li>
+				<ul class="land">
+				</ul>
+			</div>
 		</div>
+	</div>
+	<div class="chart-container hidden">
+		<div id="avg-cmc-<%= deck.id %>">
+		</div>
+		<canvas id="curve-<%= deck.id %>">
+		</canvas>
+		<canvas id="color-distrib-<%= deck.id %>">
+		</canvas>
 	</div>
 	<div class="image-viewer"></div>
-	<div class="chart-container">
-		<div class="avg-cmc">
-		</div>
-		<div class="curve">
-		</div>
-		<div class="color-distrib">
-		</div>
-	</div>
 </div>
