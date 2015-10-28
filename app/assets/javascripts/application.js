@@ -4,6 +4,7 @@
 //= require backbone-min
 //= require handlebars-v4.0.2
 //= require Chart.min
+//= require dropzone
 //= require composite_view
 //= require deckster.js
 //= require_tree ../templates

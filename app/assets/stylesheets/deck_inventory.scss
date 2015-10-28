@@ -59,7 +59,7 @@
 		top: 60px;
 		bottom: 60px;
 		right: 0;
-		width: 150px;
+		width: 165px;
 		transition: right 0.5s ease-in-out;
 		-webkit-transition: right 0.5s ease-in-out;
 		-moz-transition: right 0.5s ease-in-out;
@@ -79,7 +79,7 @@
 		}
 		.fa-chevron-left, .fa-chevron-right {
 			height: 100%;
-			width: 18px;
+			width: 15px;
 			line-height: 200px;
 			display: none;
 			float: left;
@@ -91,9 +91,13 @@
 		.decks-list {
 			height: 100%;
 			float: right;
-			width: 80px;
+			width: 150px;
+			background-color: black;
+			opacity: 0.6;
 			.deck-item {
-				border-bottom: 1px solid black;
+				height: 40px;
+				line-height: 40px;
+				color: white;
 				&.active {
 					font-weight: bold;
 				}
