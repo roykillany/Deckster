@@ -72,7 +72,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 							}
 						}
 					} else if (resp.length === 0) {
-						self.errors.push(name);
+						self.errors["cardName"].push(name);
 						if(lastIdx) {
 							self._saveDeck(arr.filter(self._filterErrors), title);
 							return null;

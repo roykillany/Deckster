@@ -1,7 +1,13 @@
+require "open-uri"
+
 class Card < ActiveRecord::Base
 	validates :name, :mana_cost, :cmc, :rarity, presence: true
 	validates_inclusion_of :rarity, :in => ["Mythic", "Rare", "Uncommon", "Common"]
 	validates_presence_of :deck
+	has_attached_file :image #, styles: { medium: "300x300>", thumb: "100x100>", tiny: "40x40" }
+	validates_attachment_content_type :image, content_type: /^image\/(jpeg|png|gif|tiff)$/
+
+	before_create :image_from_url
 
 	belongs_to :deck, inverse_of: :cards
 	has_many :join_card_types, dependent: :destroy
@@ -20,5 +26,9 @@ class Card < ActiveRecord::Base
 
 	def color_identity
 		self.colors.pluck(:name)
+	end
+
+	def image_from_url
+		self.image = URI.escape(self.image_url)
 	end
 end

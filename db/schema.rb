@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028032543) do
+ActiveRecord::Schema.define(version: 20151028203116) do
 
   create_table "card_types", force: :cascade do |t|
     t.string   "name",       null: false
@@ -22,20 +22,28 @@ ActiveRecord::Schema.define(version: 20151028032543) do
   create_table "cards", force: :cascade do |t|
     t.integer  "deck_id"
     t.integer  "collection_id"
-    t.string   "name",                          null: false
-    t.string   "mana_cost",                     null: false
-    t.integer  "cmc",                           null: false
+    t.string   "name",                                   null: false
+    t.string   "mana_cost",                              null: false
+    t.integer  "cmc",                                    null: false
     t.string   "text"
     t.string   "power"
     t.string   "toughness"
-    t.string   "rarity",                        null: false
+    t.string   "rarity",                                 null: false
     t.string   "edition"
-    t.boolean  "foil",          default: false
+    t.boolean  "foil",                   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image_url",     default: "",    null: false
+    t.string   "image_url",              default: "",    null: false
     t.integer  "loyalty"
-    t.integer  "quantity",      default: 1,     null: false
+    t.integer  "quantity",               default: 1,     null: false
+    t.string   "image_url_file_name"
+    t.string   "image_url_content_type"
+    t.integer  "image_url_file_size"
+    t.datetime "image_url_updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "cards", ["cmc"], name: "index_cards_on_cmc"

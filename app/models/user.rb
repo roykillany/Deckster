@@ -2,7 +2,9 @@ class User < ActiveRecord::Base
 	validates :username, :session_token, :password_digest, :email, presence: true
 	validates :password, length: { minimum: 6, allow_nil: true }
 	validates :username, :email, uniqueness: true
-	has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>", tiny: "40x40>" }, default_url: "http://www.genengnews.com/app_themes/genconnect/images/default_profile.jpg"
+	has_attached_file :avatar, 
+		styles: { medium: "300x300>", thumb: "100x100>", tiny: "40x40" }, 
+		storage: :s3, default_url: "http://www.genengnews.com/app_themes/genconnect/images/default_profile.jpg"
 	validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
 	has_one :profile, dependent: :destroy

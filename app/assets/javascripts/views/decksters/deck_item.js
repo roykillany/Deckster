@@ -72,7 +72,7 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		if(eventType === "mouseenter") {
 			imageBox.attr("style", "background-image: url('" + imageUrl + "');");
 		} else {
-			imageBox.attr("style", "background-image: url('http://hydra-media.cursecdn.com/mtgsalvation.gamepedia.com/thumb/f/f8/Magic_card_back.jpg/200px-Magic_card_back.jpg');");
+			imageBox.attr("style", "background-image: url('https://s3.amazonaws.com/decksterdev/defaults/200px-Magic_card_back.jpg');");
 		}
 	},
 

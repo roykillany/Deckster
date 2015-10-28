@@ -4,6 +4,10 @@ class Api::CardSerializer < ActiveModel::Serializer
 	attributes :id, :deck_id, :name, :cmc, :image_url, :toughness, :text, :mana_cost, :power, :quantity,
 		:colors, :card_types
 
+	def image_url
+		object.image.url
+	end
+
 	def colors
 		object.colors.pluck(:name)
 	end
