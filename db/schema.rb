@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020155617) do
+ActiveRecord::Schema.define(version: 20151028032543) do
 
   create_table "card_types", force: :cascade do |t|
     t.string   "name",       null: false
@@ -57,11 +57,15 @@ ActiveRecord::Schema.define(version: 20151020155617) do
   end
 
   create_table "decks", force: :cascade do |t|
-    t.integer  "profile_id",  null: false
-    t.string   "title",       null: false
+    t.integer  "profile_id",               null: false
+    t.string   "title",                    null: false
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cover_image_file_name"
+    t.string   "cover_image_content_type"
+    t.integer  "cover_image_file_size"
+    t.datetime "cover_image_updated_at"
   end
 
   add_index "decks", ["profile_id"], name: "index_decks_on_profile_id"
@@ -116,13 +120,17 @@ ActiveRecord::Schema.define(version: 20151020155617) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",        null: false
-    t.string   "email",           null: false
-    t.string   "password_digest", null: false
-    t.string   "session_token",   null: false
+    t.string   "username",            null: false
+    t.string   "email",               null: false
+    t.string   "password_digest",     null: false
+    t.string   "session_token",       null: false
     t.boolean  "searchable"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email", "searchable"], name: "index_users_on_email_and_searchable"

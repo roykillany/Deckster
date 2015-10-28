@@ -1,5 +1,7 @@
 class Deck < ActiveRecord::Base
 	validates :profile_id, :title, presence: true
+	has_attached_file :cover_image, styles: { medium: "300x300>", thumb: "100x100>", tiny: "40x40>" }, default_url: "http://images.magicmadhouse.co.uk/images/products/1334152454-17580300.jpg"
+	validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\z/
 
 	has_many :cards, inverse_of: :deck, dependent: :destroy
 	belongs_to :profile
