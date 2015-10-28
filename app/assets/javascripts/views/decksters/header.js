@@ -7,13 +7,17 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 		loginID: "#signin input.username",
 		loginPW: "#signin input.password",
 		pwError: ".password .errors",
-		nameError: ".username .errors"
+		nameError: ".username .errors",
+		mainNav: ".main-nav"
 	},
 
 	events: {
 		"click #logout": "logOut",
 		"click #signin .btn": "logIn",
-		"click .nav-item": "navToPage"
+		"click .nav-item": "navToPage",
+		"click .main-nav-icon": "toggleMainNav",
+		"mouseenter .nav-item": "toggleNavItemResp",
+		"mouseleave .nav-item": "toggleNavItemResp"
 	},
 
 	initialize: function() {
@@ -22,7 +26,7 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 
 	render: function() {
 		var content = this.template({
-			model: this.model
+			user: this.model
 		});
 
 		if(!this.model.isSignedIn()) {
@@ -84,5 +88,29 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 
 		pwErrorDiv.empty();
 		nameErrorDiv.empty();
+	},
+
+	toggleMainNav: function(e) {
+		var nav = this.$(this.ui.mainNav),
+			navIcon = this.$(e.currentTarget);
+
+		if(nav.hasClass("active")) {
+			nav.removeClass("active");
+			navIcon.removeClass("active");
+		} else {
+			nav.addClass("active");
+			navIcon.addClass("active");
+		}
+	},
+
+	toggleNavItemResp: function(e) {
+		var eType = e.type,
+			navItem = this.$(e.currentTarget);
+
+		if(eType === "mouseenter") {
+			navItem.addClass("active");
+		} else {
+			navItem.removeClass("active");
+		}
 	}
 });

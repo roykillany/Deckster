@@ -56,14 +56,19 @@
 	}
 	.decks-nav {
 		position: fixed;
-		top: 50%;
-		transform: translateY(-50%);
+		top: 60px;
+		bottom: 60px;
 		right: 0;
-		width: 100px;
-		height: 200px;
-		transition: right 1s ease;
+		width: 150px;
+		transition: right 0.5s ease-in-out;
+		-webkit-transition: right 0.5s ease-in-out;
+		-moz-transition: right 0.5s ease-in-out;
+		-ms-transition: right 0.5s ease-in-out;
 		&.closed {
-			transition: right 1s ease;
+			transition: right 1s ease-in-out;
+			-webkit-transition: right 0.5s ease-in-out;
+			-moz-transition: right 0.5s ease-in-out;
+			-ms-transition: right 0.5s ease-in-out;
 			right: -82px;
 			.fa-chevron-left {
 				display: block;
@@ -85,11 +90,8 @@
 		}
 		.decks-list {
 			height: 100%;
-			border: 1px solid black;
 			float: right;
 			width: 80px;
-			overflow: scroll;
-			overflow-x: hidden;
 			.deck-item {
 				border-bottom: 1px solid black;
 				&.active {

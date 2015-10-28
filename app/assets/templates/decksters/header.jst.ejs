@@ -1,15 +1,23 @@
-<h1 class="greeting">
-	DECKSTER
-	<nav class="main-nav">
-		<ul class="nav-container">
-			<li class="nav-item" id="nav-search"></li>
-			<li class="nav-item" data-url="profile/me">PROFILE</li>
-			<li class="nav-item" data-url="decks/add">ADD A DECK</li>
-			<li class="nav-item" data-url="decks/me">DECKS</li>
-			<li class="nav-item">COLLECTION</li>
-		</ul>
-	</nav>
-</h1>
+<% if(user.isSignedIn()) { %>
+	<h1 class="greeting">
+		<div class="main-nav-icon">
+			DECKSTER
+		</div>
+		<nav class="main-nav">
+			<ul class="nav-container">
+				<li class="nav-item" id="nav-search"></li>
+				<li class="nav-item" data-url="profile/me">PROFILE</li>
+				<li class="nav-item" data-url="decks/add">ADD A DECK</li>
+				<li class="nav-item" data-url="decks/me">DECKS</li>
+				<li class="nav-item">COLLECTION</li>
+			</ul>
+		</nav>
+	</h1>
+<% } else { %>
+	<h1 class="greeting">
+		DECKSTER
+	</h1>
+<% } %>
 
 <div id="logout" class="in">
 	<a class="btn" id="out-btn" href="#out-btn">Sign Out</a>
