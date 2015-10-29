@@ -76,6 +76,28 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 		});
 	},
 
+	fbAuth: function(resp) {
+		var self = this,
+			data = _.extend(resp, {
+				provider: "Facebook"
+			});
+
+		$.ajax({
+			url: "fb_auth",
+			type: "POST",
+			data: data,
+			success: function(data) {
+				_.extend(data, {
+					signedIn: true
+				});
+				self.set(data)
+			},
+			error: function(error) {
+				console.log("FB AUTH ERROR");
+			}
+		});
+	},
+
 	signOut: function(options) {
 		var model = this;
 

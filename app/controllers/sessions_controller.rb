@@ -29,8 +29,26 @@ class SessionsController < ApplicationController
     render json: { ok: "1" }
   end
 
+  def omniauth
+    user = User.find_or_create_by_auth_hash(auth_hash)
+    p "WAKKAFLOCKA"
+    p user
+    begin
+      log_in(user)
+      render json: Api::UserSerializer.new(user)
+    rescue => e
+      p "****fb-auth****"
+      p e.message
+      p e.backtrace
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:username, :password)
+  end
+
+  def auth_hash
+    params
   end
 end

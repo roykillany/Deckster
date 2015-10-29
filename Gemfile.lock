@@ -32,6 +32,8 @@ GEM
       activemodel (= 4.2.4)
       activesupport (= 4.2.4)
       arel (~> 6.0)
+    activerecord-import (0.10.0)
+      activerecord (>= 3.0)
     activesupport (4.2.4)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
@@ -292,6 +294,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (= 0.8.1)
+  activerecord-import
   aws-sdk-v1
   backbone-on-rails
   bcrypt (~> 3.1.7)

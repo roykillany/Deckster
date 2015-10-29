@@ -8,16 +8,18 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 		loginPW: "#signin input.password",
 		pwError: ".password .errors",
 		nameError: ".username .errors",
-		mainNav: ".main-nav"
+		mainNav: ".main-nav",
+		loginContent: "#signin .content"
 	},
 
 	events: {
 		"click #logout": "logOut",
-		"click #signin .btn": "logIn",
+		"click #signin .btn": "showLogin",
+		"click #signin.active .btn": "logIn",
 		"click .nav-item": "navToPage",
 		"click .main-nav-icon": "toggleMainNav",
 		"mouseenter .nav-item": "toggleNavItemResp",
-		"mouseleave .nav-item": "toggleNavItemResp"
+		"mouseleave .nav-item": "toggleNavItemResp",
 	},
 
 	initialize: function() {
@@ -39,6 +41,13 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 		return this;
 	},
 
+	showLogin: function(e) {
+		e.preventDefault();
+		var content = this.$(this.ui.loginContent);
+
+		content.addClass("active");
+	},
+
 	logOut: function(e) {
 		e.preventDefault();
 
@@ -47,6 +56,7 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 		};
 
 		this.model.signOut(options);
+		FB.logout(function(resp) { console.log(resp); });
 	},
 
 	logIn: function(e) {
@@ -112,5 +122,5 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 		} else {
 			navItem.removeClass("active");
 		}
-	}
+	},
 });

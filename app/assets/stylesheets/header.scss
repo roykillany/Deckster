@@ -109,6 +109,12 @@ $header-height: 60px;
 			}
 		}
 		#signin {
+			.content {
+				display: none;
+				&.active {
+					display: inline-block;
+				}
+			}
 			.username, .password, .btn {
 				display: inline-block;
 			}

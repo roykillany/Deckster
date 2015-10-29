@@ -24,13 +24,44 @@
 </div>
 
 <div id="signin" class="out">
-	<label class="username" for="username">
-		<input class="username" type="text" name="user[username]" value="" placeholder="username">
-		<div class="errors"></div>
-	</label>
-	<label class="password" for="password">
-		<input class="password" type="password" name="user[password]" value="" placeholder="password">
-		<div class="errors"></div>
-	</label>
+	<div class="content">
+		<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="true" data-onlogin="getUserDetails"></div>
+		<label class="username" for="username">
+			<input class="username" type="text" name="user[username]" value="" placeholder="username">
+			<div class="errors"></div>
+		</label>
+		<label class="password" for="password">
+			<input class="password" type="password" name="user[password]" value="" placeholder="password">
+			<div class="errors"></div>
+		</label>
+	</div>
 	<a class="btn" id="in-btn" href="#in-btn">Sign In</a>
 </div>
+
+<script>
+window.fbAsyncInit = function() {
+	FB.init({
+		appId      : '908036965898214',
+		xfbml      : true,
+		version    : 'v2.5'
+	});
+};
+
+function getUserDetails() {
+	FB.api("/me", { fields: ["id", "about", "email", "cover", "bio", "name_format", "first_name", "last_name"] }, function(resp) {
+		if(resp.error) {
+			// log out user
+		} else {
+			Deckster.currentUser.fbAuth(resp);
+		}
+	});
+}
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=908036965898214";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>

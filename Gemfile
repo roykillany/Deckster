@@ -30,6 +30,7 @@ gem 'faker', '1.3.0'
 gem 'backbone-on-rails'
 gem 'thin'
 gem 'figaro'
+gem 'activerecord-import'
 
 group :development, :test do
   gem 'byebug'

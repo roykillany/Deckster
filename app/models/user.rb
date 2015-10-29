@@ -20,6 +20,32 @@ class User < ActiveRecord::Base
 		user
 	end
 
+	def self.find_or_create_by_auth_hash(auth_hash)
+		p auth_hash
+    user = User.includes(profile: [decks: :cards]).find_by(
+    	uid: auth_hash[:id]
+    )
+
+    if user.nil?
+      begin
+	      user = User.create!(
+	        username: "#{auth_hash[:first_name]} #{auth_hash[:last_name]}",
+	        email: auth_hash[:email],
+	        password: SecureRandom::urlsafe_base64,
+	        provider: auth_hash[:provider],
+	        uid: auth_hash[:id]
+	      )
+	      user.create_profile
+	    rescue => e
+	    	p "****find_or_create_by_auth_hash****"
+	    	p e.message
+	    	p e.backtrace
+	    end
+    end
+
+    user
+  end
+
 	def ensure_session_token
 		self.session_token ||= User.generate_session_token
 	end

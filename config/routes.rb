@@ -9,4 +9,5 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:index, :create]
   delete "sessions", to: "sessions#destroy"
+  post "fb_auth", to: "sessions#omniauth"
 end

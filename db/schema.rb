@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028203116) do
+ActiveRecord::Schema.define(version: 20151029180840) do
 
   create_table "card_types", force: :cascade do |t|
     t.string   "name",       null: false
@@ -139,10 +139,14 @@ ActiveRecord::Schema.define(version: 20151028203116) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email", "searchable"], name: "index_users_on_email_and_searchable"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["provider"], name: "index_users_on_provider"
+  add_index "users", ["uid"], name: "index_users_on_uid"
   add_index "users", ["username", "email"], name: "index_users_on_username_and_email"
   add_index "users", ["username", "searchable"], name: "index_users_on_username_and_searchable"
   add_index "users", ["username"], name: "index_users_on_username", unique: true
