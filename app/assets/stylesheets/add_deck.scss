@@ -1,12 +1,35 @@
 .add-deck {
-	.example {
-
-	}
 	#deck-upload {
-		#list-upload {
-			resize: none;
+		width: 80%;
+		margin: 0 auto;
+		padding-top: 50px;
+		.deck-info {
+			float: left;
+			width: 50%;
 		}
-		#add-deck {
+		.card-upload {
+			float: right;
+			width: 50%;
+			#list-upload {
+				resize: none;
+			}
+			.search-dropdown {
+				position: relative;
+				display: none;
+				height: 300px;
+				overflow-y: scroll;
+				right: 224px;
+				&.active {
+					display: block;
+				}
+			}
+			#add-deck {
+
+			}
+		}
+	}
+	#formatting-modal {
+		.modal-content {
 
 		}
 	}

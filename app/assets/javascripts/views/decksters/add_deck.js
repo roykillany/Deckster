@@ -7,13 +7,20 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		listUpload: "#list-upload",
 		deckTitle: "#deck-upload .title",
 		errors: "#upload-errors",
-		cardCount: ".card-count"
+		cardCount: ".card-count",
+		cardSearch: ".card-search",
+		searchResults: ".search-dropdown"
 	},
 
 	events: {
 		"click #add-deck": "createDeck",
 		"keyup #deck-upload .title": "validateTitle",
-		"keyup #list-upload": "updateCardCount"
+		"keyup #list-upload": "updateCardCount",
+		"keyup .card-search": "cardTypeahead",
+		"focus .card-search": "toggleSearchResults",
+		"blur .card-search": "toggleSearchResults",
+		"scroll .search-dropdown": "adjustFullImgPos",
+		"click .search-dropdown .item": "addCard"
 	},
 
 	initialize: function(opts) {
@@ -22,13 +29,18 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		this.errors = {
 			"cardName": [],
 			"title": false
-		}
+		};
 	},
 
 	render: function() {
 		var content = this.template();
 
 		this.$el.html(content);
+		this.attachSubviews();
+
+		this.$(this.ui.searchResults).on("scroll", this.adjustFullImgPos.bind(this));
+		this.$(".search-dropdown .item").on("click", this.addCard);
+
 		return this;
 	},
 
@@ -93,6 +105,34 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		});
 	},
 
+	cardTypeahead: function(e) {
+		var input = this.$(this.ui.cardSearch),
+			dropdown = this.$(this.ui.searchResults),
+			value = input.val(),
+			self = this;
+		
+		self.eachSubview(function(view) {
+			view.remove();
+		});
+
+		// if(!e.target.value.match(/^([a-z])/)) {return;}
+
+		if(value !== "") {
+			$.ajax({
+				url: "https://api.deckbrew.com/mtg/cards/typeahead",
+				type: "GET",
+				dataType: "json",
+				data: { q: value },
+				success: function(resp) {
+					dropdown.addClass("active");
+					self._generateDropdown(resp);
+				}
+			});
+		} else {
+			dropdown.removeClass("active");
+		}
+	},
+
 	_createCards: function(list) {
 		if(list.length === 0) { return []; };
 		var self = this,
@@ -109,7 +149,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			.split(/<br \/>/)
 			.map(self._parseData)
 			.forEach(makeCard);
-
 
 		return cards;
 	},
@@ -179,6 +218,35 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		}
 	},
 
+	_generateDropdown: function(list) {
+		if(list.length === 0) { return;	}
+		var self = this;
+
+		list.slice(0, 9).forEach(function(el) {
+			var item = new Deckster.Models.Dropdown(el),
+				itemView = new Deckster.Views.dropdownItemView({
+					model: item
+				});
+
+			self.addSubview(".search-dropdown", itemView);
+			// self.attachSubview(".search-dropdown", itemView, "append");
+		});
+	},
+
+	toggleSearchResults: function(e) {
+		var dropdown = this.$(this.ui.searchResults),
+			show = !dropdown.hasClass("active"),
+			empty = dropdown.html() === "",
+			type = e.type,
+			target = this.$(e.currentTarget);
+		
+		if(type === "focusin" && !empty) {
+			dropdown.addClass("active");
+		} else if(type === "focusout" && !target.hasClass("card-search")) {
+			dropdown.removeClass("active");
+		}
+	},
+
 	displayErrors: function() {
 		alert(this.errors);
 		console.log(this.errors);
@@ -224,6 +292,42 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			cardCounter.html("" + cardsCount + " cards total");
 		}	else if (rawCards === "") {
 			cardCounter.html("");
+		}
+	},
+
+	adjustFullImgPos: function(e) {
+		var heightOffset = e.target.scrollTop,
+			fullImages = this.$(this.ui.searchResults).find(".full");
+
+		fullImages.attr("style", "top: " + heightOffset + "px;");
+	},
+
+	addCard: function(e) {
+		var cardName = this.$(e.currentTarget).data("name"),
+			uploadArea = this.$(this.ui.listUpload),
+			regexp = new RegExp("^\\d+\\s(" + cardName + ")", "gm"),
+			target = uploadArea.val().match(regexp),
+			newVal,
+			newTarget;
+
+			console.log("HI", cardName, target);
+
+		if(target) {
+			target = target[0]
+			newVal = parseInt(target.match(/^(\d+)/)[0]) + 1;
+			newTarget = target.replace(/^(\d+)/, newVal.toString());
+			uploadArea.val(uploadArea.val().replace(regexp, newTarget));
+			console.log("BYE", target, newTarget, newVal);
+		} else {
+			if(uploadArea.val()) {
+				console.log("1", uploadArea, uploadArea.val(), cardName);
+				newVal = "\n1 " + cardName + "";
+				uploadArea.val(uploadArea.val() + newVal);
+			} else {
+				console.log("2");
+				newVal = "1 " + cardName + "";
+				uploadArea.append(newVal);
+			}
 		}
 	}
 });

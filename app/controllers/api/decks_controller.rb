@@ -35,7 +35,10 @@ class Api::DecksController < ApplicationController
 			cparams.map do |param|
 				param[:rarity] = param[:rarity].capitalize
 				param[:rarity] = param[:rarity] == "Basic" ? "Common" : param[:rarity]
+				param[:rarity] = param[:rarity] == "Special" ? "Mythic" : param[:rarity]
 				param[:mana_cost] = param[:mana_cost].empty? ? "0" : param[:mana_cost].gsub(/\{|\}/, "")
+				p "((((((((((((((((((((((((("
+				p param[:rarity]
 			end
 		end
 

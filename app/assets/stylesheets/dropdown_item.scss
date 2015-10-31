@@ -1,0 +1,17 @@
+.dropdown-item {
+	.item {
+		margin-left: 224px;
+		&:hover {
+			cursor: pointer;
+		}
+		img {
+			width: 40px;
+		}
+	}
+	.full {
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 299px;
+	}
+}

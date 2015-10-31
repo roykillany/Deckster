@@ -15,7 +15,7 @@ Deckster.Views.footerView = Backbone.View.extend({
 		if(!this.model.isSignedIn()) {
 			this.$el.addClass("inactive");
 		} else {
-			this.$el.removeClass("inactive");
+			this.$el.removeClass("inactive").addClass("hidden");
 		}
 
 		this.$el.html(content);
