@@ -6,6 +6,7 @@
 //= require Chart.min
 //= require dropzone
 //= require composite_view
+//= require pace.min
 //= require deckster.js
 //= require_tree ../templates
 //= require_tree ./models

@@ -5,7 +5,7 @@
 	<ul class="decks-list">
 		<% decks.each(function(deck, idx) { %>
 			<li class="deck-item <% if(idx === 0) { %>active<% } %>" data-deck-id="<%= deck.id %>">
-				<%= deck.escape("title") %>
+				<img src="<%= deck.get("cover_img") %>"></img> <%= deck.escape("title") %>
 			</li>
 		<% }) %>
 	</ul>

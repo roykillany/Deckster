@@ -58,21 +58,23 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 				"user[password]": options.password
 			};
 
-		$.ajax({
-			url: this.url,
-			type: "POST",
-			data: credentials,
-			dataType: "json",
-			success: function(data) {
-				_.extend(data, {
-					signedIn: true
-				});
-				model.set(data);
-			},
-			error: function(errors) {
-				var err = errors.responseJSON.err;
-				options.error && options.error(err);
-			}
+		Pace.track(function() {
+			$.ajax({
+				url: model.url,
+				type: "POST",
+				data: credentials,
+				dataType: "json",
+				success: function(data) {
+					_.extend(data, {
+						signedIn: true
+					});
+					model.set(data);
+				},
+				error: function(errors) {
+					var err = errors.responseJSON.err;
+					options.error && options.error(err);
+				}
+			});
 		});
 	},
 

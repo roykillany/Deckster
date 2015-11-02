@@ -27,7 +27,7 @@ class Api::DecksController < ApplicationController
 	private
 
 	def deck_params
-		dparams = params.require(:deck).permit(:profile_id, :title, :description,
+		dparams = params.require(:deck).permit(:profile_id, :title, :description, :key_card,
 			cards_attributes: [:image_url, :name, :mana_cost, :cmc, :rarity, :text, :power, :toughness, :quantity])
 
 		if dparams[:cards_attributes].is_a?(Array)

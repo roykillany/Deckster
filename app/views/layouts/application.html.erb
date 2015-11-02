@@ -4,6 +4,7 @@
   <title>Deckster</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
+  <script src="//fast.eager.io/FjtQnry101.js"></script>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <%= csrf_meta_tags %>
 </head>
@@ -14,6 +15,17 @@
 <div id="header"></div>
 <div id="content"></div>
 <div id="footer"></div>
+<script type="text/javascript">
+window.paceOptions = {
+  ajax: true,
+  document: true,
+  eventLag: false, // disabled
+  restartOnRequestAfter: true,
+  ajax: {
+  	trackMethods: ["GET", "POST"]
+  },
+};
+</script>
 
 </body>
 </html>

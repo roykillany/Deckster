@@ -173,7 +173,8 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			params = { deck: {
 					cards_attributes: cards,
 					title: title,
-					profile_id: this.model.id
+					profile_id: this.model.id,
+					key_card: this.$("input.key-card").val()
 				}
 			},
 			self = this;
@@ -184,12 +185,13 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			this.highlightErrors();
 			this.displayErrors();
 		} else {
-			deck.save(params, {
+			Pace.track(deck.save(params, {
 				success: function(resp) {
+					Pace.restart();
 					Deckster.currentUser.decks().add(deck);
 					self.navToDecks();
 				}
-			});
+			}));
 		}
 	},
 

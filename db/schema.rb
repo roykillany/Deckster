@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029180840) do
+ActiveRecord::Schema.define(version: 20151102223741) do
 
   create_table "card_types", force: :cascade do |t|
     t.string   "name",       null: false
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20151029180840) do
     t.string   "abbreviation", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image"
   end
 
   create_table "decks", force: :cascade do |t|
@@ -74,8 +75,10 @@ ActiveRecord::Schema.define(version: 20151029180840) do
     t.string   "cover_image_content_type"
     t.integer  "cover_image_file_size"
     t.datetime "cover_image_updated_at"
+    t.string   "key_card"
   end
 
+  add_index "decks", ["key_card"], name: "index_decks_on_key_card"
   add_index "decks", ["profile_id"], name: "index_decks_on_profile_id"
 
   create_table "join_card_types", force: :cascade do |t|

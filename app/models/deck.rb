@@ -6,6 +6,7 @@ class Deck < ActiveRecord::Base
 	validates_attachment_content_type :cover_image, content_type: /\Aimage\/.*\z/
 
 	has_many :cards, inverse_of: :deck, dependent: :destroy
+	has_many :colors, through: :cards
 	belongs_to :profile
 
 	accepts_nested_attributes_for :cards, :allow_destroy => true

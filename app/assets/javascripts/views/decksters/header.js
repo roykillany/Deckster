@@ -46,6 +46,7 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 		var content = this.$(this.ui.loginContent);
 
 		content.addClass("active");
+		this.$("#signin").addClass("active");
 	},
 
 	logOut: function(e) {
@@ -79,6 +80,7 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 		var pageName = $(e.currentTarget).data("url");
 
 		Backbone.history.navigate(pageName, { trigger: true });
+		this.$(".main-nav-icon").click();
 	},
 
 	showErrors: function(errors) {
