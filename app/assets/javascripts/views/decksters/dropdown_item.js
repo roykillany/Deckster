@@ -10,7 +10,7 @@ Deckster.Views.dropdownItemView = Backbone.View.extend({
 	events: {
 		"mouseenter .item": "toggleBigImage",
 		"mouseleave .item": "toggleBigImage",
-		"click .item": "addCard"
+		// "click .item": "addCard"
 	},
 
 	initialize: function(opts) {
@@ -46,7 +46,7 @@ Deckster.Views.dropdownItemView = Backbone.View.extend({
 		}
 	},
 
-	addCard: function(e) {
-		console.log(e);
-	}
+	// addCard: function(e) {
+	// 	console.log(e);
+	// }
 });

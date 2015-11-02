@@ -8,3 +8,10 @@
 	display: none;
 	visibility: hidden;
 }
+
+.highlight-red {
+	border: 1px solid red !important;
+	&:focus {
+		outline: 1px solid red !important;
+	}
+}

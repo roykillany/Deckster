@@ -1,0 +1,11 @@
+<ul class="error-container">
+	<% if(!hasTitle) { %>
+		<li class="error">You need to add a title.</li>
+	<% } %>
+	<% if(cardErrors.length > 0) { %>
+		<div>These cards weren't recognized:</div>
+		<% cardErrors.forEach(function(err) { %>
+			<li class="error"><%= err %></li>
+		<% }); %>
+	<% } %>
+</ul>

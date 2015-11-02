@@ -9,7 +9,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		errors: "#upload-errors",
 		cardCount: ".card-count",
 		cardSearch: ".card-search",
-		searchResults: ".search-dropdown"
+		searchResults: ".search-dropdown",
 	},
 
 	events: {
@@ -18,7 +18,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		"keyup #list-upload": "updateCardCount",
 		"keyup .card-search": "cardTypeahead",
 		"focus .card-search": "toggleSearchResults",
-		"blur .card-search": "toggleSearchResults",
+		// "blur .card-search": "toggleSearchResults",
 		"scroll .search-dropdown": "adjustFullImgPos",
 		"click .search-dropdown .item": "addCard"
 	},
@@ -50,10 +50,10 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			title = this.$(this.ui.deckTitle).val(),
 			self = this;
 
-		console.log(rawList);
+		console.log("RAWLIST", rawList);
 		cardList.map(function(el, idx, arr) {
 			var name = el.get("name"),
-				lastIdx = idx === arr.length - 1;
+				lastIdx = idx == arr.length - 1;
 
 			$.ajax({
 				url: "https://api.deckbrew.com/mtg/cards",
@@ -103,6 +103,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 				}
 			});
 		});
+		// self._saveDeck(cardList.filter(self._filterErrors), title);
 	},
 
 	cardTypeahead: function(e) {
@@ -150,6 +151,8 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			.map(self._parseData)
 			.forEach(makeCard);
 
+		console.log("_MAKE CARDS", cards);
+
 		return cards;
 	},
 
@@ -175,7 +178,10 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			},
 			self = this;
 
+		console.log("FINAL CARDS", params);
+
 		if(this.hasErrors()) {
+			this.highlightErrors();
 			this.displayErrors();
 		} else {
 			deck.save(params, {
@@ -238,28 +244,32 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			show = !dropdown.hasClass("active"),
 			empty = dropdown.html() === "",
 			type = e.type,
-			target = this.$(e.currentTarget);
+			target = this.$(e.target);
+
+		console.log("HI", type == "focusin", !empty, !dropdown.hasClass("active"));
 		
-		if(type === "focusin" && !empty) {
+		if(type == "focusin" && !empty) {
+			console.log("IN", type, target);
 			dropdown.addClass("active");
-		} else if(type === "focusout" && !target.hasClass("card-search")) {
-			dropdown.removeClass("active");
 		}
 	},
 
 	displayErrors: function() {
-		alert(this.errors);
-		console.log(this.errors);
-		var errorContainer = this.$(this.ui.errors),
-			key;
+		var errorView = new Deckster.Views.errorView({
+				errors: this.errors
+			});
 
-		// CREATE ERROR VIEW AND PASS IN ERRORS
+		this.addSubview("#upload-errors", errorView);
+		this.errors = [];
+	},
 
-		// for(key in this.errors) {
-		// 	if(key === "title" && this.errors[key] === false) {
-		// 		errorContainer.append()
-		// 	}
-		// }
+	highlightErrors: function() {
+		if(!this.errors.title) {
+			this.$(this.ui.deckTitle).addClass("highlight-red");
+		}
+		if(this.errors.cardName.length > 0) {
+			this.$(this.ui.listUpload).addClass("highlight-red");
+		}
 	},
 
 	validateTitle: function(e) {
@@ -310,7 +320,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			newVal,
 			newTarget;
 
-			console.log("HI", cardName, target);
+			console.log("ADDCARD", cardName, target);
 
 		if(target) {
 			target = target[0]

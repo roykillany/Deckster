@@ -6,12 +6,35 @@
 		.deck-info {
 			float: left;
 			width: 50%;
+			.title-container {
+				display: inherit;
+				.title {
+					border: 1px solid black;
+					&:focus {
+						outline: 1px solid black;
+					}
+				}
+			}
+			.description-container {
+				display: inherit;
+				#descript-upload {
+					resize: none;
+					border: 1px solid black;
+					&:focus {
+						outline: 1px solid black;
+					}
+				}
+			}
 		}
 		.card-upload {
 			float: right;
 			width: 50%;
 			#list-upload {
 				resize: none;
+				border: 1px solid black;
+				&:focus {
+					outline: 1px solid black;
+				}
 			}
 			.search-dropdown {
 				position: relative;

@@ -124,6 +124,8 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		var types = card.get("card_types"),
 			quant = card.get("quantity");
 
+		console.log("categorize", types, quant);
+
 		if(_.indexOf(types, "Creature") >= 0) {
 			this.addCard(card, ".creature");
 			this.counts["creature"] ? this.counts["creature"] += quant : this.counts["creature"] = quant;
