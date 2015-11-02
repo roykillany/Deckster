@@ -23,6 +23,13 @@
 				.content-container {
 					.title {
 						margin-bottom: 20px;
+						.color-syms {
+							display: inline-block;
+							transform: translateY(15%);
+							img {
+								width: 50px;
+							}
+						}
 					}
 					.card-container {
 						float: left;

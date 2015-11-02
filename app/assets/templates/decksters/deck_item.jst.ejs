@@ -4,7 +4,14 @@
 		<li class="view-chart" data-view="charts">View Charts</li>
 	</ul>
 	<div class="content-container">
-		<div class="title"><%= deck.escape("title") %></div>
+		<div class="title">
+			<%= deck.escape("title") %>
+			<div class="color-syms">
+				<% deck.get("colors").forEach(function(c) { %>
+					<img src="<%= c.image %>"></img>
+				<% }); %>
+			</div>
+		</div>
 		<div class="card-container">
 			<div class="category">
 				<li class="label">Creatures 
