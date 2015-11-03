@@ -46,64 +46,10 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 
 	createDeck: function(e) {
 		var rawList = this.$(this.ui.listUpload).val(),
-			cardList = this._createCards(rawList),
 			title = this.$(this.ui.deckTitle).val(),
 			self = this;
-
-		console.log("RAWLIST", rawList);
-		cardList.map(function(el, idx, arr) {
-			var name = el.get("name"),
-				lastIdx = idx == arr.length - 1;
-
-			$.ajax({
-				url: "https://api.deckbrew.com/mtg/cards",
-				type: "GET",
-				dataType: "json",
-				data: { name: name },
-				success: function(resp) {
-					if(resp.length > 1) {
-						resp = resp.filter(function(card) {
-							return card["name"] === name;
-						});
-
-						if(resp.length === 0) {
-							self.errors["cardName"].push(name);
-							if(lastIdx) {
-								self._saveDeck(arr.filter(self._filterErrors), title);
-								return null;
-							} else {
-								return null;
-							}
-						} else {
-							el.set(self._formatResp(resp[0]));
-							if(lastIdx) {
-								self._saveDeck(arr.filter(self._filterErrors), title);
-								return el;
-							} else {
-								return el;
-							}
-						}
-					} else if (resp.length === 0) {
-						self.errors["cardName"].push(name);
-						if(lastIdx) {
-							self._saveDeck(arr.filter(self._filterErrors), title);
-							return null;
-						} else {
-							return null;
-						}
-					} else {
-						el.set(self._formatResp(resp[0]));
-						if(lastIdx) {
-							self._saveDeck(arr.filter(self._filterErrors), title);
-							return el;
-						} else {
-							return el;
-						}
-					}
-				}
-			});
-		});
-		// self._saveDeck(cardList.filter(self._filterErrors), title);
+			
+		this._createCards(rawList, title, this._saveDeck);
 	},
 
 	cardTypeahead: function(e) {
@@ -134,15 +80,43 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		}
 	},
 
-	_createCards: function(list) {
+	_createCards: function(list, title, callback) {
 		if(list.length === 0) { return []; };
 		var self = this,
-			makeCard = function(card) {
+			makeCard = function(card, idx, arr) {
 				var quantity = card[0],
-					name = card[1];
+					name = card[1],
+					data;
 
-				cards.push(new Deckster.Models.Card({name: name, quantity: quantity}));
+				var promise = $.ajax({
+					url: "https://api.deckbrew.com/mtg/cards",
+					type: "GET",
+					dataType: "json",
+					data: { name: name },
+					success: function(resp) {
+						if(resp.length > 1) {
+							resp = resp.filter(function(card) {
+								return card["name"] === name;
+							});
+
+							if(resp.length === 0) {
+								self.errors["cardName"].push(name);
+								return null;
+							} else {
+								cards.push(new Deckster.Models.Card(self._formatResp(resp[0], quantity)));
+							}
+						} else if (resp.length === 0) {
+							self.errors["cardName"].push(name);
+							return null;
+						} else {
+							cards.push(new Deckster.Models.Card(self._formatResp(resp[0], quantity)));
+						}
+					}
+				});
+				
+				promises.push(promise);
 			},
+			promises = [],
 			cards = [];
 
 		list.replace(/\s*\n\r?/g, '<br />')
@@ -151,9 +125,12 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			.map(self._parseData)
 			.forEach(makeCard);
 
-		console.log("_MAKE CARDS", cards);
-
-		return cards;
+		$.when.apply($, promises)
+			.done(function() {
+				console.log(list);
+				callback(cards.filter(self._filterErrors), title, self);
+			}).fail(function() {
+			});
 	},
 
 	_parseData: function(el) {
@@ -167,31 +144,31 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		
 	},
 
-	_saveDeck: function(cards, title) {
-		console.log(cards);
+	_saveDeck: function(cards, title, view) {
+		console.log("SAVING", this, cards, view.model);
 		var deck = new Deckster.Models.Deck(),
 			params = { deck: {
 					cards_attributes: cards,
 					title: title,
-					profile_id: this.model.id,
-					key_card: this.$("input.key-card").val()
+					profile_id: view.model.id,
+					key_card: view.$("input.key-card").val()
 				}
 			},
-			self = this;
+			self = view;
 
 		console.log("FINAL CARDS", params);
 
-		if(this.hasErrors()) {
-			this.highlightErrors();
-			this.displayErrors();
+		if(self.hasErrors()) {
+			self.highlightErrors();
+			self.displayErrors();
 		} else {
-			Pace.track(deck.save(params, {
+			deck.save(params, {
 				success: function(resp) {
 					Pace.restart();
 					Deckster.currentUser.decks().add(deck);
 					self.navToDecks();
 				}
-			}));
+			});
 		}
 	},
 
@@ -199,7 +176,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		Backbone.history.navigate("decks/me", { trigger: true });
 	},
 
-	_formatResp: function(data) {
+	_formatResp: function(data, quant) {
 		if (data === undefined) { return; };
 		var editions = data.editions.filter(function(ed) {
 				if(ed["multiverse_id"] === 0) {
@@ -214,11 +191,13 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			mana_cost: data.cost,
 			image_url: edition["image_url"],
 			rarity: edition["rarity"],
-			card_types: data.types
+			card_types: data.types,
+			quantity: quant
 		});
 	},
 
 	_filterErrors: function(card) {
+		console.log(card);
 		if(card.get("cmc") === undefined) {
 			return false;
 		} else {

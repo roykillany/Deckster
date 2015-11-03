@@ -30,6 +30,6 @@ class Api::DeckSerializer < ActiveModel::Serializer
 	end
 
 	def colors
-		object.colors
+		object.deck_colors
 	end
 end

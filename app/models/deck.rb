@@ -45,4 +45,8 @@ class Deck < ActiveRecord::Base
 
 		color_dist
 	end
+
+	def deck_colors
+		self.colors.uniq
+	end
 end

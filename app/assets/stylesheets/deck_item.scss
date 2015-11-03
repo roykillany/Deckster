@@ -13,10 +13,118 @@
 				transform: translateY(26%);
 				.deck-menu {
 					position: absolute;
-					left: -191px;
+					top: -50px;
+					left: 0px;
 					li {
+						padding: 7px;
 						&:hover {
 							cursor: pointer;
+						}
+					}
+					.view-deck {
+						float: left;
+						&:before {
+							display: block;
+							position: absolute;
+							right: 89px;
+							top: 0;
+							left: 89px;
+							width: 0px;
+							height: 1px;
+							background-color: black;
+							content: "";
+							transition: width 0.2s ease, left 0.2s ease;
+							-webkit-transition: width 0.2s ease, left 0.2s ease;
+							-moz-transition: width 0.2s ease, left 0.2s ease;
+							-o-transition: width 0.2s ease, left 0.2s ease;
+						}
+						&:after {
+							display: block;
+							position: absolute;
+							right: 0;
+							bottom: 0;
+							left: 0;
+							width: 89px;
+							height: 1px;
+							background-color: black;
+							content: "";
+							transition: width 0.2s ease, left 0.2s ease;
+							-webkit-transition: width 0.2s ease, left 0.2s ease;
+							-moz-transition: width 0.2s ease, left 0.2s ease;
+							-o-transition: width 0.2s ease, left 0.2s ease;
+						}
+						&.active {
+							border-right: 1px solid black;
+							box-shadow: inset -4px 4px 7px -5px black;
+							background: linear-gradient(to bottom left, gray, lightgray, white, white);
+							transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
+							-webkit-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
+							-moz-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
+							-o-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
+							&:before {
+								width: 89px;
+								left: 0px;
+								transition: width 0.2s ease, left 0.2s ease;
+								-webkit-transition: width 0.2s ease, left 0.2s ease;
+								-moz-transition: width 0.2s ease, left 0.2s ease;
+								-o-transition: width 0.2s ease, left 0.2s ease;
+							}
+							&:after {
+								width: 0px;
+								left: 89px;
+								transition: width 0.2s ease, left 0.2s ease;
+								-webkit-transition: width 0.2s ease, left 0.2s ease;
+								-moz-transition: width 0.2s ease, left 0.2s ease;
+								-o-transition: width 0.2s ease, left 0.2s ease;
+							}
+						}
+					}
+					.view-chart {
+						float: right;
+						&:before {
+							display: block;
+							position: absolute;
+							left: 89px;
+							top: 0;
+							right: -81px;
+							width: 0;
+							height: 1px;
+							background-color: black;
+							content: "";
+							transition: width 0.2s ease;
+							-webkit-transition: width 0.2s ease;
+							-moz-transition: width 0.2s ease;
+							-o-transition: width 0.2s ease;
+						}
+						&:after {
+							display: block;
+							position: absolute;
+							left: 89px;
+							bottom: 0;
+							right: -81px;
+							width: 99px;
+							height: 1px;
+							background-color: black;
+							content: "";
+							transition: width 0.2s;
+							-webkit-transition: width 0.2s ease;
+							-moz-transition: width 0.2s ease;
+							-o-transition: width 0.2s ease;
+						}
+						&.active {
+							border-left: 1px solid black;
+							box-shadow: inset 4px 4px 7px -4px black;
+							background: linear-gradient(to bottom right, gray, white, white, white);
+							transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
+							-webkit-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
+							-moz-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
+							-o-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
+							&:before {
+								width: 99px;
+							}
+							&:after {
+								width: 0px;
+							}
 						}
 					}
 				}

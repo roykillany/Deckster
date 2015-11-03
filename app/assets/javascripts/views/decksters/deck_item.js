@@ -83,12 +83,16 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 			case "deck":
 				this.$(".content-container").removeClass("hidden");
 				this.$(".chart-container").addClass("hidden");
+				this.$(".view-deck").addClass("active");
+				this.$(".view-chart").removeClass("active");
 				this.$(this.ui.imageBox).removeClass("hidden");
 				break;
 			case "charts":
 				this.$(".chart-container").removeClass("hidden");
 				this.$(".content-container").addClass("hidden");
 				this.$(this.ui.imageBox).addClass("hidden");
+				this.$(".view-deck").removeClass("active");
+				this.$(".view-chart").addClass("active");
 				this._renderColorDistribChart();
 				break;
 			default:
