@@ -70,10 +70,15 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 			currentDeck = this.$(".decks-container .deck-item.active"),
 			nextDeck = this.$(".decks-container .deck-container[data-deck-id='" + targetDeckId + "']");
 
-		currentDeck.removeClass("active");
+		if(targetDeckId == currentDeckBtn.data("deck-id")) { return; };
+		currentDeck.removeClass("active").addClass("transition");
 		currentDeckBtn.removeClass("active");
 		nextDeck.parent().addClass("active");
 		nextDeckBtn.addClass("active");
+
+		window.setTimeout(function() {
+			currentDeck.removeClass("transition");
+		}, 1000);
 	},
 
 	scrollDeckNav: function(e) {

@@ -33,10 +33,10 @@
 							height: 1px;
 							background-color: black;
 							content: "";
-							transition: width 0.2s ease, left 0.2s ease;
-							-webkit-transition: width 0.2s ease, left 0.2s ease;
-							-moz-transition: width 0.2s ease, left 0.2s ease;
-							-o-transition: width 0.2s ease, left 0.2s ease;
+							transition: width 0.2s linear, left 0.2s linear;
+							-webkit-transition: width 0.2s linear, left 0.2s linear;
+							-moz-transition: width 0.2s linear, left 0.2s linear;
+							-o-transition: width 0.2s linear, left 0.2s linear;
 						}
 						&:after {
 							display: block;
@@ -48,34 +48,34 @@
 							height: 1px;
 							background-color: black;
 							content: "";
-							transition: width 0.2s ease, left 0.2s ease;
-							-webkit-transition: width 0.2s ease, left 0.2s ease;
-							-moz-transition: width 0.2s ease, left 0.2s ease;
-							-o-transition: width 0.2s ease, left 0.2s ease;
+							transition: width 0.2s linear, left 0.2s linear;
+							-webkit-transition: width 0.2s linear, left 0.2s linear;
+							-moz-transition: width 0.2s linear, left 0.2s linear;
+							-o-transition: width 0.2s linear, left 0.2s linear;
 						}
 						&.active {
 							border-right: 1px solid black;
 							box-shadow: inset -4px 4px 7px -5px black;
 							background: linear-gradient(to bottom left, gray, lightgray, white, white);
-							transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
-							-webkit-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
-							-moz-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
-							-o-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
+							transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+							-webkit-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+							-moz-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+							-o-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
 							&:before {
 								width: 89px;
 								left: 0px;
-								transition: width 0.2s ease, left 0.2s ease;
-								-webkit-transition: width 0.2s ease, left 0.2s ease;
-								-moz-transition: width 0.2s ease, left 0.2s ease;
-								-o-transition: width 0.2s ease, left 0.2s ease;
+								transition: width 0.2s linear, left 0.2s linear;
+								-webkit-transition: width 0.2s linear, left 0.2s linear;
+								-moz-transition: width 0.2s linear, left 0.2s linear;
+								-o-transition: width 0.2s linear, left 0.2s linear;
 							}
 							&:after {
 								width: 0px;
 								left: 89px;
-								transition: width 0.2s ease, left 0.2s ease;
-								-webkit-transition: width 0.2s ease, left 0.2s ease;
-								-moz-transition: width 0.2s ease, left 0.2s ease;
-								-o-transition: width 0.2s ease, left 0.2s ease;
+								transition: width 0.2s linear, left 0.2s linear;
+								-webkit-transition: width 0.2s linear, left 0.2s linear;
+								-moz-transition: width 0.2s linear, left 0.2s linear;
+								-o-transition: width 0.2s linear, left 0.2s linear;
 							}
 						}
 					}
@@ -91,10 +91,10 @@
 							height: 1px;
 							background-color: black;
 							content: "";
-							transition: width 0.2s ease;
-							-webkit-transition: width 0.2s ease;
-							-moz-transition: width 0.2s ease;
-							-o-transition: width 0.2s ease;
+							transition: width 0.2s linear;
+							-webkit-transition: width 0.2s linear;
+							-moz-transition: width 0.2s linear;
+							-o-transition: width 0.2s linear;
 						}
 						&:after {
 							display: block;
@@ -107,18 +107,18 @@
 							background-color: black;
 							content: "";
 							transition: width 0.2s;
-							-webkit-transition: width 0.2s ease;
-							-moz-transition: width 0.2s ease;
-							-o-transition: width 0.2s ease;
+							-webkit-transition: width 0.2s linear;
+							-moz-transition: width 0.2s linear;
+							-o-transition: width 0.2s linear;
 						}
 						&.active {
 							border-left: 1px solid black;
 							box-shadow: inset 4px 4px 7px -4px black;
 							background: linear-gradient(to bottom right, gray, white, white, white);
-							transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
-							-webkit-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
-							-moz-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
-							-o-transition: box-shadow 0s ease 0.1s, background 0s ease 0.1s;
+							transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+							-webkit-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+							-moz-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+							-o-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
 							&:before {
 								width: 99px;
 							}
