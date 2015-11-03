@@ -61,10 +61,21 @@
 	<div class="chart-container hidden">
 		<div id="avg-cmc-<%= deck.id %>">
 		</div>
-		<canvas id="curve-<%= deck.id %>">
-		</canvas>
-		<canvas id="color-distrib-<%= deck.id %>">
-		</canvas>
+		<div class="chart-item">
+			<div>Mana Curve</div>
+			<canvas id="curve-<%= deck.id %>">
+			</canvas>
+		</div>
+		<div class="chart-item">
+			<div>Color Distribution</div>
+			<canvas id="color-distrib-<%= deck.id %>">
+			</canvas>
+		</div>
+		<div class="chart-item">
+			<div>Land Distribution</div>
+			<canvas id="land-distrib-<%= deck.id %>">
+			</canvas>
+		</div>
 	</div>
 	<div class="image-viewer"></div>
 </div>

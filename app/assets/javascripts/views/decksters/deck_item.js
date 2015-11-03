@@ -20,6 +20,7 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		this.counts = {};
 		this.model.cards().each(this._categorizeCard.bind(this));
 		this.colorDistrib = this.model.get("color_distribution");
+		this.curve = this.model.get("curve");
 		this.colors = {
 			"White": "#FFFF66",
 			"Blue": "#0000FF",
@@ -94,6 +95,7 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 				this.$(".view-deck").removeClass("active");
 				this.$(".view-chart").addClass("active");
 				this._renderColorDistribChart();
+				this._renderCurveChart();
 				break;
 			default:
 				break;
@@ -107,8 +109,9 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 			key,
 			data,
 			options = {
-				responsive: true,
-				animationEasing: "easeInOutQuint"
+				// responsive: true,
+				animationEasing: "easeInOutQuint",
+				segmentStrokeWidth : 1
 			};
 
 		for(key in this.colorDistrib) {
@@ -124,11 +127,42 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		colorDistribChart = new Chart(context).Pie(formattedData, options);
 	},
 
+	_renderCurveChart: function() {
+		var dataSets = [],
+			labels = [],
+			values = [],
+			context = document.getElementById("curve-" + this.model.id).getContext("2d"),
+			curveChart,
+			key,
+			data,
+			options = {
+				// responsive: true,
+				animationEasing: "easeInOutQuint",	
+			};
+
+		for(key in this.curve) {
+			labels.push(key + " CMC");
+			values.push(this.curve[key]);
+		}
+
+		console.log("HI", labels, values);
+
+		curveChart = new Chart(context).Bar({
+			labels: labels,
+			datasets: [{
+				label: "CMC Distribution",
+				fillColor: "rgba(52, 152, 219, 0.4)",
+				strokeColor: "rgba(32, 122, 182, 0.4)",
+				highlightFill: "rgba(52, 152, 219, 0.8)",
+				highlightStroke: "rgba(32, 122, 182, 0.8)",
+				data: values
+			}]
+		}, options);
+	},
+
 	_categorizeCard: function(card) {
 		var types = card.get("card_types"),
 			quant = card.get("quantity");
-
-		console.log("categorize", types, quant);
 
 		if(_.indexOf(types, "Creature") >= 0) {
 			this.addCard(card, ".creature");

@@ -167,7 +167,15 @@
 					}
 				}
 				.chart-container {
-					
+					.chart-item {
+						display: inline-block;
+						padding-bottom: 20px;
+						padding-left: 20px;
+						canvas {
+							width: 300px;
+							height: 150px;
+						}
+					}
 				}
 			}
 			.image-viewer {

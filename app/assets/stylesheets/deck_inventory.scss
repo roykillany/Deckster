@@ -122,6 +122,10 @@
 				}
 				&:hover {
 					cursor: pointer;
+					color: gray;
+				}
+				&:active {
+					color: darkgray;
 				}
 				img {
 					height: 100px;
