@@ -1,3 +1,5 @@
+@import "base";
+
 .decks-inventory {
 	height: 100%;
 	.decks-container {
@@ -84,7 +86,7 @@
 			-webkit-transition: right 0.5s ease-in-out;
 			-moz-transition: right 0.5s ease-in-out;
 			-ms-transition: right 0.5s ease-in-out;
-			right: -128px;
+			right: -123px;
 			.fa-chevron-left {
 				display: block;
 			}
@@ -109,15 +111,16 @@
 			width: 200px;
 			background-color: black;
 			overflow-y: scroll;
+			box-shadow: 1px 1px 13px 1px black;
 			.deck-item {
 				height: 100px;
 				color: white;
 				border: 1px solid black;
 				&.active {
 					font-weight: bold;
-					color: #3498db;
+					color: $base-color;
 					.title {
-						/*border: 1px solid #3498db;*/
+						/*border: 1px solid $base-color;*/
 					}
 				}
 				&:hover {

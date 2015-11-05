@@ -9,7 +9,7 @@ class Api::DecksController < ApplicationController
 			colors["#{card['name']}"] = card[:colors]
 		end
 
-		@deck = Deck.includes(:cards).create(deck_params)
+		@deck = Deck.includes(cards: [:colors, :card_types]).create(deck_params)
 
 		create_dependencies(card_types, colors, @deck.cards)
 
@@ -24,11 +24,27 @@ class Api::DecksController < ApplicationController
 		end
 	end
 
+	def update
+		p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+		p deck_params
+		@deck = Deck.includes(cards: [:colors, :card_types]).find(params[:id])
+		begin
+			@deck.update(deck_params)
+			@deck.save
+			render json: Api::DeckSerializer.new(@deck)
+		rescue => e
+			p "******update******"
+			p e.message
+			p e.backtrace
+			render json: { err: e.message }, status: 422
+		end
+	end
+
 	private
 
 	def deck_params
 		dparams = params.require(:deck).permit(:profile_id, :title, :description, :key_card,
-			cards_attributes: [:image_url, :name, :mana_cost, :cmc, :rarity, :text, :power, :toughness, :quantity])
+			cards_attributes: [:id, :deck_id, :image_url, :name, :mana_cost, :cmc, :rarity, :text, :power, :toughness, :quantity])
 
 		if dparams[:cards_attributes].is_a?(Array)
 			cparams = dparams[:cards_attributes]

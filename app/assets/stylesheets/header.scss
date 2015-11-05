@@ -1,3 +1,4 @@
+@import "base";
 $header-height: 60px;
 
 #header {
@@ -10,6 +11,7 @@ $header-height: 60px;
 		background-color: black;
 		color: white;
 		padding: 0 20px;
+		box-shadow: 1px 1px 7px 0px black;
 		.in {
 			display: block;
 		}
@@ -28,12 +30,15 @@ $header-height: 60px;
 			-webkit-transition: left 0.5s ease-in-out;
 			-moz-transition: left 0.5s ease-in-out;
 			-ms-transition: left 0.5s ease-in-out;
+			-o-transition: left 0.5s ease-in-out;
 			&.active {
 				left: 0;
 				transition: left 0.5s ease-in-out;
 				-webkit-transition: left 0.5s ease-in-out;
 				-moz-transition: left 0.5s ease-in-out;
 				-ms-transition: left 0.5s ease-in-out;
+				-o-transition: left 0.5s ease-in-out;
+				box-shadow: 1px 1px 15px 1px black;
 			}
 			.nav-container {
 				#nav-search {
@@ -46,12 +51,14 @@ $header-height: 60px;
 					-webkit-transition: box-shadow 0.1s linear;
 					-moz-transition: box-shadow 0.1s linear;
 					-ms-transition: box-shadow 0.1s linear;
+					-o-transition: box-shadow 0.1s linear;
 					&.active {
 						box-shadow: inset 0 0 0 30px gray;
 						transition: box-shadow 0.3s linear;
 						-webkit-transition: box-shadow 0.3s linear;
 						-moz-transition: box-shadow 0.3s linear;
 						-ms-transition: box-shadow 0.3s linear;
+						-o-transition: box-shadow 0.3s linear;
 					}
 					&:hover {
 						cursor: pointer;
@@ -75,12 +82,14 @@ $header-height: 60px;
 				-webkit-transition: box-shadow 0.5s ease-in-out;
 				-moz-transition: box-shadow 0.5s ease-in-out;
 				-ms-transition: box-shadow 0.5s ease-in-out;
+				-o-transition: box-shadow 0.5s ease-in-out;
 				&.active {
 					box-shadow: inset 150px 0 0 0 #333333;
 					transition: box-shadow 0.5s ease-in-out;
 					-webkit-transition: box-shadow 0.5s ease-in-out;
 					-moz-transition: box-shadow 0.5s ease-in-out;
 					-ms-transition: box-shadow 0.5s ease-in-out;
+					-o-transition: box-shadow 0.5s ease-in-out;
 				}
 			}
 		}
@@ -143,6 +152,7 @@ $header-height: 60px;
 					-webkit-transition: border 1s linear;
 					-moz-transition: border 1s linear;
 					-ms-transition: border 1s linear;
+					-o-transition: border 1s linear;
 				}
 				&:active {
 					box-shadow: inset 0 0 0 1px gray, inset 0 2px 20px darkgray;

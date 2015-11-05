@@ -1,3 +1,5 @@
+@import "base";
+
 .decks-inventory {
 	.decks-container {
 		.deck-item {
@@ -36,6 +38,7 @@
 							transition: width 0.2s linear, left 0.2s linear;
 							-webkit-transition: width 0.2s linear, left 0.2s linear;
 							-moz-transition: width 0.2s linear, left 0.2s linear;
+							-ms-transition: width 0.2s linear, left 0.2s linear;
 							-o-transition: width 0.2s linear, left 0.2s linear;
 						}
 						&:after {
@@ -51,6 +54,7 @@
 							transition: width 0.2s linear, left 0.2s linear;
 							-webkit-transition: width 0.2s linear, left 0.2s linear;
 							-moz-transition: width 0.2s linear, left 0.2s linear;
+							-ms-transition: width 0.2s linear, left 0.2s linear;
 							-o-transition: width 0.2s linear, left 0.2s linear;
 						}
 						&.active {
@@ -60,6 +64,7 @@
 							transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
 							-webkit-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
 							-moz-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+							-ms-transition: box-shadow 02 linear 0.2s, background 0s linear 0.2s;
 							-o-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
 							&:before {
 								width: 89px;
@@ -67,6 +72,7 @@
 								transition: width 0.2s linear, left 0.2s linear;
 								-webkit-transition: width 0.2s linear, left 0.2s linear;
 								-moz-transition: width 0.2s linear, left 0.2s linear;
+								-ms-transition: width 0.2s linear, left 0.2s linear;
 								-o-transition: width 0.2s linear, left 0.2s linear;
 							}
 							&:after {
@@ -75,6 +81,7 @@
 								transition: width 0.2s linear, left 0.2s linear;
 								-webkit-transition: width 0.2s linear, left 0.2s linear;
 								-moz-transition: width 0.2s linear, left 0.2s linear;
+								-ms-transition: width 0.2s linear, left 0.2s linear;
 								-o-transition: width 0.2s linear, left 0.2s linear;
 							}
 						}
@@ -94,6 +101,7 @@
 							transition: width 0.2s linear;
 							-webkit-transition: width 0.2s linear;
 							-moz-transition: width 0.2s linear;
+							-ms-transition: width 0.2s linear;
 							-o-transition: width 0.2s linear;
 						}
 						&:after {
@@ -109,6 +117,7 @@
 							transition: width 0.2s;
 							-webkit-transition: width 0.2s linear;
 							-moz-transition: width 0.2s linear;
+							-ms-transition: width 0.2s linear;
 							-o-transition: width 0.2s linear;
 						}
 						&.active {
@@ -118,6 +127,7 @@
 							transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
 							-webkit-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
 							-moz-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+							-ms-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
 							-o-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
 							&:before {
 								width: 99px;
@@ -148,11 +158,36 @@
 								display: inline-block;
 							}
 							.card-item {
+								.quant-toggle-container {
+									position: absolute;
+									background-color: black;
+									left: -25px;
+									transform: translateY(-11px);
+									i {
+										color: white;
+										padding: 3px;
+										&:hover {
+											cursor: pointer;
+										}
+									}
+									.arrow {
+										border-left: 7px solid black;
+										border-top: 7px solid transparent;
+										border-bottom: 7px solid transparent;
+										position: absolute;
+										left: 18px;
+										transform: translateY(-29px);
+									}
+								}
 								.quantity, .name {
 									display: inline-block;
 								}
 								.quantity {
-
+									transition: color 0.4s ease-in-out;
+									-webkit-transition: color 0.4s ease-in-out;
+									-moz-transition: color 0.4s ease-in-out;
+									-ms-transition: color 0.4s ease-in-out;
+									-o-transition: color 0.4s ease-in-out;
 								}
 								.name {
 									&:hover {
@@ -185,6 +220,8 @@
 				background-image: url("http://hydra-media.cursecdn.com/mtgsalvation.gamepedia.com/thumb/f/f8/Magic_card_back.jpg/200px-Magic_card_back.jpg");
 				background-repeat: no-repeat;
 				background-size: 100%;
+				box-shadow: 0px 0px 8px 1px black;
+				border-radius: 10px;
 			}
 		}
 	}

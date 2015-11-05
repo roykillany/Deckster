@@ -1,3 +1,5 @@
+@import "base";
+
 .add-deck {
 	#deck-upload {
 		width: 80%;
@@ -6,6 +8,10 @@
 		.deck-info {
 			float: left;
 			width: 50%;
+			.title-container, .description-container, .key-card-container {
+				width: 181px;
+				margin-left: 40%;
+			}
 			.title-container {
 				display: inherit;
 				.title {
@@ -25,35 +31,111 @@
 					}
 				}
 			}
+			.key-card-container {
+				display: inherit;
+				.key-card {
+					border: 1px solid black;
+					&:focus {
+						outline: 1px solid black;
+					}
+				}
+			}
 		}
 		.card-upload {
 			float: right;
 			width: 50%;
-			#list-upload {
-				resize: none;
-				border: 1px solid black;
-				&:focus {
-					outline: 1px solid black;
+			.card-list {
+				display: inherit;
+				width: 341px;
+				.show-format {
+					display: inline-block;
+					font-size: 11px;
+					&:hover {
+						cursor: pointer;
+						color: $base-color;
+					}
 				}
-			}
-			.search-dropdown {
-				position: relative;
-				display: none;
-				height: 300px;
-				overflow-y: scroll;
-				right: 224px;
-				&.active {
-					display: block;
+				#list-upload {
+					resize: none;
+					border: 1px solid black;
+					&:focus {
+						outline: 1px solid black;
+					}
 				}
 			}
 			#add-deck {
-
+				display: inline-block;
+				padding: 4px 6px;
+				background-color: $base-color;
+				color: white;
+				border-radius: 4px;
+				box-shadow: 1px 1px 3px 1px black;
+				&:hover {
+					cursor: pointer;
+				}
+				&:active {
+					box-shadow: inset 1px 1px 6px 0px black;
+				}
+			}
+			.search {
+				.card-search {
+					border: 1px solid black;
+				}
+				.search-dropdown {
+					position: relative;
+					display: none;
+					height: 300px;
+					overflow-y: scroll;
+					right: 314px;
+					&.active {
+						display: block;
+						margin-bottom: 65px;
+					}
+				}
 			}
 		}
 	}
 	#formatting-modal {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(0, 0, 0, 0.6);
+		height: 100%;
 		.modal-content {
+			position: relative;
+			width: 400px;
+			margin: 0 auto;
+			top: 50%;
+			transform: translateY(-50%);
+			background-color: white;
+			padding: 40px;
+			.title {
+				font-size: 22px;
+				font-weight: bold;
+				margin-bottom: 24px;
+			}
+			.example {
 
+			}
+			.example-upload {
+				padding: 5px;
+				border: 1px solid black;
+				&:hover {
+					cursor: text;
+				}
+			}
+			.modal-close {
+				position: absolute;
+				top: 20px;
+				right: 28px;
+				font-size: 30px;
+				&:hover {
+					cursor: pointer;
+					color: $base-color;
+				}
+			}
 		}
 	}
 }

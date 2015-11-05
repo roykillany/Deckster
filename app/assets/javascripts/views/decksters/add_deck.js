@@ -17,10 +17,12 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		"keyup #deck-upload .title": "validateTitle",
 		"keyup #list-upload": "updateCardCount",
 		"keyup .card-search": "cardTypeahead",
-		"focus .card-search": "toggleSearchResults",
+		"click .card-search": "toggleSearchResults",
 		// "blur .card-search": "toggleSearchResults",
 		"scroll .search-dropdown": "adjustFullImgPos",
-		"click .search-dropdown .item": "addCard"
+		"click .search-dropdown .item": "addCard",
+		"click .show-format": "toggleFormattingModal",
+		"click .modal-close": "toggleFormattingModal",
 	},
 
 	initialize: function(opts) {
@@ -71,12 +73,14 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 				dataType: "json",
 				data: { q: value },
 				success: function(resp) {
-					dropdown.addClass("active");
+					// dropdown.addClass("active");
+					console.log("YES");
 					self._generateDropdown(resp);
 				}
 			});
 		} else {
-			dropdown.removeClass("active");
+			this.$(this.ui.cardSearch).click();
+			// dropdown.removeClass("active");
 		}
 	},
 
@@ -192,7 +196,8 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			image_url: edition["image_url"],
 			rarity: edition["rarity"],
 			card_types: data.types,
-			quantity: quant
+			quantity: quant,
+			id: null
 		});
 	},
 
@@ -218,6 +223,8 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			self.addSubview(".search-dropdown", itemView);
 			// self.attachSubview(".search-dropdown", itemView, "append");
 		});
+
+		self.$(self.ui.cardSearch).click();
 	},
 
 	toggleSearchResults: function(e) {
@@ -225,23 +232,50 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			show = !dropdown.hasClass("active"),
 			empty = dropdown.html() === "",
 			type = e.type,
-			target = this.$(e.target);
+			target = this.$(e.target),
+			handler = function(e) {
+				e.stopPropagation();
+				console.log("handled");
+				// dropdown.removeClass("active");
+				if($(e.target).hasClass("card-search") || $(e.target).hasClass("item") || $(e.target).hasClass("thumb")) {
+					console.log("NOT IT", e.target);
+					return;
+				} else {
+					dropdown.removeClass("active");
+					$(this).unbind("click", handler);
+				}
+				console.log(e);
+				console.log(e.target);
+				console.log(e.currentTarget);
+				console.log(this);
+				console.log(self);
+			};
 
-		console.log("HI", type == "focusin", !empty, !dropdown.hasClass("active"));
+		console.log("HI", e, type == "focusin", !empty, !dropdown.hasClass("active"));
 		
-		if(type == "focusin" && !empty) {
+		if(!empty) {
 			console.log("IN", type, target);
 			dropdown.addClass("active");
+
+			$("body").click(handler);
 		}
 	},
 
 	displayErrors: function() {
 		var errorView = new Deckster.Views.errorView({
 				errors: this.errors
-			});
+			}),
+			self = this;
+
+		this.subviews("#upload-errors").forEach(function(v) {
+			self.removeSubview("#upload-errors", v);
+		});
 
 		this.addSubview("#upload-errors", errorView);
-		this.errors = [];
+		this.errors = {
+			"cardName": [],
+			"title": false
+		};
 	},
 
 	highlightErrors: function() {
@@ -319,6 +353,26 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 				newVal = "1 " + cardName + "";
 				uploadArea.append(newVal);
 			}
+		}
+	},
+
+	toggleFormattingModal: function(e) {
+		e.preventDefault();
+		var modalClose = $(e.currentTarget).hasClass("modal-close"),
+			modal = this.$("#formatting-modal"),
+			handler = function(e) {
+				if(e.target != this) {
+					return;
+				}
+				modal.addClass("hidden");
+			};
+
+		if(modalClose) {
+			modal.addClass("hidden");
+			modal.unbind("click", handler);
+		} else {
+			modal.removeClass("hidden");
+			modal.click(handler);
 		}
 	}
 });

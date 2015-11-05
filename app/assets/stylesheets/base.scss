@@ -1,5 +1,7 @@
 /* Contains project-wide reusable styles */
 
+$base-color: #3498db;
+
 .button {
 
 }
@@ -14,6 +16,22 @@
 	&:focus {
 		outline: 1px solid red !important;
 	}
+}
+
+.flash-red {
+	color: red;
+/*	transition: color 0.4s ease-in-out;
+	-webkit-transition: color 0.4s ease-in-out;
+	-moz-transition: color 0.4s ease-in-out;
+	-o-transition: color 0.4s ease-in-out;*/
+}
+
+.flash-green {
+	color: green;
+/*	transition: color 0.4s ease-in-out;
+	-webkit-transition: color 0.4s ease-in-out;
+	-moz-transition: color 0.4s ease-in-out;
+	-o-transition: color 0.4s ease-in-out;*/
 }
 
 ::-webkit-scrollbar {

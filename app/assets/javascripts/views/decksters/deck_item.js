@@ -11,7 +11,8 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 	events: {
 		"mouseenter .name": "toggleImage",
 		"mouseleave .name": "toggleImage",
-		"click .deck-menu li": "toggleDeckView"
+		"click .deck-menu li": "toggleDeckView",
+		"click #update-deck": "updateDeck"
 	},
 
 	initialize: function(opts) {
@@ -19,6 +20,7 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		this.categories = ["creature", "non-creature", "land"];
 		this.counts = {};
 		this.model.cards().each(this._categorizeCard.bind(this));
+		this.collection = this.model.cards();
 		this.colorDistrib = this.model.get("color_distribution");
 		this.curve = this.model.get("curve");
 		this.colors = {
@@ -35,8 +37,12 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 			"Red": "#FF4D4D",
 			"Green": "#70DB70"
 		};
+		this.defaultCard = "https://s3.amazonaws.com/decksterdev/defaults/200px-Magic_card_back.jpg";
 
 		this.listenTo(this.collection, "add", this.addCard);
+		this.listenTo(this.collection, "change", function() {
+			this.model.updateCards(this.collection);
+		});
 	},
 
 	render: function() {
@@ -73,7 +79,7 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		if(eventType === "mouseenter") {
 			imageBox.attr("style", "background-image: url('" + imageUrl + "');");
 		} else {
-			imageBox.attr("style", "background-image: url('https://s3.amazonaws.com/decksterdev/defaults/200px-Magic_card_back.jpg');");
+			imageBox.attr("style", "background-image: url('" + this.defaultCard + "');");
 		}
 	},
 
@@ -175,4 +181,12 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 			this.counts["non-creature"] ? this.counts["non-creature"] += quant : this.counts["non-creature"] = quant;
 		}
 	},
+
+	updateDeck: function(e) {
+		console.log("HALLAHALLA");
+		console.log(this.model);
+		console.log(this.collection);
+
+		this.model.update();
+	}
 });

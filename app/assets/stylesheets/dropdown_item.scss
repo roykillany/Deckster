@@ -1,6 +1,8 @@
+@import "base";
+
 .dropdown-item {
 	.item {
-		margin-left: 224px;
+		margin-left: 314px;
 		&:hover {
 			cursor: pointer;
 		}
@@ -10,7 +12,7 @@
 	}
 	.full {
 		position: absolute;
-		left: 0;
+		left: 89px;
 		top: 0;
 		height: 299px;
 	}

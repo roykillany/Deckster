@@ -16,25 +16,32 @@
 		</label>
 	</div>
 	<div class="card-upload">
-		<textarea id="list-upload" rows="20" cols="40"></textarea>
-		<div class="card-count"></div>
-		<div id="add-deck" class="button">Submit</div>
-		<label class="search">
-			Find a card
-			<input class="card-search" val=""/>
-			<ul class="search-dropdown"></ul>
+		<label for="list-upload" class="card-list">Upload Cards <a class="show-format" href="javascript:void(0)">(formatting help)</a>
+			<textarea id="list-upload" rows="20" cols="40"></textarea>
+			<div class="card-count"></div>
 		</label>
+		<a id="add-deck" class="button" href="javascript:void(0)">Submit</a>
+		<div class="search">
+			<label class="card-search-input">Find a card
+				<input class="card-search" val="" />
+			</label>
+			<ul class="search-dropdown"></ul>
+		</div>
 	</div>
 </form>
 
 <div id="formatting-modal" class="hidden">
 	<div class="modal-content">
-		<span>Upload format => "{quantity} {card_name}"</br>
-
+		<h1 class="title">Formatting Guidelines</h1>
+		<i class="fa fa-times modal-close"></i>
+		<span class="example">Upload format => "{quantity} {card_name}"</br>
+		</br>
 		Example:</br>
-		4 Chimney Imp</br>
-		4 Storm Crow</br>
-		4 Scornful Egotist</br>
+			<div class="example-upload">
+				4 Chimney Imp</br>
+				4 Storm Crow</br>
+				4 Scornful Egotist</br>
+			</div>
 		</span>
 	</div>
 <div>
