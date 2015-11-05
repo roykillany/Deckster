@@ -30,8 +30,10 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		if(!this._requireSignedIn(callback)) { return; };
 
 		var profile = Deckster.currentUser.profile(),
+			decks = Deckster.currentUser.decks(),
 			ownProfileView = new Deckster.Views.profileView({
-				model: profile
+				model: profile,
+				collection: decks
 			});
 
 		this._swapView(ownProfileView);

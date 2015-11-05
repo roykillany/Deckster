@@ -15,7 +15,9 @@ Deckster.Views.profileView = Backbone.CompositeView.extend({
 	},
 
 	render: function() {
-		var content = this.template();
+		var content = this.template({
+			decks: this.collection
+		});
 		this.$el.html(content);
 		return this;
 	},
