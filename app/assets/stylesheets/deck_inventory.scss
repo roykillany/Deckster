@@ -1,77 +1,94 @@
 @import "base";
 
-.decks-inventory {
+div.decks-inventory {
 	height: 100%;
-	.decks-container {
+	div.decks-container {
+/*		height: 279px;
+		position: relative;
+		top: calc((100% - 279px)/2);*/
 		height: 100%;
-		overflow: hidden;
-		.deck-item {
+		ul.decks-container {
+			margin: 0 auto;
+			width: 955px;
 			height: 100%;
-			margin: 0 20%;
-			min-height: 520px;
-			display: none;
-			&.active {
-				display: block;
-				z-index: 1;
+			/*box-shadow: inset 1px 1px 3px 4px black;*/
+			transition: margin-top 0.5s ease;
+			-webkit-transition: margin-top 0.5s ease;
+			-moz-transition: margin-top 0.5s ease;
+			-ms-transition: margin-top 0.5s ease;
+			-o-transition: margin-top 0.5s ease;
+			&.stick {
+				transition: margin-top 0s;
+				-webkit-transition: margin-top 0s;
+				-moz-transition: margin-top 0s;
+				-ms-transition: margin-top 0s;
+				-o-transition: margin-top 0s;
 			}
-			&.transition {
-				display: block;
-				transform: rotateY(90deg);
-				transform-origin: (0%);
-		    box-shadow: 5px 1px 5px 1px black;
-				transition: transform 0.7s ease;
-				z-index: 3;
-				position: absolute;
-				width: 60%;
-				background: white;
-				height: 86%;
-				top: 70px;
-			}
-			.deck-container {
-				height: 65%;
-				transform: translateY(26%);
-				.title {
-					margin-bottom: 20px;
-					font-size: 50px;
-				}
-				.card-container {
-					float: left;
-					width: 50%;
-					.category {
-						padding-bottom: 5px;
-						.count {
-							display: inline-block;
+			.deck-item-container {
+				height: 279px;
+				top: calc((100% - 279px)/2);
+				position: relative;
+				.deck-item {
+					display: inline-block;
+					margin-bottom: 15px;
+					width: 19%;
+					min-width: 235px;
+					.name {
+					}
+					.deck-img-container {
+						width: 200px;
+						margin: 0 auto;
+						img {
+							width: 200px;
+							height: 279px;
+							border-radius: 10px;
 						}
-						.card-item {
-							.quantity, .name {
-								display: inline-block;
+						.cover-img, .middle {
+							position: absolute;
+						}
+						.cover-img {
+							transition: transform 1s ease;
+							-webkit-transition: transform 1s ease;
+							-moz-transition: transform 1s ease;
+							-ms-transition: transform 1s ease;
+							-o-transition: transform 1s ease;
+						}
+						.middle {
+							transition: transform 1s ease;
+							-webkit-transition: transform 1s ease;
+							-moz-transition: transform 1s ease;
+							-ms-transition: transform 1s ease;
+							-o-transition: transform 1s ease;
+						}
+						&:hover {
+							cursor: pointer;
+							.title {
+								color: $base-color;
 							}
-							.quantity {
-
+							.cover-img {
+								transform: translate(20px, -20px);
+								transition: transform 1s ease;
+								-webkit-transition: transform 1s ease;
+								-moz-transition: transform 1s ease;
+								-ms-transition: transform 1s ease;
+								-o-transition: transform 1s ease;
 							}
-							.name {
-								&:hover {
-									cursor: pointer;
-									font-weight: bold;
-								}
-							}
-							.image {
+							.middle {
+								transform: translate(10px, -10px);
+								transition: transform 1s ease;
+								-webkit-transition: transform 1s ease;
+								-moz-transition: transform 1s ease;
+								-ms-transition: transform 1s ease;
+								-o-transition: transform 1s ease;
 							}
 						}
 					}
 				}
 			}
-			.image-viewer {
-				float: right;
-				width: 223px;
-				height: 310px;
-				background-image: url("http://hydra-media.cursecdn.com/mtgsalvation.gamepedia.com/thumb/f/f8/Magic_card_back.jpg/200px-Magic_card_back.jpg");
-				background-repeat: no-repeat;
-				background-size: 100%;
-			}
 		}
 	}
 	.decks-nav {
+		display: none;
 		position: fixed;
 		top: 60px;
 		bottom: 0;

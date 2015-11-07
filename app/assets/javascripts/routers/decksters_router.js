@@ -8,6 +8,7 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		"profile/me": "ownProfileNav",
 		"decks/me": "ownDeckViewNav",
 		"decks/add": "addDeckNav",
+		"decks/:id": "individualDeckViewNav"
 	},
 
 	index: function(callback) {
@@ -54,6 +55,7 @@ Deckster.Routers.Router = Backbone.Router.extend({
 	addDeckNav: function() {
 		var callback = this.addDeckNav.bind(this);
 		if(!this._requireSignedIn(callback)) { return; };
+		console.log("HIS");
 
 		var	profile = Deckster.currentUser.profile(),
 			addDeckView = new Deckster.Views.addDeckView({
@@ -61,6 +63,29 @@ Deckster.Routers.Router = Backbone.Router.extend({
 			});
 
 		this._swapView(addDeckView);
+	},
+
+	individualDeckViewNav: function(id) {
+		var callback = this.individualDeckViewNav.bind(this);
+		if(!this._requireSignedIn(callback)) { return; };
+		if(typeof id === "undefined") {
+			id = window.location.href.match(/\/(\d+)$/)[1];
+			console.log(id);
+		}
+
+		console.log("WHAT", id, Deckster.currentUser.decks());
+		console.log(window.location.href);
+
+		var deck = Deckster.currentUser.decks().get(id),
+			idx = Deckster.currentUser.decks().indexOf(deck),
+			deckItemView = new Deckster.Views.deckItemView({
+				model: deck,
+				idx: idx
+			});
+
+		console.log(deck);
+
+		this._swapView(deckItemView);
 	},
 
 	_requireSignedIn: function(callback) {

@@ -16,6 +16,7 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 	},
 
 	initialize: function(opts) {
+		console.log("DECK ITEM VIEW", opts);
 		this.idx = opts.idx;
 		this.categories = ["creature", "non-creature", "land"];
 		this.counts = {};
@@ -52,10 +53,6 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 				counts: this.counts
 			}),
 			self = this;
-
-		if(this.idx === 0) {
-			this.$el.addClass("active");
-		}
 
 		this.$el.html(content);
 		this.attachSubviews();

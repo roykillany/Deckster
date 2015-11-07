@@ -67,29 +67,4 @@
 	}
 	.nav-decks {
 	}
-	#profile-deck-container {
-		.profile-deck-item {
-			display: inline-block;
-			margin-left: 30px;
-			margin-bottom: 15px;
-			.name {
-			}
-			img {
-				width: 200px;
-				height: 279px;
-				border-radius: 10px;
-			}
-			.cover-img, .middle {
-				position: absolute;
-			}
-			.cover-img {
-				margin-left: 21px;
-				margin-top: -23px;
-			}
-			.middle {
-				margin-top: -16px;
-				margin-left: 10px;
-			}
-		}
-	}
 }

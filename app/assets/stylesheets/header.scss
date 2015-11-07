@@ -2,15 +2,16 @@
 $header-height: 60px;
 
 #header {
-	position: fixed;
+	position: relative;
 	left: 0;
 	right: 0;
 	height: $header-height;
+	z-index: 10;
 	.header {
-		height: 100%;
+		width: 100%;
+		position: fixed;
 		background-color: black;
 		color: white;
-		padding: 0 20px;
 		box-shadow: 1px 1px 7px 0px black;
 		.in {
 			display: block;
@@ -72,6 +73,7 @@ $header-height: 60px;
 		}
 		.greeting {
 			float: left;
+			padding-left: 20px;
 			.main-nav-icon {
 				cursor: pointer;
 				margin-left: -20px;

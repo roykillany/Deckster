@@ -1,228 +1,222 @@
 @import "base";
 
-.decks-inventory {
-	.decks-container {
-		.deck-item {
-			height: 100%;
-			margin: 0 20%;
-			min-height: 520px;
-			display: none;
-			&.active {
-				display: block;
-			}
-			.deck-container {
-				height: 65%;
-				transform: translateY(26%);
-				.deck-menu {
-					position: absolute;
-					top: -50px;
-					left: 0px;
-					li {
-						padding: 7px;
-						&:hover {
-							cursor: pointer;
-						}
+#content {
+	& > .deck-item {
+		height: 100%;
+		margin: 0 20%;
+		min-height: 520px;
+		.deck-container {
+			height: 65%;
+			transform: translateY(26%);
+			.deck-menu {
+				position: absolute;
+				top: -50px;
+				left: 0px;
+				li {
+					padding: 7px;
+					&:hover {
+						cursor: pointer;
 					}
-					.view-deck {
-						float: left;
+				}
+				.view-deck {
+					float: left;
+					&:before {
+						display: block;
+						position: absolute;
+						right: 89px;
+						top: 0;
+						left: 89px;
+						width: 0px;
+						height: 1px;
+						background-color: black;
+						content: "";
+						transition: width 0.2s linear, left 0.2s linear;
+						-webkit-transition: width 0.2s linear, left 0.2s linear;
+						-moz-transition: width 0.2s linear, left 0.2s linear;
+						-ms-transition: width 0.2s linear, left 0.2s linear;
+						-o-transition: width 0.2s linear, left 0.2s linear;
+					}
+					&:after {
+						display: block;
+						position: absolute;
+						right: 0;
+						bottom: 0;
+						left: 0;
+						width: 89px;
+						height: 1px;
+						background-color: black;
+						content: "";
+						transition: width 0.2s linear, left 0.2s linear;
+						-webkit-transition: width 0.2s linear, left 0.2s linear;
+						-moz-transition: width 0.2s linear, left 0.2s linear;
+						-ms-transition: width 0.2s linear, left 0.2s linear;
+						-o-transition: width 0.2s linear, left 0.2s linear;
+					}
+					&.active {
+						border-right: 1px solid black;
+						box-shadow: inset -4px 4px 7px -5px black;
+						background: linear-gradient(to bottom left, gray, lightgray, white, white);
+						transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+						-webkit-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+						-moz-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+						-ms-transition: box-shadow 02 linear 0.2s, background 0s linear 0.2s;
+						-o-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
 						&:before {
-							display: block;
-							position: absolute;
-							right: 89px;
-							top: 0;
-							left: 89px;
-							width: 0px;
-							height: 1px;
-							background-color: black;
-							content: "";
-							transition: width 0.2s linear, left 0.2s linear;
-							-webkit-transition: width 0.2s linear, left 0.2s linear;
-							-moz-transition: width 0.2s linear, left 0.2s linear;
-							-ms-transition: width 0.2s linear, left 0.2s linear;
-							-o-transition: width 0.2s linear, left 0.2s linear;
-						}
-						&:after {
-							display: block;
-							position: absolute;
-							right: 0;
-							bottom: 0;
-							left: 0;
 							width: 89px;
-							height: 1px;
-							background-color: black;
-							content: "";
+							left: 0px;
 							transition: width 0.2s linear, left 0.2s linear;
 							-webkit-transition: width 0.2s linear, left 0.2s linear;
 							-moz-transition: width 0.2s linear, left 0.2s linear;
 							-ms-transition: width 0.2s linear, left 0.2s linear;
 							-o-transition: width 0.2s linear, left 0.2s linear;
 						}
-						&.active {
-							border-right: 1px solid black;
-							box-shadow: inset -4px 4px 7px -5px black;
-							background: linear-gradient(to bottom left, gray, lightgray, white, white);
-							transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
-							-webkit-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
-							-moz-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
-							-ms-transition: box-shadow 02 linear 0.2s, background 0s linear 0.2s;
-							-o-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
-							&:before {
-								width: 89px;
-								left: 0px;
-								transition: width 0.2s linear, left 0.2s linear;
-								-webkit-transition: width 0.2s linear, left 0.2s linear;
-								-moz-transition: width 0.2s linear, left 0.2s linear;
-								-ms-transition: width 0.2s linear, left 0.2s linear;
-								-o-transition: width 0.2s linear, left 0.2s linear;
-							}
-							&:after {
-								width: 0px;
-								left: 89px;
-								transition: width 0.2s linear, left 0.2s linear;
-								-webkit-transition: width 0.2s linear, left 0.2s linear;
-								-moz-transition: width 0.2s linear, left 0.2s linear;
-								-ms-transition: width 0.2s linear, left 0.2s linear;
-								-o-transition: width 0.2s linear, left 0.2s linear;
-							}
-						}
-					}
-					.view-chart {
-						float: right;
-						&:before {
-							display: block;
-							position: absolute;
-							left: 89px;
-							top: 0;
-							right: -81px;
-							width: 0;
-							height: 1px;
-							background-color: black;
-							content: "";
-							transition: width 0.2s linear;
-							-webkit-transition: width 0.2s linear;
-							-moz-transition: width 0.2s linear;
-							-ms-transition: width 0.2s linear;
-							-o-transition: width 0.2s linear;
-						}
 						&:after {
-							display: block;
-							position: absolute;
+							width: 0px;
 							left: 89px;
-							bottom: 0;
-							right: -81px;
-							width: 99px;
-							height: 1px;
-							background-color: black;
-							content: "";
-							transition: width 0.2s;
-							-webkit-transition: width 0.2s linear;
-							-moz-transition: width 0.2s linear;
-							-ms-transition: width 0.2s linear;
-							-o-transition: width 0.2s linear;
-						}
-						&.active {
-							border-left: 1px solid black;
-							box-shadow: inset 4px 4px 7px -4px black;
-							background: linear-gradient(to bottom right, gray, white, white, white);
-							transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
-							-webkit-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
-							-moz-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
-							-ms-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
-							-o-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
-							&:before {
-								width: 99px;
-							}
-							&:after {
-								width: 0px;
-							}
+							transition: width 0.2s linear, left 0.2s linear;
+							-webkit-transition: width 0.2s linear, left 0.2s linear;
+							-moz-transition: width 0.2s linear, left 0.2s linear;
+							-ms-transition: width 0.2s linear, left 0.2s linear;
+							-o-transition: width 0.2s linear, left 0.2s linear;
 						}
 					}
 				}
-				.content-container {
-					.title {
-						margin-bottom: 20px;
-						.color-syms {
-							display: inline-block;
-							transform: translateY(15%);
-							img {
-								width: 50px;
-							}
+				.view-chart {
+					float: right;
+					&:before {
+						display: block;
+						position: absolute;
+						left: 89px;
+						top: 0;
+						right: -81px;
+						width: 0;
+						height: 1px;
+						background-color: black;
+						content: "";
+						transition: width 0.2s linear;
+						-webkit-transition: width 0.2s linear;
+						-moz-transition: width 0.2s linear;
+						-ms-transition: width 0.2s linear;
+						-o-transition: width 0.2s linear;
+					}
+					&:after {
+						display: block;
+						position: absolute;
+						left: 89px;
+						bottom: 0;
+						right: -81px;
+						width: 99px;
+						height: 1px;
+						background-color: black;
+						content: "";
+						transition: width 0.2s;
+						-webkit-transition: width 0.2s linear;
+						-moz-transition: width 0.2s linear;
+						-ms-transition: width 0.2s linear;
+						-o-transition: width 0.2s linear;
+					}
+					&.active {
+						border-left: 1px solid black;
+						box-shadow: inset 4px 4px 7px -4px black;
+						background: linear-gradient(to bottom right, gray, white, white, white);
+						transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+						-webkit-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+						-moz-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+						-ms-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+						-o-transition: box-shadow 0s linear 0.2s, background 0s linear 0.2s;
+						&:before {
+							width: 99px;
+						}
+						&:after {
+							width: 0px;
 						}
 					}
-					.card-container {
-						float: left;
-						width: 50%;
-						.category {
-							padding-bottom: 5px;
-							.count {
-								display: inline-block;
-							}
-							.card-item {
-								.quant-toggle-container {
-									position: absolute;
-									background-color: black;
-									left: -25px;
-									transform: translateY(-11px);
-									i {
-										color: white;
-										padding: 3px;
-										&:hover {
-											cursor: pointer;
-										}
-									}
-									.arrow {
-										border-left: 7px solid black;
-										border-top: 7px solid transparent;
-										border-bottom: 7px solid transparent;
-										position: absolute;
-										left: 18px;
-										transform: translateY(-29px);
-									}
-								}
-								.quantity, .name {
-									display: inline-block;
-								}
-								.quantity {
-									transition: color 0.4s ease-in-out;
-									-webkit-transition: color 0.4s ease-in-out;
-									-moz-transition: color 0.4s ease-in-out;
-									-ms-transition: color 0.4s ease-in-out;
-									-o-transition: color 0.4s ease-in-out;
-								}
-								.name {
+				}
+			}
+			.content-container {
+				.title {
+					margin-bottom: 20px;
+					.color-syms {
+						display: inline-block;
+						transform: translateY(15%);
+						img {
+							width: 50px;
+						}
+					}
+				}
+				.card-container {
+					float: left;
+					width: 50%;
+					.category {
+						padding-bottom: 5px;
+						.count {
+							display: inline-block;
+						}
+						.card-item {
+							.quant-toggle-container {
+								position: absolute;
+								background-color: black;
+								left: -25px;
+								transform: translateY(-11px);
+								i {
+									color: white;
+									padding: 3px;
 									&:hover {
 										cursor: pointer;
-										font-weight: bold;
 									}
 								}
-								.image {
+								.arrow {
+									border-left: 7px solid black;
+									border-top: 7px solid transparent;
+									border-bottom: 7px solid transparent;
+									position: absolute;
+									left: 18px;
+									transform: translateY(-29px);
 								}
+							}
+							.quantity, .name {
+								display: inline-block;
+							}
+							.quantity {
+								transition: color 0.4s ease-in-out;
+								-webkit-transition: color 0.4s ease-in-out;
+								-moz-transition: color 0.4s ease-in-out;
+								-ms-transition: color 0.4s ease-in-out;
+								-o-transition: color 0.4s ease-in-out;
+							}
+							.name {
+								&:hover {
+									cursor: pointer;
+									font-weight: bold;
+								}
+							}
+							.image {
 							}
 						}
 					}
 				}
-				.chart-container {
-					.chart-item {
-						display: inline-block;
-						padding-bottom: 20px;
-						padding-left: 20px;
-						canvas {
-							width: 300px;
-							height: 150px;
-						}
+			}
+			.chart-container {
+				.chart-item {
+					display: inline-block;
+					padding-bottom: 20px;
+					padding-left: 20px;
+					canvas {
+						width: 300px;
+						height: 150px;
 					}
 				}
 			}
-			.image-viewer {
-				float: right;
-				width: 223px;
-				height: 310px;
-				background-image: url("http://hydra-media.cursecdn.com/mtgsalvation.gamepedia.com/thumb/f/f8/Magic_card_back.jpg/200px-Magic_card_back.jpg");
-				background-repeat: no-repeat;
-				background-size: 100%;
-				box-shadow: 0px 0px 8px 1px black;
-				border-radius: 10px;
-			}
+		}
+		.image-viewer {
+			float: right;
+			width: 223px;
+			height: 310px;
+			background-image: url("http://hydra-media.cursecdn.com/mtgsalvation.gamepedia.com/thumb/f/f8/Magic_card_back.jpg/200px-Magic_card_back.jpg");
+			background-repeat: no-repeat;
+			background-size: 100%;
+			box-shadow: 0px 0px 8px 1px black;
+			border-radius: 10px;
 		}
 	}
 }
