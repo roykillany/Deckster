@@ -4,8 +4,8 @@
 			<div class="deck-item-container">
 				<% group.forEach(function(deck, idx) { %>
 					<li class="deck-item" data-id="<%= deck.id %>">
-						<div class="name hidden"><%= deck.escape("title") %></div>
 						<div class="deck-img-container">
+							<div class="name"><%= deck.escape("title") %></div>
 							<img class="middle" src="https://s3.amazonaws.com/decksterdev/defaults/200px-Magic_card_back.jpg"></img>
 							<img class="cover-img" src="<%= deck.get('cover_img') %>"></img>
 							<img src="https://s3.amazonaws.com/decksterdev/defaults/200px-Magic_card_back.jpg"></img>
@@ -16,6 +16,11 @@
 		</ul>
 	<% }) %>
 </div>
+<ol class="carousel-indicators">
+	<% groupDecks.forEach(function(group, idx) { %>
+		<li class="carousel-indicator <% if(idx === 0) { %>active<% }; %>" data-nav-id="<%= idx %>"></li>
+	<% }); %>
+</ol>
 <nav class="decks-nav">
 	<i class="fa fa-chevron-left left"></i>
 	<i class="fa fa-chevron-right right"></i>

@@ -13,7 +13,8 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 		"click .fa-chevron-right": "toggleDeckNav",
 		"click .fa-chevron-left": "toggleDeckNav",
 		"click .decks-nav .deck-item": "showDeck",
-		"click .deck-img-container": "navToDeckView"
+		"click .deck-img-container": "navToDeckView",
+		"click .carousel-indicator": "carouselNav"
 		// "scroll div.decks-inventory": "scrollDeckNav"
 	},
 
@@ -121,33 +122,36 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 
 		this.currentScroll = scrollVal;
 
-		console.log("scrollDir", scrollDir);
-		console.log("scrollDelta", scrollDelta);
-		console.log("currentViewVal", currentViewNum);
-		console.log("scrollVal", scrollVal);
-		console.log("document height", $(document).height());
-		console.log(scrollVal % itemHeight > 0);
-		console.log("cutoffs");
-		for(var i = 0; i < numGroups; i++) {
-			console.log((itemHeight) * i);
-		}
+		// console.log("scrollDir", scrollDir);
+		// console.log("scrollDelta", scrollDelta);
+		// console.log("currentViewVal", currentViewNum);
+		// console.log("scrollVal", scrollVal);
+		// console.log("document height", $(document).height());
+		// console.log(scrollVal % itemHeight > 0);
+		// console.log("cutoffs");
+		// for(var i = 0; i < numGroups; i++) {
+		// 	console.log((itemHeight) * i);
+		// }
 		console.log("WAT", previousCutoff, nextViewCutoff);
 
 		if(scrollVal % itemHeight > (itemHeight * 0.1) && scrollVal % itemHeight < (itemHeight * 0.9)) {
 			console.log(itemHeight * 0.1);
 			currentView.attr("style", "margin-top: 0;");
 			currentView.removeClass("stick");
+			$(".carousel-indicator.active").removeClass("active");
 			if(scrollVal % itemHeight > (itemHeight / 2)) {
 				console.log("LARGER");
-				$(document).scrollTop(previousCutoff).delay(1000);
+				$(document).scrollTop(previousCutoff);
 				prevView.addClass("slide-down");
+				$(".carousel-indicator[data-nav-id='" + (currentViewNum - 1) + "']").addClass("active");
 				window.setTimeout(function() {
 					prevView.removeClass("slide-down");
 				}, 1000);
 			} else {
 				console.log("SMALLER");
-				$(document).scrollTop(nextViewCutoff).delay(1000);
+				$(document).scrollTop(nextViewCutoff);
 				nextView.addClass("slide-up");
+				$(".carousel-indicator[data-nav-id='" + (currentViewNum + 1) + "']").addClass("active");
 				window.setTimeout(function() {
 					nextView.removeClass("slide-up");
 				}, 1000);
@@ -166,10 +170,36 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 	},
 
 	navToDeckView: function(e) {
-		console.log(e);
-		console.log(Deckster.currentUser.decks());
 		var id = $(e.currentTarget).parent().data("id");
 
 		Backbone.history.navigate("decks/" + id, { trigger: true });
+	},
+
+	carouselNav: function(e) {
+		var prevIndicator = $(".carousel-indicator.active"),
+			currIndicator = $(e.currentTarget),
+			prevDeckGroupId = prevIndicator.data("nav-id"),
+			currDeckGroupId = currIndicator.data("nav-id"),
+			navDir = currDeckGroupId - prevDeckGroupId > 0 ? "down" : "up",
+			itemHeight = $(window).height() - 60,
+			groupViewCutoff = itemHeight * (currDeckGroupId),
+			targetContainer = $("ul.decks-container:nth-child(" + (currDeckGroupId + 1) + ") .deck-item-container");
+
+		console.log("carouselNav", prevDeckGroupId, currDeckGroupId, groupViewCutoff, targetContainer);
+
+		$(document).scrollTop(groupViewCutoff);
+		prevIndicator.removeClass("active");
+		currIndicator.addClass("active");
+		if(navDir === "up") {
+			targetContainer.addClass("slide-down");
+			window.setTimeout(function() {
+				targetContainer.removeClass("slide-down");
+			}, 1000);
+		} else {
+			targetContainer.addClass("slide-up");
+			window.setTimeout(function() {
+				targetContainer.removeClass("slide-up");
+			}, 1000);
+		}
 	}
 });

@@ -10,7 +10,7 @@ div.decks-inventory {
 		ul.decks-container {
 			margin: 0 auto;
 			width: 955px;
-			height: 100%;
+			height: calc(100%);
 			/*box-shadow: inset 1px 1px 3px 4px black;*/
 			transition: margin-top 0.5s ease;
 			-webkit-transition: margin-top 0.5s ease;
@@ -26,18 +26,25 @@ div.decks-inventory {
 			}
 			.deck-item-container {
 				height: 279px;
-				top: calc((100% - 279px)/2);
+				top: calc((100% - 372px)/2);
 				position: relative;
 				.deck-item {
 					display: inline-block;
 					margin-bottom: 15px;
 					width: 19%;
 					min-width: 235px;
-					.name {
-					}
 					.deck-img-container {
 						width: 200px;
 						margin: 0 auto;
+						.name {
+							text-align: center;
+							margin-bottom: 10px;
+							transition: transform 1s ease;
+							-webkit-transition: transform 1s ease;
+							-moz-transition: transform 1s ease;
+							-ms-transition: transform 1s ease;
+							-o-transition: transform 1s ease;
+						}
 						img {
 							width: 200px;
 							height: 279px;
@@ -47,6 +54,7 @@ div.decks-inventory {
 							position: absolute;
 						}
 						.cover-img {
+							transform: translate(8px, -8px);
 							transition: transform 1s ease;
 							-webkit-transition: transform 1s ease;
 							-moz-transition: transform 1s ease;
@@ -54,6 +62,7 @@ div.decks-inventory {
 							-o-transition: transform 1s ease;
 						}
 						.middle {
+							transform: translate(4px, -4px);
 							transition: transform 1s ease;
 							-webkit-transition: transform 1s ease;
 							-moz-transition: transform 1s ease;
@@ -62,6 +71,14 @@ div.decks-inventory {
 						}
 						&:hover {
 							cursor: pointer;
+							.name {
+								transform: translate(12px, -12px);
+								transition: transform 1s ease;
+								-webkit-transition: transform 1s ease;
+								-moz-transition: transform 1s ease;
+								-ms-transition: transform 1s ease;
+								-o-transition: transform 1s ease;
+							}
 							.title {
 								color: $base-color;
 							}
@@ -84,6 +101,23 @@ div.decks-inventory {
 						}
 					}
 				}
+			}
+		}
+	}
+	.carousel-indicators {
+		position: fixed;
+		top: calc(50% - 60px);
+		.carousel-indicator {
+			width: $carousel-size;
+			height: $carousel-size;
+			border: 1px solid black;
+			border-radius: 50%;
+			margin-bottom: $carousel-size;
+			&:hover {
+				cursor: pointer;
+			}
+			&.active {
+				background-color: black;
 			}
 		}
 	}
