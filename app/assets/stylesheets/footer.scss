@@ -7,18 +7,62 @@ $footer-height: 60px;
 	right: 0;
 	bottom: 0;
 	height: $footer-height;
+	z-index: 11;
 	.footer {
 		box-shadow: 0 -1px 7px 0px black;
 		background-color: black;
 		color: white;
 		height: calc(#{$footer-height} - 20px);
 		padding: 10px;
+		.content {
+			height: 100%;
+			ul {
+				width: 300px;
+				margin: 0 auto;
+				top: 50%;
+				transform: translateY(-50%);
+				position: relative;
+				li {
+					display: inline-block;
+					&.contact, &.law-stuff {
+						&:hover {
+							cursor: pointer;
+							/*border-bottom: 1px solid black;*/
+						}
+					}
+				}
+			}
+		}
 	}
 	.footer.inactive {
 		background-color: white;
 		color: black;
-		.law-stuff {
-			font-size: 1.7vw;
+	}
+	.modal {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(0, 0, 0, 0.7);
+		height: 100%;
+		.content {
+			position: relative;
+			width: 400px;
+			height: 300px;
+			margin: 0 auto;
+			top: 50%;
+			transform: translateY(-50%);
+			background-color: white;
+			padding: 40px;
+			i {
+				position: absolute;
+				top: 8px;
+				right: 10px;
+				&:hover {
+					cursor: pointer;
+				}
+			}
 		}
 	}
 }

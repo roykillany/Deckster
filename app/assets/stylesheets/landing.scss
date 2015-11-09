@@ -4,13 +4,34 @@
 	background-color: black;
 	color: white;
 	height: 100%;
-	.title {
-		font-size: 10vw;
+	& > .title {
+		font-size: 12vw;
+		margin-bottom: 20px;
+		padding-top: 40px;
+		margin-left: 10vw;
 	}
 	.info {
 		float: left;
+		margin-left: 10vw;
 	}
 	.signup {
 		float: right;
+		margin-right: 10vw;
+		.title {
+			font-size: 30px;
+			margin-bottom: 20px;
+		}
+		label {
+			display: block;
+			font-size: initial;
+			margin-bottom: 15px;
+			input {
+				border: 1px solid white;
+				padding: 3px 8px;
+			}
+		}
+		#signup {
+			display: inline-block;
+		}
 	}
 }

@@ -3,6 +3,12 @@ Deckster.Views.footerView = Backbone.View.extend({
 
 	className: "footer",
 
+	events: {
+		"click ul .contact": "toggleModal",
+		"click ul .law-stuff": "toggleModal",
+		"click .modal-close": "toggleModal",
+	},
+
 	initialize: function(opts) {
 		this.listenTo(this.model, "sync change", this.render);
 	},
@@ -21,5 +27,29 @@ Deckster.Views.footerView = Backbone.View.extend({
 
 		this.$el.html(content);
 		return this;
+	},
+
+	toggleModal: function(e) {
+		var target = this.$(e.currentTarget),
+			modalType = target.data('modal'),
+			prevModal = this.$(".modal:not('.hidden')");
+
+		if(prevModal.length || target.hasClass("modal-close")) {
+			console.log(prevModal);
+			prevModal.addClass("hidden");
+			prevModal.unbind("click", this._modalHandler);
+		} else {
+			console.log(modalType);
+			var modal = this.$(".modal." + modalType);
+			modal.removeClass("hidden");
+			modal.click(this._modalHandler);
+		}
+	},
+
+	_modalHandler: function(e) {
+		if(e.target != this) {
+			return;
+		}
+		$(".modal:not('.hidden')").addClass("hidden");
 	}
 });

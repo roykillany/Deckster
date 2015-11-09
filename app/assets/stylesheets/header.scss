@@ -202,6 +202,12 @@
 				&.active {
 					display: inline-block;
 				}
+				.fb-login-button {
+					padding-right: 20px;
+				}
+				.username, .password {
+					border: 1px solid rgba(0, 0, 0, 0.5);
+				}
 			}
 			.username, .password, .btn {
 				display: inline-block;
@@ -223,6 +229,11 @@
 		}
 		#logout, #signin {
 			.btn {
+				transition: border 0.5s linear;
+				-webkit-transition: border 0.5s linear;
+				-moz-transition: border 0.5s linear;
+				-ms-transition: border 0.5s linear;
+				-o-transition: border 0.5s linear;
 				&:hover {
 					border: 1px solid black;
 					box-shadow: none;
