@@ -9,12 +9,3 @@ Food Finder for the Noodle-Centric
 5. Design frontend
 
 ### FEATURES
-1. GUEST TOUR!
-
-### Useful Gems
-	* elasticsearch
-	* pgsearch ???
-	* geocoder
-	* barby?
-	* paperclip
-	* faker

@@ -59,6 +59,26 @@ decks = [Deck.create({
 		key_card: "Doomsday"
 	})]
 
+# 4 Breakthrough
+# 4 Bridge from Below
+# 4 Cabal Therapy
+# 1 Careful Study
+# 4 Cephalid Coliseum
+# 2 Dread Return
+# 3 Faithless Looting
+# 1 Flame-Kin Zealot
+# 4 Gemstone Mine
+# 4 Golgari Grave-Troll
+# 2 Golgari Thug
+# 3 Ichorid
+# 1 Iona, Shield of Emeria
+# 4 Mana Confluence
+# 4 Narcomoeba
+# 4 Putrid Imp
+# 1 Sphinx of Lost Truths
+# 4 Stinkweed Imp
+# 3 Tireless Tribe
+# 3 Undiscovered Paradise
 dredge = decks[0]
 dredge_cards = Card.create([{
 	deck_id: dredge.id,
@@ -342,6 +362,29 @@ dredge_cards = Card.create([{
 	quantity: 3,
 }])
 
+# 1 Badlands
+# 2 Bloodstained Mire
+# 1 Island
+# 1 Karakas
+# 4 Polluted Delta
+# 3 Scalding Tarn
+# 1 Swamp
+# 2 Underground Sea
+# 2 Volcanic Island
+# 4 Brainstorm
+# 4 Burning Wish
+# 4 Cabal Therapy
+# 1 Chain of Vapor
+# 4 Dark Ritual
+# 3 Doomsday
+# 3 Duress
+# 4 Gitaxian Probe
+# 1 Ideas Unbound
+# 4 Ponder
+# 1 Rain of Filth
+# 4 Lion's Eye Diamond
+# 2 Lotus Petal
+# 4 Sensei's Divining Top
 doomsday = decks[1]
 doomsday_cards = Card.create([{
 	deck_id: doomsday.id,

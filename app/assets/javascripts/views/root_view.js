@@ -4,9 +4,9 @@ Deckster.Views.RootView = Backbone.View.extend({
 	className: "landing",
 
 	ui: {
-		signupID: ".signup .username",
-		signupPW: ".signup .password",
-		signupEmail: ".signup .email"
+		signupID: ".signup input.username",
+		signupPW: ".signup input.password",
+		signupEmail: ".signup input.email"
 	},
 
 	events: {

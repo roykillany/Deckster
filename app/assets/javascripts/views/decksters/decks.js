@@ -14,8 +14,7 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 		"click .fa-chevron-left": "toggleDeckNav",
 		"click .decks-nav .deck-item": "showDeck",
 		"click .deck-img-container": "navToDeckView",
-		"click .carousel-indicator": "carouselNav"
-		// "scroll div.decks-inventory": "scrollDeckNav"
+		"click .carousel-indicator": "carouselNav",
 	},
 
 	initialize: function() {
@@ -32,19 +31,14 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 	divideDecks: function() {
 		this.groupedDecks = [];
 
-		console.log(this.collection);
 		var decks = this.collection.models,
 			groups = Math.ceil(this.collection.length / 4),
 			decksCount = this.collection.length,
 			i = 0;
 
-		console.log("hi", decks, groups, decksCount);
-
 		for(i; i < groups; i++) {
 			this.groupedDecks.push(decks.slice(i * 4, i * 4 + 4));
 		}
-
-		console.log(this.groupedDecks);
 	},
 
 	addDeck: function(deck, idx) {
@@ -56,7 +50,6 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 	},
 
 	render: function() {
-		console.log(this.groupedDecks);
 		var content = this.template({
 				groupDecks: this.groupedDecks,
 				decks: this.collection
@@ -65,7 +58,6 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 
 		this.$el.html(content);
 		$(document).on("scroll", self.scrollDeckNav.bind(self));
-		// this.attachSubviews();
 
 		return this;
 	},
@@ -122,25 +114,11 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 
 		this.currentScroll = scrollVal;
 
-		// console.log("scrollDir", scrollDir);
-		// console.log("scrollDelta", scrollDelta);
-		// console.log("currentViewVal", currentViewNum);
-		// console.log("scrollVal", scrollVal);
-		// console.log("document height", $(document).height());
-		// console.log(scrollVal % itemHeight > 0);
-		// console.log("cutoffs");
-		// for(var i = 0; i < numGroups; i++) {
-		// 	console.log((itemHeight) * i);
-		// }
-		console.log("WAT", previousCutoff, nextViewCutoff);
-
 		if(scrollVal % itemHeight > (itemHeight * 0.1) && scrollVal % itemHeight < (itemHeight * 0.9)) {
-			console.log(itemHeight * 0.1);
 			currentView.attr("style", "margin-top: 0;");
 			currentView.removeClass("stick");
 			$(".carousel-indicator.active").removeClass("active");
 			if(scrollVal % itemHeight > (itemHeight / 2)) {
-				console.log("LARGER");
 				$(document).scrollTop(previousCutoff);
 				prevView.addClass("slide-down");
 				$(".carousel-indicator[data-nav-id='" + (currentViewNum - 1) + "']").addClass("active");
@@ -148,7 +126,6 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 					prevView.removeClass("slide-down");
 				}, 1000);
 			} else {
-				console.log("SMALLER");
 				$(document).scrollTop(nextViewCutoff);
 				nextView.addClass("slide-up");
 				$(".carousel-indicator[data-nav-id='" + (currentViewNum + 1) + "']").addClass("active");
@@ -164,9 +141,6 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 				currentView.removeClass("stick");
 			}, 200);
 		}
-
-		// document height = 60px + ((window.height - 60px) * numGroups)
-
 	},
 
 	navToDeckView: function(e) {
@@ -184,8 +158,6 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 			itemHeight = $(window).height() - 60,
 			groupViewCutoff = itemHeight * (currDeckGroupId),
 			targetContainer = $("ul.decks-container:nth-child(" + (currDeckGroupId + 1) + ") .deck-item-container");
-
-		console.log("carouselNav", prevDeckGroupId, currDeckGroupId, groupViewCutoff, targetContainer);
 
 		$(document).scrollTop(groupViewCutoff);
 		prevIndicator.removeClass("active");
