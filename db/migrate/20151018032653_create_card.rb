@@ -6,9 +6,6 @@ class CreateCard < ActiveRecord::Migration
     	t.string :name, null: false
     	t.string :mana_cost, null: false
     	t.integer :cmc, null: false
-    	t.string :super_type
-    	t.string :type, null: false
-    	t.string :sub_type
     	t.string :text
     	t.integer :power
     	t.integer :toughness
@@ -24,9 +21,6 @@ class CreateCard < ActiveRecord::Migration
     add_index :cards, :name
     add_index :cards, :mana_cost
     add_index :cards, :cmc
-    add_index :cards, :super_type
-    add_index :cards, :type
-    add_index :cards, :sub_type
     add_index :cards, :power
     add_index :cards, :toughness
     add_index :cards, :rarity
