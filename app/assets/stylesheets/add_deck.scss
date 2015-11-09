@@ -53,8 +53,9 @@
 				display: inherit;
 				width: 341px;
 				.show-format {
-					display: inline-block;
+					position: absolute;
 					font-size: 11px;
+					margin-top: 4px;
 					&:hover {
 						cursor: pointer;
 						color: $base-color;
@@ -90,6 +91,7 @@
 		.upload-button {
 			width: 61px;
 			margin: 0 auto;
+			padding-top: 20px;
 			#add-deck {
 				display: inline-block;
 				&:hover {
