@@ -11,6 +11,7 @@ Deckster.Views.RootView = Backbone.View.extend({
 
 	events: {
 		"click #signup": "signUp",
+		"click #guest-signup": "guestSignUp"
 	},
 
 	initialize: function(opts) {
@@ -53,6 +54,27 @@ Deckster.Views.RootView = Backbone.View.extend({
 		});
 	},
 
+	guestSignUp: function(e) {
+		// this._fillInInfo();
+
+		$.ajax({
+			url: "/guest",
+			type: "GET",
+			success: function(resp) {
+				console.log(resp);
+				var data = _.extend(resp, {
+					signedIn: true
+				})
+				Deckster.currentUser.set(data);
+				// Deckster.currentUser.signIn({username: username, password: password});
+				Backbone.history.navigate("profile/me", { trigger: true });
+			},
+			error: function(err) {
+				console.log(err);
+			}
+		});
+	},
+
 	signInCallback: function() {
 		if(this.callback) {
 			this.callback();
@@ -60,4 +82,10 @@ Deckster.Views.RootView = Backbone.View.extend({
 			Backbone.history.navigate("profile/me", { trigger: true });
 		}
 	},
+
+	_fillInInfo: function() {
+		var nameInp = this.$(".signup input.username"),
+			passInp = this.$(".signup input.password"),
+			emailInp = this.$(".signup input.email");
+	}
 });

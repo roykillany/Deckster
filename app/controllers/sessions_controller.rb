@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.includes(profile: [decks: :cards]).find_by_credentials(user_params[:username], user_params[:password])
+    @user = User.includes(profile: [decks: [cards: [:colors, :card_types]]]).find_by_credentials(user_params[:username], user_params[:password])
     if @user
       log_in(@user)
       render json: Api::UserSerializer.new(@user)
@@ -38,6 +38,19 @@ class SessionsController < ApplicationController
       render json: Api::UserSerializer.new(user)
     rescue => e
       p "****fb-auth****"
+      p e.message
+      p e.backtrace
+    end
+  end
+
+  def guest_login
+    @guest = User.includes(profile: [decks: [cards: [:colors, :card_types]]]).find_by({username: "Guest", id: 1})
+
+    begin
+      log_in(@guest)
+      render json: Api::UserSerializer.new(@guest)
+    rescue => e
+      p "****guest-login****"
       p e.message
       p e.backtrace
     end

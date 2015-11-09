@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
   	return nil if session[:token].nil?
-  	@current_user ||= User.find_by(session_token: session[:token])
+  	@current_user ||= User.includes(profile: [decks: [cards: [:colors, :card_types]]]).find_by(session_token: session[:token])
   end
 
   def log_in(user)
