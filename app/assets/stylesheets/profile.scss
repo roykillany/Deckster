@@ -1,12 +1,12 @@
 @import "base";
 
 .profile {
-	width: 60%;
+	width: 961px;
 	margin: 0 auto;
 	top: 50%;
-	height: calc(50% - 60px);
-	transform: translateY(50%);
-	.add-decks, .nav-decks, .settings {
+	transform: translateY(-50%);
+	position: relative;
+	.add-decks, .nav-decks, .nav-collection {
 		display: inline-block;
 		width: 33%;
 		.image-container {
@@ -16,6 +16,7 @@
 				text-align: center;
 				padding-bottom: 25px;
 				font-size: 20px;
+				font-weight: bold;
 			}
 			img {
 				width: 200px;
@@ -26,18 +27,18 @@
 				position: absolute;
 			}
 			.cover {
-				transition: transform 1s ease;
+/*				transition: transform 1s ease;
 				-webkit-transition: transform 1s ease;
 				-moz-transition: transform 1s ease;
 				-ms-transition: transform 1s ease;
-				-o-transition: transform 1s ease;
+				-o-transition: transform 1s ease;*/
 			}
 			.middle {
-				transition: transform 1s ease;
+/*				transition: transform 1s ease;
 				-webkit-transition: transform 1s ease;
 				-moz-transition: transform 1s ease;
 				-ms-transition: transform 1s ease;
-				-o-transition: transform 1s ease;
+				-o-transition: transform 1s ease;*/
 			}
 			&:hover {
 				cursor: pointer;
@@ -45,20 +46,21 @@
 					color: $base-color;
 				}
 				.cover {
-					transform: translate(20px, -20px);
+/*					transform: translate(20px, -20px);
 					transition: transform 1s ease;
 					-webkit-transition: transform 1s ease;
 					-moz-transition: transform 1s ease;
 					-ms-transition: transform 1s ease;
-					-o-transition: transform 1s ease;
+					-o-transition: transform 1s ease;*/
+					box-shadow: 0 0 7px 2px $base-color;
 				}
 				.middle {
-					transform: translate(10px, -10px);
+/*					transform: translate(10px, -10px);
 					transition: transform 1s ease;
 					-webkit-transition: transform 1s ease;
 					-moz-transition: transform 1s ease;
 					-ms-transition: transform 1s ease;
-					-o-transition: transform 1s ease;
+					-o-transition: transform 1s ease;*/
 				}
 			}
 		}

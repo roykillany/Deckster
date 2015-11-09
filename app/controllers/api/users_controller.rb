@@ -19,6 +19,7 @@ class Api::UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
 			@user.create_profile
+			@user.create_collection
 			log_in(@user)
 			render json: Api::UserSerializer.new(@user)
 		else

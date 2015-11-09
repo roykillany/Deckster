@@ -1,5 +1,5 @@
 Deckster.Models.User = Backbone.Model.extend({
-	urlRoot: "api/user",
+	urlRoot: "api/users",
 
 	parse: function(resp) {
 		if(resp.users) {
@@ -29,14 +29,27 @@ Deckster.Models.User = Backbone.Model.extend({
 				var cards = deck["cards"];
 				
 				deck = new Deckster.Models.Deck(deck);
-				deck.cards(cards)
-				return deck
+				deck.cards(cards);
+				return deck;
 			});
 			this._decks = new Deckster.Collections.Deck(decks, {
 				user: this
 			});
 		}
 		return this._decks;
+	},
+
+	collection: function() {
+		if(!this._collection && this.get("collection")) {
+			var collection = new Deckster.Models.Collection(this.get("collection"), {
+					user: this
+				}),
+				cards = collection["cards"];
+
+			collection.cards(cards);
+			this._collection = collection;
+		}
+		return this._collection;
 	}
 });
 

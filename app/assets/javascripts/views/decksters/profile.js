@@ -8,7 +8,8 @@ Deckster.Views.profileView = Backbone.CompositeView.extend({
 
 	events: {
 		"click .add-decks": "addToDecks",
-		"click .nav-decks": "navToDecks"
+		"click .nav-decks": "navToDecks",
+		"click .nav-collection": "navToCollection"
 	},
 
 	initialize: function(opts) {
@@ -28,5 +29,9 @@ Deckster.Views.profileView = Backbone.CompositeView.extend({
 
 	addToDecks: function(e) {
 		Backbone.history.navigate("decks/add", { trigger: true });
+	},
+
+	navToCollection: function(e) {
+		Backbone.history.navigate("collection/me", { trigger: true });
 	}
 });

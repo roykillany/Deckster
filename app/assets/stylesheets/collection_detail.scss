@@ -1,0 +1,22 @@
+.collection-content {
+	.collection-detail {
+		.detail-table {
+			/*float: left;*/
+			width: 100%;
+			tbody {
+				.table-headers {
+					border-bottom: 1px solid black;
+					td {
+						border-bottom: 1px solid black;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+		#collection-upload {
+			float: right;
+			width: 347px;
+			display: none;
+		}
+	}
+}

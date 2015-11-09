@@ -1,7 +1,7 @@
 class Api::UserSerializer < ActiveModel::Serializer
 	self.root = false
 
-	attributes :id, :username, :profile, :decks
+	attributes :id, :username, :profile, :decks, :collection
 
 	def profile
 		Api::ProfileSerializer.new(object.profile)
@@ -9,5 +9,9 @@ class Api::UserSerializer < ActiveModel::Serializer
 
 	def decks
 		ActiveModel::ArraySerializer.new(object.decks, { each_serializer: Api::DeckSerializer })
+	end
+
+	def collection
+		Api::CollectionSerializer.new(object.collection)
 	end
 end

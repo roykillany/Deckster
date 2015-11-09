@@ -3,12 +3,14 @@ require "open-uri"
 class Card < ActiveRecord::Base
 	validates :name, :mana_cost, :cmc, :rarity, presence: true
 	validates_inclusion_of :rarity, :in => ["Mythic", "Rare", "Uncommon", "Common"]
-	validates_presence_of :deck
+	validates_presence_of :deck, allow_blank: true
+	validates_presence_of :collection, allow_blank: true
 	has_attached_file :image #, styles: { medium: "300x300>", thumb: "100x100>", tiny: "40x40" }
 	validates_attachment_content_type :image, content_type: /^image\/(jpeg|png|gif|tiff)$/
 
 	before_create :image_from_url
 
+	belongs_to :collection, inverse_of: :cards
 	belongs_to :deck, inverse_of: :cards
 	has_many :join_card_types, dependent: :destroy
 	has_many :card_types, through: :join_card_types

@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
 	has_one :profile, dependent: :destroy
 	has_many :decks, through: :profile
+	has_one :collection, through: :profile
 
 	attr_reader :password
 
@@ -74,5 +75,12 @@ class User < ActiveRecord::Base
 
 		profile = Profile.new({user_id: user_id})
 		profile.save!
+	end
+
+	def create_collection
+		profile_id = self.profile.id
+
+		collection = Collection.new({profile_id: profile_id})
+		collection.save!
 	end
 end

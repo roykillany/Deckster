@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151102223741) do
+ActiveRecord::Schema.define(version: 20151108163232) do
 
   create_table "card_types", force: :cascade do |t|
     t.string   "name",       null: false
@@ -56,6 +56,12 @@ ActiveRecord::Schema.define(version: 20151102223741) do
   add_index "cards", ["power"], name: "index_cards_on_power"
   add_index "cards", ["rarity"], name: "index_cards_on_rarity"
   add_index "cards", ["toughness"], name: "index_cards_on_toughness"
+
+  create_table "collections", force: :cascade do |t|
+    t.integer  "profile_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "colors", force: :cascade do |t|
     t.string   "name",         null: false

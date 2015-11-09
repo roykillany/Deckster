@@ -26,7 +26,7 @@
 			left: -150px;
 			width: 150px;
 			top: $header-height;
-			bottom: 0;
+			bottom: $header-height;
 			transition: left 0.5s ease-in-out;
 			-webkit-transition: left 0.5s ease-in-out;
 			-moz-transition: left 0.5s ease-in-out;
@@ -165,7 +165,7 @@
 					}
 					.middle {
 						&:after {
-							background-color: black;
+							display: none;
 						}
 					}
 				}
@@ -193,6 +193,7 @@
 			}
 			#out-btn {
 				padding: 5px 8px;
+				margin-right: 20px;
 			}
 		}
 		#signin {

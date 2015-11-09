@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     get "curr_user", to: "users#curr_user"
     resources :users
     resources :decks
+    resources :collections
+    resources :cards
   end
 
   resources :sessions, only: [:index, :create]

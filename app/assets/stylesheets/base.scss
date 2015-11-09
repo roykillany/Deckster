@@ -5,8 +5,18 @@ $base-color-dark: #258ACE; /* rgb(37, 138, 206) */
 $header-height: 60px;
 $carousel-size: 8px;
 
-.button {
-
+.deckster-button {
+	padding: 4px 6px;
+	background-color: $base-color;
+	color: white;
+	border-radius: 4px;
+	box-shadow: 0 1px 3px 1px black;
+	&:hover {
+		cursor: pointer;
+	}
+	&:active {
+		box-shadow: inset 1px 1px 6px 0px black;
+	}
 }
 
 .hidden {

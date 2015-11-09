@@ -133,8 +133,7 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			.done(function() {
 				console.log(list);
 				callback(cards.filter(self._filterErrors), title, self);
-			}).fail(function() {
-			});
+			}).fail(function() {});
 	},
 
 	_parseData: function(el) {

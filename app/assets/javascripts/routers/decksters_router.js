@@ -8,7 +8,8 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		"profile/me": "ownProfileNav",
 		"decks/me": "ownDeckViewNav",
 		"decks/add": "addDeckNav",
-		"decks/:id": "individualDeckViewNav"
+		"decks/:id": "individualDeckViewNav",
+		"collection/me": "ownCollectionView"
 	},
 
 	index: function(callback) {
@@ -55,7 +56,6 @@ Deckster.Routers.Router = Backbone.Router.extend({
 	addDeckNav: function() {
 		var callback = this.addDeckNav.bind(this);
 		if(!this._requireSignedIn(callback)) { return; };
-		console.log("HIS");
 
 		var	profile = Deckster.currentUser.profile(),
 			addDeckView = new Deckster.Views.addDeckView({
@@ -63,6 +63,18 @@ Deckster.Routers.Router = Backbone.Router.extend({
 			});
 
 		this._swapView(addDeckView);
+	},
+
+	ownCollectionView: function() {
+		var callback = this.ownCollectionView.bind(this);
+		if(!this._requireSignedIn(callback)) { return; };
+
+		var collection = Deckster.currentUser.collection(),
+			collectionView = new Deckster.Views.collectionView({
+				model: collection 
+			});
+
+		this._swapView(collectionView);
 	},
 
 	individualDeckViewNav: function(id) {

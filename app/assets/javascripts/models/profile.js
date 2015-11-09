@@ -1,5 +1,5 @@
 Deckster.Models.Profile = Backbone.Model.extend({
-	urlRoot: "api/profile",
+	urlRoot: "api/profiles",
 
 	parse: function(resp) {
 		if(resp.profiles) {

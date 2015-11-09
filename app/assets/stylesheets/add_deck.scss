@@ -1,19 +1,23 @@
 @import "base";
 
 .add-deck {
+	height: 100%;
 	#deck-upload {
-		width: 80%;
+		width: 341px;
 		margin: 0 auto;
-		padding-top: 50px;
+		padding-top: 60px;
+		padding-bottom: 120px;
 		.deck-info {
-			float: left;
-			width: 50%;
+/*			float: left;
+			width: 50%;*/
 			.title-container, .description-container, .key-card-container {
-				width: 181px;
-				margin-left: 40%;
+				margin: 0 auto;
+				display: block;
+				text-align: center;
+				margin-bottom: 10px;
 			}
 			.title-container {
-				display: inherit;
+				width: 154px;
 				.title {
 					border: 1px solid black;
 					&:focus {
@@ -22,7 +26,7 @@
 				}
 			}
 			.description-container {
-				display: inherit;
+				width: 261px;
 				#descript-upload {
 					resize: none;
 					border: 1px solid black;
@@ -32,7 +36,7 @@
 				}
 			}
 			.key-card-container {
-				display: inherit;
+				width: 154px;
 				.key-card {
 					border: 1px solid black;
 					&:focus {
@@ -42,8 +46,9 @@
 			}
 		}
 		.card-upload {
-			float: right;
-			width: 50%;
+/*			float: right;
+			width: 50%;*/
+			text-align: center;
 			.card-list {
 				display: inherit;
 				width: 341px;
@@ -63,21 +68,9 @@
 					}
 				}
 			}
-			#add-deck {
-				display: inline-block;
-				padding: 4px 6px;
-				background-color: $base-color;
-				color: white;
-				border-radius: 4px;
-				box-shadow: 1px 1px 3px 1px black;
-				&:hover {
-					cursor: pointer;
-				}
-				&:active {
-					box-shadow: inset 1px 1px 6px 0px black;
-				}
-			}
 			.search {
+				width: 154px;
+				margin: 0 auto;
 				.card-search {
 					border: 1px solid black;
 				}
@@ -91,6 +84,19 @@
 						display: block;
 						margin-bottom: 65px;
 					}
+				}
+			}
+		}
+		.upload-button {
+			width: 61px;
+			margin: 0 auto;
+			#add-deck {
+				display: inline-block;
+				&:hover {
+					cursor: pointer;
+				}
+				&:active {
+					box-shadow: inset 1px 1px 6px 0px black;
 				}
 			}
 		}

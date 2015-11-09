@@ -1,7 +1,7 @@
 @import "base";
 
 div.decks-inventory {
-	height: 100%;
+	height: calc(100% + 60px);
 	div.decks-container {
 /*		height: 279px;
 		position: relative;
@@ -107,6 +107,7 @@ div.decks-inventory {
 	.carousel-indicators {
 		position: fixed;
 		top: calc(50% - 60px);
+		right: 40px;
 		.carousel-indicator {
 			width: $carousel-size;
 			height: $carousel-size;
