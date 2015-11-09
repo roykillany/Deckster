@@ -15,7 +15,7 @@ class Deck < ActiveRecord::Base
 	COLORS = ["White", "Blue", "Black", "Red", "Green"]
 	
 	def nonland_cards
-		Card.includes(:colors, :card_types).joins(join_card_types: :card_type).where("cards.deck_id = ? AND card_types.name IS NOT ?", self.id, "Land").distinct
+		Card.includes(:colors, :card_types).joins(join_card_types: :card_type).where("cards.deck_id = ? AND card_types.name != 'Land'", self.id).distinct
 	end
 
 	def avg_cmc
