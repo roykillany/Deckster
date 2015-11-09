@@ -2,12 +2,14 @@
 	.collection-pictures {
 		.picture-item-container {
 			display: inline-block;
-			.picture-item {
-				width: 223px;
-				height: 310px;
-				&:not(:first-child) {
-					position: absolute;
-					top: 0;
+			.pictures {
+				.picture-item {
+					width: 223px;
+					height: 310px;
+					&:not(:first-child) {
+						position: absolute;
+						margin-top: 310px;
+					}
 				}
 			}
 		}
