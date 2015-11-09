@@ -31,7 +31,6 @@ gem 'thin'
 gem 'figaro'
 gem 'activerecord-import'
 gem 'rails_12factor'
-gem 'ruby', '2.0.0'
 
 group :development, :test do
   gem 'byebug'
