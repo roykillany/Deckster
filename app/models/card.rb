@@ -5,7 +5,7 @@ class Card < ActiveRecord::Base
 	validates_inclusion_of :rarity, :in => ["Mythic", "Rare", "Uncommon", "Common"]
 	validates_presence_of :deck, allow_blank: true
 	validates_presence_of :collection, allow_blank: true
-	has_attached_file :image, storage: :s3, bucket: ENV["s3_name"] #, styles: { medium: "300x300>", thumb: "100x100>", tiny: "40x40" }
+	has_attached_file :image, storage: :s3, bucket: ENV["S3_BUCKET"] #, styles: { medium: "300x300>", thumb: "100x100>", tiny: "40x40" }
 	validates_attachment_content_type :image, content_type: /^image\/(jpeg|png|gif|tiff)$/
 
 	before_create :image_from_url
