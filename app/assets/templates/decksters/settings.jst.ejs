@@ -1,0 +1,19 @@
+<h1 class="title">Account Settings</h1>
+
+<div class="form-container">
+	<form id="change-settings">
+		<label class="username" for="username">
+			Username
+			<input class="username" name="user[username]" val="<%= user.escape('username') %>">
+		</label>
+		<label class="password" for="password">
+			Password
+			<input class="password" name="user[password]" val="">
+		</label>
+		<label class="email" for="email">
+			Email
+			<input class="email" name="user[email]" val="<%= user.escape('email')%>">
+		</label>
+		<div class="deckster-button save-settings">Save Settings</div>
+	</form>
+</div>

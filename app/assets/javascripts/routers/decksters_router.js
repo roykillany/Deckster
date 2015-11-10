@@ -5,6 +5,7 @@ Deckster.Routers.Router = Backbone.Router.extend({
 
 	routes: {
 		"": "index",
+		"settings": "settingsNav",
 		"profile/me": "ownProfileNav",
 		"decks/me": "ownDeckViewNav",
 		"decks/add": "addDeckNav",
@@ -33,6 +34,17 @@ Deckster.Routers.Router = Backbone.Router.extend({
 
 			this._swapView(indexView);
 		}
+	},
+
+	settingsNav: function() {
+		var callback = this.settingsNav.bind(this);
+		if(!this._requireSignedIn(callback)) { return; };
+
+		var settingsView = new Deckster.Views.settingsView({
+			model: Deckster.currentUser
+		});
+
+		this._swapView(settingsView);
 	},
 
 	ownProfileNav: function() {

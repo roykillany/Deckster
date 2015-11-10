@@ -30,8 +30,8 @@
 			background-color: black;
 			position: fixed;
 			opacity: 0.6;
-			left: -150px;
-			width: 150px;
+			left: -200px;
+			width: 200px;
 			top: $header-height;
 			bottom: $header-height;
 			transition: left 0.5s ease-in-out;
@@ -60,6 +60,9 @@
 					-moz-transition: box-shadow 0.1s linear;
 					-ms-transition: box-shadow 0.1s linear;
 					-o-transition: box-shadow 0.1s linear;
+					i {
+						margin-right: 5px;
+					}
 					&.active {
 						box-shadow: inset 0 0 0 30px gray;
 						transition: box-shadow 0.3s linear;
