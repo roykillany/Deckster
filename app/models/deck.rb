@@ -8,6 +8,7 @@ class Deck < ActiveRecord::Base
 
 	has_many :cards, inverse_of: :deck, dependent: :destroy
 	has_many :colors, through: :cards
+	# has_many :nonland_cards, -> { where("cards.deck_id = ? AND card_types.name != 'Land'", self.id) }, class_name: "Card"
 	belongs_to :profile
 
 	accepts_nested_attributes_for :cards, :allow_destroy => true
@@ -15,7 +16,7 @@ class Deck < ActiveRecord::Base
 	COLORS = ["White", "Blue", "Black", "Red", "Green"]
 	
 	def nonland_cards
-		Card.includes(:colors, :card_types).joins(join_card_types: :card_type).where("cards.deck_id = ? AND card_types.name != 'Land'", self.id).distinct
+		Card.includes(join_colors: :color, join_card_types: :card_type).joins(join_card_types: :card_type).where("cards.deck_id = ? AND card_types.name != 'Land'", self.id).distinct
 	end
 
 	def avg_cmc

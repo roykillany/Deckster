@@ -11,6 +11,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by_credentials(user_params[:username], user_params[:password])
+    ActiveRecord::Associations::Preloader.new(@user, [{user: [:profile, [decks: [cards: [:colors, :card_types]]], [collection: [cards: [:colors, :card_types]]]]}]).run
     if @user
       log_in(@user)
       render json: Api::UserSerializer.new(@user)
