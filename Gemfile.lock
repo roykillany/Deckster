@@ -321,6 +321,7 @@ DEPENDENCIES
   pg (= 0.17.1)
   rails (= 4.2.4)
   rails_12factor
+  redis
   redis-rack-cache (= 1.2.2)
   redis-rails (= 4.0.0)
   resque (= 1.25.2)
