@@ -10,7 +10,7 @@ class Api::DecksController < ApplicationController
 		end
 
 		@deck = Deck.includes(cards: [:colors, :card_types]).create(deck_params)
-		ActiveRecord::Associations::Preloader.new(@deck, [{deck: [cards: [:colors, :card_types]]}]).run
+		ActiveRecord::Associations::Preloader.new.preload(@deck, cards: [:colors, :card_types])
 
 		create_dependencies(card_types, colors, @deck.cards)
 
@@ -29,7 +29,7 @@ class Api::DecksController < ApplicationController
 		p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 		p deck_params
 		@deck = Deck.includes(cards: [:colors, :card_types]).find(params[:id])
-		ActiveRecord::Associations::Preloader.new(@deck, [{deck: [cards: [:colors, :card_types]]}]).run
+		ActiveRecord::Associations::Preloader.new.preload(@deck, cards: [:colors, :card_types])
 		begin
 			@deck.update(deck_params)
 			@deck.save

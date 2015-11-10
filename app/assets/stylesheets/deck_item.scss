@@ -148,6 +148,14 @@
 				.card-container {
 					float: left;
 					width: 50%;
+					margin-bottom: 70px;
+					.left {
+						width: 50%;
+						float: left;
+					}
+					.right {
+						float: right;
+					}
 					.category {
 						padding-bottom: 25px;
 						.count {
@@ -222,8 +230,8 @@
 		#update-deck {
 			display: inline-block;
 			position: absolute;
-			bottom: 0;
-			left: 0;
+			top: 20px;
+			left: -86px;
 		}
 	}
 }

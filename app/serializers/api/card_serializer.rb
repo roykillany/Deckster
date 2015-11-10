@@ -1,8 +1,7 @@
 class Api::CardSerializer < ActiveModel::Serializer
 	self.root = false
 
-	attributes :id, :deck_id, :name, :cmc, :image_url, :mana_cost, :quantity,
-		:colors, :card_types
+	attributes :id, :deck_id, :name, :cmc, :image_url, :mana_cost, :quantity, :colors, :card_types
 
 	def image_url
 		object.image.url

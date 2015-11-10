@@ -9,6 +9,7 @@ class Card < ActiveRecord::Base
 	validates_attachment_content_type :image, content_type: /^image\/(jpeg|png|gif|tiff)$/
 
 	before_create :image_from_url
+	after_create :create_dependencies
 
 	belongs_to :collection, inverse_of: :cards
 	belongs_to :deck, inverse_of: :cards
@@ -32,5 +33,9 @@ class Card < ActiveRecord::Base
 
 	def image_from_url
 		self.image = URI.escape(self.image_url)
+	end
+
+	def create_dependencies
+		
 	end
 end

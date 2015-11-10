@@ -24,6 +24,7 @@ window.Deckster = {
       url: "/sessions",
       type: "GET",
       success: function(data){
+        console.log(data);
         Backbone.history.start({ root: self.root });
         _.extend(data, {
           signedIn: true

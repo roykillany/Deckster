@@ -34,7 +34,7 @@ Deckster.Models.Deck = Backbone.Model.extend({
 		this.set({cards: cards.models});
 	},
 
-	update: function() {
+	update: function(callback) {
 		var data = { deck: {
 					cards_attributes: this.get("cards").map(function(e) {
 						return e.attributes
@@ -55,6 +55,7 @@ Deckster.Models.Deck = Backbone.Model.extend({
 			data: data,
 			success: function(resp) {
 				console.log("UPDATED", resp);
+				callback(resp);
 			},
 			error: function(err) {
 				console.log("ERROR", err)

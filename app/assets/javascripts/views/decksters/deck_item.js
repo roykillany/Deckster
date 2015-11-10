@@ -43,6 +43,7 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		this.listenTo(this.collection, "add", this.addCard);
 		this.listenTo(this.collection, "change", function() {
 			this.model.updateCards(this.collection);
+			this.$("#update-deck").removeClass("hidden");
 		});
 	},
 
@@ -183,7 +184,11 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		console.log("HALLAHALLA");
 		console.log(this.model);
 		console.log(this.collection);
+		var callback = function(resp) {
+			$("#update-deck").addClass("hidden");
+			$(".quant-toggle-container:not('.hidden')").addClass("hidden");
+		};
 
-		this.model.update();
+		this.model.update(callback);
 	}
 });

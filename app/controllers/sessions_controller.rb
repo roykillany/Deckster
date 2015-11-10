@@ -1,8 +1,9 @@
 class SessionsController < ApplicationController
   def index
-  	session["init"] = true
+  	# session["init"] = true
     @user = current_user
     if current_user
+      ActiveRecord::Associations::Preloader.new.preload(@user, profile: [decks: [cards: [:colors, :card_types]]], collection: [cards: [:colors, :card_types]])
     	render json: Api::UserSerializer.new(@user)
     else
     	render json: { ok: "0" }, status: 422
@@ -11,7 +12,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by_credentials(user_params[:username], user_params[:password])
-    ActiveRecord::Associations::Preloader.new(@user, [{user: [:profile, [decks: [cards: [:colors, :card_types]]], [collection: [cards: [:colors, :card_types]]]]}]).run
+    ActiveRecord::Associations::Preloader.new.preload(@user, profile: [decks: [cards: [:colors, :card_types]]], collection: [cards: [:colors, :card_types]])
     if @user
       log_in(@user)
       render json: Api::UserSerializer.new(@user)
@@ -46,7 +47,7 @@ class SessionsController < ApplicationController
 
   def guest_login
     @guest = User.includes(profile: [decks: [cards: [:colors, :card_types]]]).find_by({username: "Guest", id: 1})
-
+    ActiveRecord::Associations::Preloader.new.preload(@guest, profile: [decks: [cards: [:colors, :card_types]]], collection: [cards: [:colors, :card_types]])
     begin
       log_in(@guest)
       render json: Api::UserSerializer.new(@guest)
