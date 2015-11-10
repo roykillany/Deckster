@@ -29,7 +29,7 @@ class Api::DecksController < ApplicationController
 		p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 		p deck_params
 		@deck = Deck.includes(cards: [:colors, :card_types]).find(params[:id])
-		ActiveRecord::Associations::Preloader.new(@deck, [{deck: cards: [:colors, :card_types]}]).run
+		ActiveRecord::Associations::Preloader.new(@deck, [{deck: [cards: [:colors, :card_types]]}]).run
 		begin
 			@deck.update(deck_params)
 			@deck.save
