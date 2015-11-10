@@ -1,5 +1,0 @@
-#TODO
-	* Models
-		* Legalities
-		* Colors
-		* 
