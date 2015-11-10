@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.includes(profile: [decks: [cards: [:colors, :card_types]]]).find_by_credentials(user_params[:username], user_params[:password])
+    @user = User.find_by_credentials(user_params[:username], user_params[:password])
     if @user
       log_in(@user)
       render json: Api::UserSerializer.new(@user)

@@ -1,7 +1,7 @@
 class Api::DeckSerializer < ActiveModel::Serializer
 	self.root = false
 
-	attributes :id, :profile_id, :title, :description, :cards, :avg_cmc, :curve, :color_distribution, :cover_img, :colors
+	attributes :id, :profile_id, :title, :cards, :avg_cmc, :curve, :color_distribution, :cover_img, :colors
 
 	def cards
 		ActiveModel::ArraySerializer.new(object.cards, { each_serializer: Api::CardSerializer })

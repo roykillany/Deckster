@@ -16,14 +16,14 @@ class User < ActiveRecord::Base
 	after_initialize :ensure_session_token
 
 	def self.find_by_credentials(username, password)
-		user = User.find_by_username(username)
+		user = User.includes(profile: [decks: [cards: [:colors, :card_types]]]).find_by_username(username)
 		return nil unless user && user.is_password?(password)
 		user
 	end
 
 	def self.find_or_create_by_auth_hash(auth_hash)
 		p auth_hash
-    user = User.includes(profile: [decks: :cards]).find_by(
+    user = User.includes(profile: [decks: [cards: [:colors, :card_types]]]).find_by(
     	uid: auth_hash[:id]
     )
 
