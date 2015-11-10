@@ -19,6 +19,10 @@ $carousel-size: 8px;
 	}
 }
 
+.modal-open {
+	overflow: hidden;
+}
+
 .hidden {
 	display: none;
 	visibility: hidden;

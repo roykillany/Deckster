@@ -364,13 +364,16 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 					return;
 				}
 				modal.addClass("hidden");
+				$("body").removeClass("modal-open");
 			};
 
 		if(modalClose) {
 			modal.addClass("hidden");
+			$("body").removeClass("modal-open");
 			modal.unbind("click", handler);
 		} else {
 			modal.removeClass("hidden");
+			$("body").addClass("modal-open");
 			modal.click(handler);
 		}
 	}

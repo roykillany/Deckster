@@ -66,7 +66,6 @@ Deckster.Views.RootView = Backbone.View.extend({
 					signedIn: true
 				})
 				Deckster.currentUser.set(data);
-				// Deckster.currentUser.signIn({username: username, password: password});
 				Backbone.history.navigate("profile/me", { trigger: true });
 			},
 			error: function(err) {

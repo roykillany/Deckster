@@ -37,11 +37,13 @@ Deckster.Views.footerView = Backbone.View.extend({
 		if(prevModal.length || target.hasClass("modal-close")) {
 			console.log(prevModal);
 			prevModal.addClass("hidden");
+			$("body").removeClass("modal-open");
 			prevModal.unbind("click", this._modalHandler);
 		} else {
 			console.log(modalType);
 			var modal = this.$(".modal." + modalType);
 			modal.removeClass("hidden");
+			$("body").addClass("modal-open");
 			modal.click(this._modalHandler);
 		}
 	},
@@ -51,5 +53,6 @@ Deckster.Views.footerView = Backbone.View.extend({
 			return;
 		}
 		$(".modal:not('.hidden')").addClass("hidden");
+		$("body").removeClass("modal-open");
 	}
 });
