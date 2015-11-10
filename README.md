@@ -9,9 +9,10 @@
 	3. Expand and refine deck editing
 	4. Expand and refine collection editing
 	5. Add profile view
-	6. View other profiles/decks
-	7. Add prices
-	8. ++Blogs/Friends/Likes/Comments
+	6. Make views responsive
+	7. View other profiles/decks
+	8. Add prices
+	9. ++Blogs/Friends/Likes/Comments
 
 ## FEATURES
 	* Facebook OAuth
