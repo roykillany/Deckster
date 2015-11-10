@@ -1,7 +1,7 @@
 class Api::UserSerializer < ActiveModel::Serializer
 	self.root = false
 
-	attributes :id, :username, :profile, :decks, :collection
+	attributes :id, :username, :profile, :collection, :decks
 
 	def profile
 		Api::ProfileSerializer.new(object.profile)

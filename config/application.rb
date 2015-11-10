@@ -16,5 +16,19 @@ module Deckster
     		secret_access_key: ENV["S3_SECRET_ACCESS_KEY"]
     	}
     }
+
+    if ENV["REDISTOGO_URL"]
+      config = Deckster::Application.config
+      uri = URI.parse(URI.encode(ENV["REDISTOGO_URL"]))
+
+      config.cache_store = [
+        :redis_store, {
+          :host => uri.host,
+          :port => uri.port,
+          :password => uri.password,
+          :namespace => "cache"
+        }
+      ]
+    end
   end
 end
