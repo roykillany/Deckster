@@ -24,6 +24,7 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		this.collection = this.model.cards();
 		this.colorDistrib = this.model.get("color_distribution");
 		this.curve = this.model.get("curve");
+		this.landDistrib = this.model.get("land_distribution");
 		this.colors = {
 			"White": "#FFFF66",
 			"Blue": "#0000FF",
@@ -100,6 +101,7 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 				this.$(".view-chart").addClass("active");
 				this._renderColorDistribChart();
 				this._renderCurveChart();
+				this._renderLandDistribChart();
 				break;
 			default:
 				break;
@@ -155,6 +157,37 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 			labels: labels,
 			datasets: [{
 				label: "CMC Distribution",
+				fillColor: "rgba(52, 152, 219, 0.4)",
+				strokeColor: "rgba(32, 122, 182, 0.4)",
+				highlightFill: "rgba(52, 152, 219, 0.8)",
+				highlightStroke: "rgba(32, 122, 182, 0.8)",
+				data: values
+			}]
+		}, options);
+	},
+
+	_renderLandDistribChart: function() {
+		var dataSets = [],
+			labels = [],
+			values = [],
+			context = document.getElementById("land-distrib-" + this.model.id).getContext("2d"),
+			landDistribChart,
+			key,
+			data,
+			options = {
+				// responsive: true,
+				animationEasing: "easeInOutQuint",	
+			};
+
+		for(key in this.landDistrib) {
+			labels.push(key);
+			values.push(this.landDistrib[key]);
+		}
+
+		landDistribChart = new Chart(context).Bar({
+			labels: labels,
+			datasets: [{
+				label: "Land Distribution",
 				fillColor: "rgba(52, 152, 219, 0.4)",
 				strokeColor: "rgba(32, 122, 182, 0.4)",
 				highlightFill: "rgba(52, 152, 219, 0.8)",

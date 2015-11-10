@@ -104,7 +104,14 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 
 	toggleMainNav: function(e) {
 		var nav = this.$(this.ui.mainNav),
-			navIcon = this.$(e.currentTarget);
+			navIcon = this.$(e.currentTarget),
+			hoverCallback = function(e) {
+				console.log("HI", self, this);
+				navIcon.removeClass("active");
+				nav.removeClass("active");
+				content.unbind();
+			},
+			content = $("#content");
 
 		if(nav.hasClass("active")) {
 			nav.removeClass("active");
@@ -112,6 +119,9 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 		} else {
 			nav.addClass("active");
 			navIcon.addClass("active");
+			window.setTimeout(function() {
+				content.hover(hoverCallback);
+			}, 500);
 		}
 	},
 

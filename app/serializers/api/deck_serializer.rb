@@ -1,7 +1,7 @@
 class Api::DeckSerializer < ActiveModel::Serializer
 	self.root = false
 
-	attributes :id, :profile_id, :title, :cards, :avg_cmc, :curve, :color_distribution, :cover_img, :colors
+	attributes :id, :profile_id, :title, :cards, :avg_cmc, :curve, :color_distribution, :cover_img, :colors, :land_distribution
 
 	def cards
 		ActiveModel::ArraySerializer.new(object.cards, { each_serializer: Api::CardSerializer })
@@ -31,5 +31,9 @@ class Api::DeckSerializer < ActiveModel::Serializer
 
 	def colors
 		object.deck_colors
+	end
+
+	def land_distribution
+		object.land_distribution
 	end
 end

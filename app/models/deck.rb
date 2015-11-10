@@ -48,6 +48,13 @@ class Deck < ActiveRecord::Base
 		color_dist
 	end
 
+	def land_distribution
+		total_count = self.cards.length
+		nonland = self.nonland_cards.count
+		land = total_count - nonland
+		{Land: land, Nonland: nonland}
+	end
+
 	def deck_colors
 		self.colors.uniq
 	end
