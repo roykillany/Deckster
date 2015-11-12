@@ -5,7 +5,7 @@
 
 ## TODO
 	1. OPTIMIZE QUERIES (esp. decks/cards)
-	2. Fix S3 endpoint issue
+	2. Fix S3 endpoint issue (DONE)
 	3. Expand and refine deck editing
 	4. Expand and refine collection editing
 	5. Add profile view
