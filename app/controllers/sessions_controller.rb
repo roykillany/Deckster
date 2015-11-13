@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
   end
 
   def guest_login
-    @guest = User.includes(profile: [decks: [cards: [:colors, :card_types]]]).find_by({username: "Guest", id: 1})
+    @guest = User.includes(profile: [decks: [cards: [:colors, :card_types]]]).find(1)
     ActiveRecord::Associations::Preloader.new.preload(@guest, profile: [decks: [cards: [:colors, :card_types]]], collection: [cards: [:colors, :card_types]])
     begin
       log_in(@guest)

@@ -3,7 +3,7 @@
 		<div class="pictures">
 			<% var quant = card.get("quantity"); %>
 			<% for(var i = 0; i < quant; i++) { %>
-				<li class="picture-item"><img src="<%= card.get("image_url") %>" /></li>
+				<li class="picture-item"><img src="<%= card.get('image_url') %>" alt="<%= card.get('quantity') %>" /></li>
 			<% }; %>
 		</div>
 	</ul>

@@ -1,14 +1,42 @@
 .collection-content {
+	padding: 20px 0 90px 0;
 	.collection-pictures {
 		.picture-item-container {
 			display: inline-block;
 			.pictures {
+				width: 223px;
+				height: 310px;
+				padding: 0 0 40px 40px;
 				.picture-item {
 					width: 223px;
 					height: 310px;
-					&:not(:first-child) {
-						position: absolute;
-						margin-top: 310px;
+					position: absolute;
+					transition: transform 0.5s ease;
+					img {
+						border: 1px solid white;
+						border-radius: 12px;
+					}
+					&:nth-child(2) {
+						transform: translate(6px, -6px);
+					}
+					&:nth-child(3) {
+						transform: translate(12px, -12px);
+					}
+					&:nth-child(4) {
+						transform: translate(18px, -18px);
+					}
+				}
+				&.active {
+					.picture-item {
+						&:nth-child(2) {
+							transform:translate(12px, -12px);
+						}
+						&:nth-child(3) {
+						transform: translate(24px, -24px);
+						}
+						&:nth-child(4) {
+							transform: translate(36px, -36px);
+						}
 					}
 				}
 			}
