@@ -89,6 +89,17 @@ Deckster.Views.settingsView = Backbone.CompositeView.extend({
 	},
 
 	flashChanges: function(changes) {
+		var self = this;
 		console.log(changes);
+		changes.forEach(function(el) {
+			console.log(el);
+			this.$("label." + el).addClass("flash-green");
+			this.$("input." + el).addClass("flash-green");
+			window.setTimeout(function() {
+				console.log("hi", this, self);
+				this.$("label." + el).removeClass("flash-green");
+				this.$("input." + el).removeClass("flash-green");
+			}.bind(self), 1000);
+		});
 	}
 });

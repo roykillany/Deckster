@@ -2,6 +2,7 @@
 
 $base-color: #3498db; /* rgb(52, 152, 219) */
 $base-color-dark: #258ACE; /* rgb(37, 138, 206) */
+$base-pos-color: #1aff1a; /* rgb(26, 255, 26) */
 $header-height: 60px;
 $carousel-size: 8px;
 
@@ -38,6 +39,7 @@ $carousel-size: 8px;
 
 .flash-red {
 	color: red;
+	border-color: red !important;
 /*	transition: color 0.4s ease-in-out;
 	-webkit-transition: color 0.4s ease-in-out;
 	-moz-transition: color 0.4s ease-in-out;
@@ -45,7 +47,8 @@ $carousel-size: 8px;
 }
 
 .flash-green {
-	color: green;
+	color: $base-pos-color;
+	border-color: $base-pos-color !important;
 /*	transition: color 0.4s ease-in-out;
 	-webkit-transition: color 0.4s ease-in-out;
 	-moz-transition: color 0.4s ease-in-out;
