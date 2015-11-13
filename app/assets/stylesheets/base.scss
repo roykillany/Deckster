@@ -11,6 +11,7 @@ $carousel-size: 8px;
 	color: white;
 	border-radius: 4px;
 	box-shadow: 0 1px 3px 1px black;
+	display: inline-block;
 	&:hover {
 		cursor: pointer;
 	}
@@ -49,6 +50,25 @@ $carousel-size: 8px;
 	-webkit-transition: color 0.4s ease-in-out;
 	-moz-transition: color 0.4s ease-in-out;
 	-o-transition: color 0.4s ease-in-out;*/
+}
+
+.modal {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	height: 100%;
+}
+
+.modal-close {
+	position: absolute;
+	right: 13px;
+	top: 10px;
+	&:hover {
+		cursor: pointer;
+	}
 }
 
 ::-webkit-scrollbar {

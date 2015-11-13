@@ -22,4 +22,28 @@
 			}
 		}
 	}
+	.password-conf.modal {
+		.content {
+			height: 200px;
+			width: 400px;
+			margin: 0 auto;
+			top: 50%;
+			transform: translateY(-50%);
+			background-color: white;
+			position: relative;
+			padding: 30px;
+			.input {
+				width: 154px;
+				margin: 0 auto;
+				.pass-input {
+					margin: 20px auto 10px;
+					border: 1px solid black;
+				}
+				#confirm-password {
+					margin: 0 calc((100% - 68px)/2);
+					width: 56px;
+				}
+			}
+		}
+	}
 }

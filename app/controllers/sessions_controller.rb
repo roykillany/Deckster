@@ -58,6 +58,11 @@ class SessionsController < ApplicationController
     end
   end
 
+  def confirm_password
+    resp = current_user.is_password?(params[:password])
+    render json: { resp: resp }
+  end
+
   private
   def user_params
     params.require(:user).permit(:username, :password)

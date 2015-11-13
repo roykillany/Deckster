@@ -60,6 +60,22 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 		this.listenTo(this, "change", this.fireSessionEvent);
 	},
 
+	update: function(data, options) {
+		var self = this;
+
+		$.ajax({
+			url: "/api/users/" + self.id,
+			type: "PATCH",
+			data: data,
+			success: function(resp) {
+				options.success && options.success(resp);
+			},
+			error: function(resp) {
+				options.error && options.error(resp);
+			}
+		})
+	},
+
 	isSignedIn: function() {
 		return this.get("signedIn");
 	},

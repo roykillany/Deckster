@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   delete "sessions", to: "sessions#destroy"
   post "fb_auth", to: "sessions#omniauth"
   get "guest", to: "sessions#guest_login"
+  get "confirm_password", to: "sessions#confirm_password"
 end

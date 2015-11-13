@@ -1,19 +1,31 @@
 <h1 class="title">Account Settings</h1>
 
+<% console.log(user) %>
 <div class="form-container">
 	<form id="change-settings">
 		<label class="username" for="username">
 			Username
-			<input class="username" name="user[username]" val="<%= user.escape('username') %>">
+			<input class="username" name="user[username]" value="<%= user.escape('username') %>">
 		</label>
 		<label class="password" for="password">
 			Password
-			<input class="password" name="user[password]" val="">
+			<input class="password" type="password" name="user[password]" value="">
 		</label>
 		<label class="email" for="email">
 			Email
-			<input class="email" name="user[email]" val="<%= user.escape('email')%>">
+			<input class="email" name="user[email]" value="<%= user.escape('email')%>">
 		</label>
 		<div class="deckster-button save-settings">Save Settings</div>
 	</form>
+</div>
+
+<div class="modal password-conf hidden">
+	<div class="content">
+		<i class="fa fa-times modal-close"></i>
+		<div>Please enter your password to confirm your changes:</div>
+		<div class="input">
+			<input class="pass-input" type="password" value=""/>
+			<div class="deckster-button" id="confirm-password">Confirm</div>
+		</div>
+	</div>
 </div>
