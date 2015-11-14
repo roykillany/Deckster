@@ -1,0 +1,28 @@
+@import "base";
+
+.collection {
+	.collection-container {
+		.add-cards {
+			margin-bottom: 90px;
+			.collection-add {
+				#collection-upload {
+					width: 340px;
+					margin: 0 auto;
+					text-align: center;
+					label {
+						font-weight: bold;
+						a {
+							font-weight: initial;
+							font-size: 10px;
+							position: absolute;
+							line-height: 23px;
+							&:hover {
+								color: $base-color;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

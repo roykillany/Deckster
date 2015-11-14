@@ -63,6 +63,16 @@ $carousel-size: 8px;
 	right: 0;
 	background-color: rgba(0, 0, 0, 0.7);
 	height: 100%;
+	.modal-content {
+		position: relative;
+		margin: 0 auto;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 50%;
+		height: 50%;
+		background-color: white;
+		padding: 30px;
+	}
 }
 
 .modal-close {

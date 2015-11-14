@@ -65,5 +65,20 @@ $footer-height: 60px;
 				}
 			}
 		}
+		&.contact {
+			.content {
+				a {
+					display: block;
+					width: 100%;
+					margin-left: 20px;
+					&:hover {
+						font-weight: bold;
+					}
+				}
+				a:nth-child(2) {
+					margin-top: 20px;
+				}
+			}
+		}
 	}
 }

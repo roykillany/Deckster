@@ -159,8 +159,11 @@
 					}
 					.category {
 						padding-bottom: 25px;
-						.count {
-							display: inline-block;
+						.label {
+							font-weight: bold;
+							.count {
+								display: inline-block;
+							}
 						}
 						.card-item {
 							.quant-toggle-container {
