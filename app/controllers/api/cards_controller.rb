@@ -2,13 +2,15 @@ class Api::CardsController < ApplicationController
 	wrap_parameters false
 
 	def create
-		@card = Card.includes(:colors, :card_types).new(card_params)
+		@card = Card.new(card_params)
 
 		begin
 			@card.save!
 			create_dependencies(params[:card][:card_types], params[:card][:colors], @card)
 			render json: Api::CollectionCardSerializer.new(@card)
 		rescue => e
+			p e.message
+			p e.backtrace
 			render json: { err: e.message }, status: 422
 		end
 	end
@@ -16,14 +18,13 @@ class Api::CardsController < ApplicationController
 	private
 
 	def card_params
-		cparams = params.require(:card).permit(:collection_id, :image_url, :name, :mana_cost, :cmc, :rarity, :text, :power, :toughness, :quantity)
+		cparams = params.require(:card).permit(:collection_id, :image_url, :name, :colors, :card_types, :mana_cost, :cmc, :rarity, :text, :power, :toughness, :quantity)
 
 		cparams[:rarity] = cparams[:rarity].capitalize
 		cparams[:rarity] = cparams[:rarity] == "Basic" ? "Common" : cparams[:rarity]
 		cparams[:rarity] = cparams[:rarity] == "Special" ? "Mythic" : cparams[:rarity]
 		cparams[:mana_cost] = cparams[:mana_cost].empty? ? "0" : cparams[:mana_cost].gsub(/\{|\}/, "")
 		cparams[:collection_id] = params[:collection_id]
-
 		cparams
 	end
 

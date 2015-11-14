@@ -13,7 +13,7 @@ Deckster.Views.collectionView = Backbone.CompositeView.extend({
 		this.cards = this.model ? this.model.cards().models : [];
 		this.collectionDetailView = new Deckster.Views.collectionDetail({ collection: this.cards, model: this.model });
 		this.collectionPictureView = new Deckster.Views.collectionPictures({ collection: this.cards, model: this.model });
-		this.collectionAddView = new Deckster.Views.collectionAdd();
+		this.collectionAddView = new Deckster.Views.collectionAdd({ model: this.model });
 
 		this.addSubview(".collection-content", this.collectionDetailView);
 		this.addSubview(".collection-content", this.collectionPictureView);

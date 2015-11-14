@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113224945) do
+ActiveRecord::Schema.define(version: 20151114024706) do
 
   create_table "card_types", force: :cascade do |t|
     t.string   "name",       null: false
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20151113224945) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "card_types",             default: ""
+    t.string   "colors",                 default: ""
   end
 
   add_index "cards", ["cmc"], name: "index_cards_on_cmc"
