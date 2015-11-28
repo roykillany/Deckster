@@ -25,6 +25,18 @@ class Api::DecksController < ApplicationController
 		end
 	end
 
+	def user_decks
+		@decks = Deck.includes(cards: [:colors, :card_types]).where({profile_id: params[:id]})
+		begin
+			render json:  ActiveModel::ArraySerializer.new(@decks, { each_serializer: Api::DeckSerializer })
+		rescue => e
+			p "***decks_user_decks***"
+			p e.message
+			p e.backtrace
+			render json: { error: e.message }, status: 422
+		end
+	end
+
 	def update
 		p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 		p deck_params

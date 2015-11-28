@@ -17,8 +17,10 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 		"click .carousel-indicator": "carouselNav",
 	},
 
-	initialize: function() {
+	initialize: function(opts) {
 		var self = this;
+
+		console.log("decks view", opts);
 
 		this.listenTo(this.collection, "add", this.addDeck);
 		this.collection.each(function(item, idx) {

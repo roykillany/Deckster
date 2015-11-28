@@ -4,6 +4,7 @@ Deckster.Views.collectionDetail = Backbone.CompositeView.extend({
 	className: "collection-detail",
 
 	initialize: function(opts) {
+		console.log("collection_detail", opts);
 	},
 
 	render: function() {

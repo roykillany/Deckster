@@ -6,6 +6,7 @@
 		<td>Type(s)</td>
 		<td>Color(s)</td>
 	</tr>
+	<% console.log(cards); %>
 	<% cards.each(function(card) { %>
 		<% var parsedCost = card.get("mana_cost"); %>
 		<tr class="table-item" data-id="<%= card.id %>">

@@ -49,6 +49,7 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 	},
 
 	render: function() {
+		console.log(this.model);
 		var content = this.template({
 				deck: this.model,
 				idx: this.idx,

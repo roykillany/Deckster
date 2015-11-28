@@ -1,6 +1,18 @@
 class Api::CollectionsController < ApplicationController
 	wrap_parameters false
 
+	def show
+		@collection = Collection.includes(cards: [:colors, :card_types]).find_by({profile_id: params[:id]})
+		begin
+			render json: Api::CollectionSerializer.new(@collection)
+		rescue => e
+			p "***collections_show***"
+			p e.message
+			p e.backtrace
+			render json: { error: e.message }, status: 422
+		end
+	end
+
 	def create
 		card_types = {}
 		colors = {}

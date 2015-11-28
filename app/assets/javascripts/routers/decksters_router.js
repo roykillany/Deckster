@@ -52,10 +52,8 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		if(!this._requireSignedIn(callback)) { return; };
 
 		var profile = Deckster.currentUser.profile(),
-			decks = Deckster.currentUser.decks(),
 			ownProfileView = new Deckster.Views.profileView({
 				model: profile,
-				collection: decks
 			});
 
 		this._swapView(ownProfileView);
@@ -64,13 +62,15 @@ Deckster.Routers.Router = Backbone.Router.extend({
 	ownDeckViewNav: function() {
 		var callback = this.ownDeckViewNav.bind(this);
 		if(!this._requireSignedIn(callback)) { return; };
-	
-		var decks = Deckster.currentUser.decks(),
-			ownDeckView = new Deckster.Views.deckView({
+
+		Deckster.currentUser.fetchDecks(function(decks) {
+			console.log(decks);
+			var ownDeckView = new Deckster.Views.deckView({
 				collection: decks
 			});
 
-		this._swapView(ownDeckView);
+			Deckster.router._swapView(ownDeckView);
+		});
 	},
 
 	addDeckNav: function() {
@@ -89,12 +89,13 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		var callback = this.ownCollectionView.bind(this);
 		if(!this._requireSignedIn(callback)) { return; };
 
-		var collection = Deckster.currentUser.collection(),
-			collectionView = new Deckster.Views.collectionView({
-				model: collection 
+		Deckster.currentUser.fetchCollection(function(collection) {
+			var collectionView = new Deckster.Views.collectionView({
+				model: collection
 			});
 
-		this._swapView(collectionView);
+			Deckster.router._swapView(collectionView);
+		});
 	},
 
 	individualDeckViewNav: function(id) {
@@ -105,8 +106,7 @@ Deckster.Routers.Router = Backbone.Router.extend({
 			console.log(id);
 		}
 
-		console.log("WHAT", id, Deckster.currentUser.decks());
-		console.log(window.location.href);
+		console.log(Deckster.currentUser);
 
 		var deck = Deckster.currentUser.decks().get(id),
 			idx = Deckster.currentUser.decks().indexOf(deck),
