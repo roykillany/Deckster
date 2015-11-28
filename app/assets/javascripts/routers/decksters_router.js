@@ -63,7 +63,7 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		var callback = this.ownDeckViewNav.bind(this);
 		if(!this._requireSignedIn(callback)) { return; };
 
-		Deckster.currentUser.fetchDecks(function(decks) {
+		Deckster.currentUser.getOrFetchDecks(function(decks) {
 			console.log(decks);
 			var ownDeckView = new Deckster.Views.deckView({
 				collection: decks
@@ -89,7 +89,7 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		var callback = this.ownCollectionView.bind(this);
 		if(!this._requireSignedIn(callback)) { return; };
 
-		Deckster.currentUser.fetchCollection(function(collection) {
+		Deckster.currentUser.getOrFetchCollection(function(collection) {
 			var collectionView = new Deckster.Views.collectionView({
 				model: collection
 			});

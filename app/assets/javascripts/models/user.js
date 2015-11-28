@@ -146,30 +146,37 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 		});
 	},
 
-	fetchCollection: function(cb) {
+	getOrFetchCollection: function(cb) {
 		var self = this;
 
-		$.ajax({
-			url: "/api/collections/" + self.get("profile").id,
-			type: "GET",
-			success: function(resp) {
-				self.set({collection: new Deckster.Models.Collection(resp)});
-				cb && cb(self.get("collection"));
-			}
-		});
+		if(self.get("collection")) {
+			cb && cb(self.get("collection"));
+		} else {
+			$.ajax({
+				url: "/api/collections/" + self.get("profile").id,
+				type: "GET",
+				success: function(resp) {
+					self.set({collection: new Deckster.Models.Collection(resp)});
+					cb && cb(self.get("collection"));
+				}
+			});
+		}
 	},
 
-	fetchDecks: function(cb) {
+	getOrFetchDecks: function(cb) {
 		var self = this;
-
-		$.ajax({
-			url: "/api/user_decks/" + self.get("profile").id,
-			type: "GET",
-			success: function(resp) {
-				self.set({decks: new Deckster.Collections.Deck(resp)});
-				cb && cb(self.get("decks"));
-			}
-		});
+		if(self.get("decks")) {
+			cb && cb(self.get("decks"));
+		} else {
+			$.ajax({
+				url: "/api/user_decks/" + self.get("profile").id,
+				type: "GET",
+				success: function(resp) {
+					self.set({decks: new Deckster.Collections.Deck(resp)});
+					cb && cb(self.get("decks"));
+				}
+			});
+		}
 	},
 
 	fireSessionEvent: function() {
