@@ -26,25 +26,32 @@
 	<div id="construction">SITE STILL UNDER CONSTRUCTION</div>
 <% } %>
 
-
-
-<div id="logout" class="in">
-	<a class="btn" id="out-btn" href="#out-btn">Sign Out</a>
-</div>
-
-<div id="signin" class="out">
-	<div class="content">
-		<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false" data-onlogin="getUserDetails"></div>
-		<label class="username" for="username">
-			<input class="username" type="text" name="user[username]" value="" placeholder="username">
-			<div class="errors"></div>
-		</label>
-		<label class="password" for="password">
-			<input class="password" type="password" name="user[password]" value="" placeholder="password">
-			<div class="errors"></div>
-		</label>
+<div class="right">
+	<div id="main-search-container">
+		<input id="main-search" placeholder="Search for cards"/>
+		<div class="search-preview hidden"></div>
+		<ul class="list hidden">
+		</ul>
 	</div>
-	<a class="btn" id="in-btn" href="#in-btn">Sign In</a>
+
+	<div id="logout" class="in">
+		<a class="btn" id="out-btn" href="#out-btn">Sign Out</a>
+	</div>
+
+	<div id="signin" class="out">
+		<div class="content">
+			<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false" data-onlogin="getUserDetails"></div>
+			<label class="username" for="username">
+				<input class="username" type="text" name="user[username]" value="" placeholder="username">
+				<div class="errors"></div>
+			</label>
+			<label class="password" for="password">
+				<input class="password" type="password" name="user[password]" value="" placeholder="password">
+				<div class="errors"></div>
+			</label>
+		</div>
+		<a class="btn" id="in-btn" href="#in-btn">Sign In</a>
+	</div>
 </div>
 
 <script>

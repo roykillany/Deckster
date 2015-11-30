@@ -20,10 +20,16 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 		"click .main-nav-icon": "toggleMainNav",
 		"mouseenter .nav-item": "toggleNavItemResp",
 		"mouseleave .nav-item": "toggleNavItemResp",
+		"keyup #main-search": "searchCards",
+		"blur #main-search": "toggleSearchRes",
+		"focus #main-search": "toggleSearchRes",
+		"mouseenter .search-item": "toggleSearchItemPrev",
+		"mouseleave .search-item": "toggleSearchItemPrev"
 	},
 
 	initialize: function() {
 		this.listenTo(this.model, "sync change", this.render);
+		this.searchItems = [];
 	},
 
 	render: function() {
@@ -135,4 +141,69 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 			navItem.removeClass("active");
 		}
 	},
+
+	searchCards: function(e) {
+		var searchItem = this.$(e.currentTarget).val()
+			self = this,
+			searchResults = self.$("#main-search-container .list");
+
+		console.log(searchItem);
+
+		if(searchItem !== "") {
+			$.ajax({
+				url: "https://api.deckbrew.com/mtg/cards/typeahead",
+				type: "GET",
+				data: { q: searchItem },
+				success: function(resp) {
+					if(resp.length > 0) {
+						self.searchItems = resp;
+						searchResults.removeClass("hidden").empty();
+						resp.forEach(function(el) {
+							searchResults.append("<li class='search-item' data-id='" + el.id + "'>" + el.name + "</li>");
+						});
+					}
+				}
+			});
+		} else {
+			searchResults.addClass("hidden");
+		}
+	},
+
+	toggleSearchRes: function(e) {
+		var searchResults = self.$("#main-search-container .list");
+		if(searchResults.hasClass("hidden")) {
+			searchResults.removeClass("hidden");
+		} else {
+			searchResults.addClass("hidden");
+		}
+	},
+
+	toggleSearchItemPrev: function(e) {
+		var searchResPrev = this.$(".search-preview"),
+			searchItemId = $(e.currentTarget).data("id"),
+			eventType = e.type,
+			prevImage = this.findPrevImg(searchItemId);
+
+		if(eventType === "mouseenter") {
+			searchResPrev.removeClass("hidden").html("<img src='" + prevImage + "'></img>");
+		} else {
+			searchResPrev.addClass("hidden");
+		}
+	},
+
+	findPrevImg: function(itemId) {
+		var target = this.searchItems.filter(function(item) {
+				return item.id === itemId;
+			}),
+			editions = target[0].editions.filter(function(ed) {
+				if(ed["multiverse_id"] === 0) {
+					return false;
+				} else {
+					return true;
+				}
+			}),
+			edition = editions[editions.length - 1];
+
+		return edition["image_url"];
+	}
 });

@@ -18,7 +18,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 		"keyup #list-upload": "updateCardCount",
 		"keyup .card-search": "cardTypeahead",
 		"click .card-search": "toggleSearchResults",
-		// "blur .card-search": "toggleSearchResults",
 		"scroll .search-dropdown": "adjustFullImgPos",
 		"click .search-dropdown .item": "addCard",
 		"click .show-format": "toggleFormattingModal",
@@ -64,8 +63,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			view.remove();
 		});
 
-		// if(!e.target.value.match(/^([a-z])/)) {return;}
-
 		if(value !== "") {
 			$.ajax({
 				url: "https://api.deckbrew.com/mtg/cards/typeahead",
@@ -73,14 +70,11 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 				dataType: "json",
 				data: { q: value },
 				success: function(resp) {
-					// dropdown.addClass("active");
-					console.log("YES");
 					self._generateDropdown(resp);
 				}
 			});
 		} else {
 			this.$(this.ui.cardSearch).click();
-			// dropdown.removeClass("active");
 		}
 	},
 
@@ -131,7 +125,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 
 		$.when.apply($, promises)
 			.done(function() {
-				console.log(list);
 				callback(cards.filter(self._filterErrors), title, self);
 			}).fail(function() {});
 	},
@@ -148,7 +141,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 	},
 
 	_saveDeck: function(cards, title, view) {
-		console.log("SAVING", this, cards, view.model);
 		var deck = new Deckster.Models.Deck(),
 			params = { deck: {
 					cards_attributes: cards,
@@ -158,8 +150,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 				}
 			},
 			self = view;
-
-		console.log("FINAL CARDS", params);
 
 		if(self.hasErrors()) {
 			self.highlightErrors();
@@ -201,7 +191,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 	},
 
 	_filterErrors: function(card) {
-		console.log(card);
 		if(card.get("cmc") === undefined) {
 			return false;
 		} else {
@@ -220,7 +209,6 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 				});
 
 			self.addSubview(".search-dropdown", itemView);
-			// self.attachSubview(".search-dropdown", itemView, "append");
 		});
 
 		self.$(self.ui.cardSearch).click();
@@ -234,28 +222,16 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			target = this.$(e.target),
 			handler = function(e) {
 				e.stopPropagation();
-				console.log("handled");
-				// dropdown.removeClass("active");
 				if($(e.target).hasClass("card-search") || $(e.target).hasClass("item") || $(e.target).hasClass("thumb")) {
-					console.log("NOT IT", e.target);
 					return;
 				} else {
 					dropdown.removeClass("active");
 					$(this).unbind("click", handler);
 				}
-				console.log(e);
-				console.log(e.target);
-				console.log(e.currentTarget);
-				console.log(this);
-				console.log(self);
 			};
-
-		console.log("HI", e, type == "focusin", !empty, !dropdown.hasClass("active"));
 		
 		if(!empty) {
-			console.log("IN", type, target);
 			dropdown.addClass("active");
-
 			$("body").click(handler);
 		}
 	},
@@ -334,21 +310,16 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			newVal,
 			newTarget;
 
-			console.log("ADDCARD", cardName, target);
-
 		if(target) {
 			target = target[0]
 			newVal = parseInt(target.match(/^(\d+)/)[0]) + 1;
 			newTarget = target.replace(/^(\d+)/, newVal.toString());
 			uploadArea.val(uploadArea.val().replace(regexp, newTarget));
-			console.log("BYE", target, newTarget, newVal);
 		} else {
 			if(uploadArea.val()) {
-				console.log("1", uploadArea, uploadArea.val(), cardName);
 				newVal = "\n1 " + cardName + "";
 				uploadArea.val(uploadArea.val() + newVal);
 			} else {
-				console.log("2");
 				newVal = "1 " + cardName + "";
 				uploadArea.append(newVal);
 			}

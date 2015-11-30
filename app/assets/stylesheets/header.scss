@@ -19,6 +19,48 @@
 		.out {
 			display: none;
 		}
+		.right {
+			float: right;
+			height: 100%;
+			#main-search-container {
+				float: left;
+				height: 100%;
+				#main-search {
+					top: 50%;
+					transform: translateY(-50%);
+					position: relative;
+					border: 1px solid white;
+					padding: 5px 26px 5px 5px;
+				}
+				.search-preview {
+					position: absolute;
+					width: 230px;
+					height: 320px;
+					top: 60px;
+					right: 337px;
+					background-color: black;
+					img {
+						height: 100%;
+						border-radius: 12px;
+					}
+				}
+				.list {
+					position: absolute;
+					top: 60px;
+					width: 235px;
+					background-color: black;
+					padding: 15px;
+					height: 290px;
+					margin-left: -40px;
+					.search-item {
+						padding: 5px;
+						&:hover {
+							cursor: pointer;
+						}
+					}
+				}
+			}
+		}
 		#construction {
 			float: left;
 			position: relative;
