@@ -165,13 +165,14 @@ Deckster.Views.headerView = Backbone.CompositeView.extend({
 				}
 			});
 		} else {
-			searchResults.addClass("hidden");
+			searchResults.empty().addClass("hidden");
 		}
 	},
 
 	toggleSearchRes: function(e) {
-		var searchResults = self.$("#main-search-container .list");
-		if(searchResults.hasClass("hidden")) {
+		var searchResults = self.$("#main-search-container .list"),
+			searchInputVal = self.$("#main-search").val();
+		if(searchResults.hasClass("hidden") && searchInputVal !== "") {
 			searchResults.removeClass("hidden");
 		} else {
 			searchResults.addClass("hidden");
