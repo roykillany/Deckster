@@ -28,7 +28,7 @@ class Card < ActiveRecord::Base
 	accepts_nested_attributes_for :join_super_types, :allow_destroy => true
 
 	def color_identity
-		self.colors.pluck(:name)
+		self.colors.pluck(:name).uniq
 	end
 
 	def image_from_url
