@@ -149,7 +149,8 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 					key_card: view.$("input.key-card").val()
 				}
 			},
-			self = view;
+			self = view,
+			currUser = Deckster.currentUser;
 
 		if(self.hasErrors()) {
 			self.highlightErrors();
@@ -158,7 +159,11 @@ Deckster.Views.addDeckView = Backbone.CompositeView.extend({
 			deck.save(params, {
 				success: function(resp) {
 					Pace.restart();
-					Deckster.currentUser.decks().add(deck);
+					if(currUser.get("decks") && !currUser.decks().find({id: resp.id})) {
+						currUser.get("decks").push(deck);
+					} else if(!currUser.get("decks")) {
+						currUser.set({decks: [deck]});
+					}
 					self.navToDecks();
 				}
 			});

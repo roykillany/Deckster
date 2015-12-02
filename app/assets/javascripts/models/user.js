@@ -181,10 +181,11 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 	},
 
 	getOrFetchDeck: function(id, cb) {
+
 		var self = this,
 			deck = self.decks().find({id: id});
 
-		if(self.decks().find({id: id})){
+		if(deck){
 			cb && cb(deck);
 		} else {
 			$.ajax({

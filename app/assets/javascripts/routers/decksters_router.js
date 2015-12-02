@@ -106,7 +106,7 @@ Deckster.Routers.Router = Backbone.Router.extend({
 
 		var self = this;
 
-		Deckster.currentUser.getOrFetchDeck(id, function(deck) {
+		Deckster.currentUser.getOrFetchDeck(parseInt(id), function(deck) {
 			var deckItemView = new Deckster.Views.deckItemView({
 				model: deck
 			});
