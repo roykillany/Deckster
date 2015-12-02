@@ -1,6 +1,19 @@
 class Api::DecksController < ApplicationController
 	wrap_parameters false
 
+	def show
+		@deck = Deck.includes(cards: [:colors, :card_types]).find(params[:id])
+
+		begin
+			render json: Api::DeckSerializer.new(@deck)
+		rescue => e
+			p "***deck show***"
+			p e.message
+			p e.backtrace
+			render json: { error: e.message }, status: 404
+		end
+	end
+
 	def create
 		card_types = {}
 		colors = {}

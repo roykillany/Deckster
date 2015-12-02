@@ -17,7 +17,6 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 
 	initialize: function(opts) {
 		console.log("DECK ITEM VIEW", opts);
-		this.idx = opts.idx;
 		this.categories = ["creature", "non-creature", "land"];
 		this.counts = {};
 		this.model.cards().each(this._categorizeCard.bind(this));
@@ -52,7 +51,6 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		console.log(this.model);
 		var content = this.template({
 				deck: this.model,
-				idx: this.idx,
 				counts: this.counts
 			}),
 			self = this;

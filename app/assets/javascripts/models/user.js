@@ -25,7 +25,7 @@ Deckster.Models.User = Backbone.Model.extend({
 
 	decks: function() {
 		console.log("user", this);
-		if(!this._decks) {
+		if(!this._decks && this.get("decks")) {
 			var decks = this.get("decks").map(function(deck) {
 				console.log(deck);
 				var cards = deck._cards;
@@ -34,6 +34,10 @@ Deckster.Models.User = Backbone.Model.extend({
 				return deck;
 			});
 			this._decks = new Deckster.Collections.Deck(decks, {
+				user: this
+			});
+		} else {
+			this._decks = new Deckster.Collections.Deck([], {
 				user: this
 			});
 		}
@@ -158,6 +162,26 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 				success: function(resp) {
 					self.set({collection: new Deckster.Models.Collection(resp)});
 					cb && cb(self.get("collection"));
+				}
+			});
+		}
+	},
+
+	getOrFetchDeck: function(id, cb) {
+		var self = this,
+			deck = self.decks().find({id: id});
+
+		if(deck){
+			cb && cb(deck);
+		} else {
+			$.ajax({
+				url: "/api/decks/" + id,
+				type: "GET",
+				success: function(resp) {
+					var deck = new Deckster.Models.Deck(resp);
+					self.decks().add(deck);
+					console.log(self.decks());
+					cb && cb(deck);
 				}
 			});
 		}

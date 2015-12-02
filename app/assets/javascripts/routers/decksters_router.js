@@ -103,21 +103,16 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		if(!this._requireSignedIn(callback)) { return; };
 		if(typeof id === "undefined") {
 			id = window.location.href.match(/\/(\d+)$/)[1];
-			console.log(id);
 		}
 
-		console.log(Deckster.currentUser);
+		var self = this;
 
-		var deck = Deckster.currentUser.decks().get(id),
-			idx = Deckster.currentUser.decks().indexOf(deck),
-			deckItemView = new Deckster.Views.deckItemView({
-				model: deck,
-				idx: idx
+		Deckster.currentUser.getOrFetchDeck(id, function(deck) {
+			var deckItemView = new Deckster.Views.deckItemView({
+				model: deck
 			});
-
-		console.log(deck);
-
-		this._swapView(deckItemView);
+			this._swapView(deckItemView);
+		}.bind(self));
 	},
 
 	_requireSignedIn: function(callback) {
