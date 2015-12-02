@@ -6,8 +6,6 @@ Deckster.Models.Deck = Backbone.Model.extend({
 			count,
 			i;
 
-		console.log(resp);
-
 		if(resp.cards) {
 			count = resp.cards.length,
 			i = 0;
@@ -20,19 +18,16 @@ Deckster.Models.Deck = Backbone.Model.extend({
 	},
 
 	cards: function(data) {
-		console.log("y", this, data);
 		var self = this;
 		if(!this._cards) {
 			this._cards = new Deckster.Collections.Card();
 
 			if(data === undefined) {
 				this.get("cards").forEach(function(el) {
-					console.log("first", el);
 					self._cards.add(new Deckster.Models.Card(el));
 				});
 			} else {
 				data.forEach(function(el) {
-					console.log("second", el);
 					self._cards.add(el);
 				});
 			}
@@ -71,19 +66,14 @@ Deckster.Models.Deck = Backbone.Model.extend({
 			},
 			self = this;
 
-		console.log(data);
-		console.log(data.deck.cards_attributes);
-
 		$.ajax({
 			url: self.urlRoot + "/" + self.id,
 			type: "PATCH",
 			data: data,
 			success: function(resp) {
-				console.log("UPDATED", resp);
 				callback(resp);
 			},
 			error: function(err) {
-				console.log("ERROR", err)
 			}
 		});
 	}

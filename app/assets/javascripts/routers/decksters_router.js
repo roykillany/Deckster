@@ -64,7 +64,6 @@ Deckster.Routers.Router = Backbone.Router.extend({
 		if(!this._requireSignedIn(callback)) { return; };
 
 		Deckster.currentUser.getOrFetchDecks(function(decks) {
-			console.log(decks);
 			var ownDeckView = new Deckster.Views.deckView({
 				collection: decks
 			});

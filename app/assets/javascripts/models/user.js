@@ -25,7 +25,24 @@ Deckster.Models.User = Backbone.Model.extend({
 
 	decks: function() {
 		console.log("user", this);
-		if(!this._decks && this.get("decks")) {
+		if(!this._decks) {
+			if (this.get("decks")) {
+				var decks = this.get("decks").map(function(deck) {
+					console.log(deck);
+					var cards = deck._cards;
+				
+					deck.cards(cards);
+					return deck;
+				});
+				this._decks = new Deckster.Collections.Deck(decks, {
+					user: this
+				});
+			} else {
+				this._decks = new Deckster.Collections.Deck([], {
+					user: this
+				});
+			}
+		} else if(this.get("decks")) {
 			var decks = this.get("decks").map(function(deck) {
 				console.log(deck);
 				var cards = deck._cards;
@@ -34,10 +51,6 @@ Deckster.Models.User = Backbone.Model.extend({
 				return deck;
 			});
 			this._decks = new Deckster.Collections.Deck(decks, {
-				user: this
-			});
-		} else {
-			this._decks = new Deckster.Collections.Deck([], {
 				user: this
 			});
 		}
@@ -171,7 +184,7 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 		var self = this,
 			deck = self.decks().find({id: id});
 
-		if(deck){
+		if(self.decks().find({id: id})){
 			cb && cb(deck);
 		} else {
 			$.ajax({
@@ -179,8 +192,11 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 				type: "GET",
 				success: function(resp) {
 					var deck = new Deckster.Models.Deck(resp);
-					self.decks().add(deck);
-					console.log(self.decks());
+					if(self.get("decks") && !self.decks().find({id: resp.id})) {
+						self.get("decks").push(deck);
+					} else if(!self.get("decks")) {
+						self.set({decks: [deck]});
+					}
 					cb && cb(deck);
 				}
 			});
@@ -190,14 +206,14 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 	getOrFetchDecks: function(cb) {
 		var self = this;
 		if(self.get("decks")) {
-			cb && cb(self.get("decks"));
+			cb && cb(self.decks());
 		} else {
 			$.ajax({
 				url: "/api/user_decks/" + self.get("profile").id,
 				type: "GET",
 				success: function(resp) {
 					self.set({decks: new Deckster.Collections.Deck(resp)});
-					cb && cb(self.get("decks"));
+					cb && cb(self.decks());
 				}
 			});
 		}
