@@ -20,6 +20,8 @@ class Deck < ActiveRecord::Base
 	has_many :colors, through: :cards
 	belongs_to :profile
 
+	after_save :create_cover_image
+
 	accepts_nested_attributes_for :cards, :allow_destroy => true
 
 	COLORS = ["White", "Blue", "Black", "Red", "Green"]
@@ -62,5 +64,18 @@ class Deck < ActiveRecord::Base
 
 	def deck_colors
 		self.colors.uniq
+	end
+
+	def create_cover_image
+		return unless self.temp_cov_img.nil?
+		kc = self.cards.select { |c| c.name == self.key_card }[0]
+
+		unless kc.nil?
+			cover_image = kc.image_url
+		else
+			cover_image = "https://s3.amazonaws.com/decksterdev/defaults/200px-Magic_card_back.jpg"
+		end
+
+		self.update!({temp_cov_img: cover_image})
 	end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114024706) do
+ActiveRecord::Schema.define(version: 20151202180504) do
 
   create_table "card_types", force: :cascade do |t|
     t.string   "name",       null: false
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20151114024706) do
     t.integer  "cover_image_file_size"
     t.datetime "cover_image_updated_at"
     t.string   "key_card"
+    t.string   "temp_cov_img"
   end
 
   add_index "decks", ["key_card"], name: "index_decks_on_key_card"

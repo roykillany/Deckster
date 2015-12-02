@@ -69,6 +69,15 @@ div.decks-inventory {
 							-ms-transition: transform 1s ease;
 							-o-transition: transform 1s ease;
 						}
+						i {
+							width: 200px;
+							display: none;
+							text-align: center;
+							position: absolute;
+							&:hover {
+								color: $base-color;
+							}
+						}
 						&:hover {
 							cursor: pointer;
 							.name {
@@ -97,6 +106,9 @@ div.decks-inventory {
 								-moz-transition: transform 1s ease;
 								-ms-transition: transform 1s ease;
 								-o-transition: transform 1s ease;
+							}
+							i {
+								display: block;
 							}
 						}
 					}

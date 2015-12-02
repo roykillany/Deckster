@@ -8,13 +8,14 @@ class Api::DeckSerializer < ActiveModel::Serializer
 	end
 
 	def cover_img
-		kc = object.cards.select { |c| c.name == object.key_card }[0]
+		object.temp_cov_img
+		# kc = object.cards.select { |c| c.name == object.key_card }[0]
 
-		unless kc.nil?
-			kc.image_url
-		else
-			"https://s3.amazonaws.com/decksterdev/defaults/200px-Magic_card_back.jpg"
-		end
+		# unless kc.nil?
+		# 	kc.image_url
+		# else
+		# 	"https://s3.amazonaws.com/decksterdev/defaults/200px-Magic_card_back.jpg"
+		# end
 	end
 
 	def colors
