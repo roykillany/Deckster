@@ -42,13 +42,17 @@ Deckster.Models.Deck = Backbone.Model.extend({
 	},
 
 	getOrFetchChartData: function(callback) {
-		$.ajax({
-			url: "/api/chart_info/" + this.id,
-			type: "GET",
-			success: function(resp) {
-				callback && callback(resp);
-			}
-		})
+		if(this.get("color_distribution")) {
+			callback && callback(this);
+		} else {
+			$.ajax({
+				url: "/api/chart_info/" + this.id,
+				type: "GET",
+				success: function(resp) {
+					callback && callback(resp);
+				}
+			});
+		}
 	},
 
 	updateCards: function(cards) {
