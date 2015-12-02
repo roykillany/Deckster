@@ -64,8 +64,6 @@ class Api::DecksController < ApplicationController
 	end
 
 	def update
-		p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-		p deck_params
 		@deck = Deck.includes(cards: [:colors, :card_types]).find(params[:id])
 		begin
 			@deck.update(deck_params)
@@ -92,8 +90,6 @@ class Api::DecksController < ApplicationController
 				param[:rarity] = param[:rarity] == "Basic" ? "Common" : param[:rarity]
 				param[:rarity] = param[:rarity] == "Special" ? "Mythic" : param[:rarity]
 				param[:mana_cost] = param[:mana_cost].empty? ? "0" : param[:mana_cost].gsub(/\{|\}/, "")
-				p "((((((((((((((((((((((((("
-				p param[:rarity]
 			end
 		end
 
