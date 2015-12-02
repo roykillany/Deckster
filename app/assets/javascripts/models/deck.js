@@ -41,6 +41,16 @@ Deckster.Models.Deck = Backbone.Model.extend({
 		return this._cards;
 	},
 
+	getOrFetchChartData: function(callback) {
+		$.ajax({
+			url: "/api/chart_info/" + this.id,
+			type: "GET",
+			success: function(resp) {
+				callback && callback(resp);
+			}
+		})
+	},
+
 	updateCards: function(cards) {
 		this.set({cards: cards.models});
 	},

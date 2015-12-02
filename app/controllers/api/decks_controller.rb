@@ -10,7 +10,6 @@ class Api::DecksController < ApplicationController
 		end
 
 		@deck = Deck.includes(cards: [:colors, :card_types]).create(deck_params)
-		ActiveRecord::Associations::Preloader.new.preload(@deck, cards: [:colors, :card_types])
 
 		create_dependencies(card_types, colors, @deck.cards)
 
@@ -26,7 +25,8 @@ class Api::DecksController < ApplicationController
 	end
 
 	def user_decks
-		@decks = Deck.includes(cards: [:colors, :card_types]).where({profile_id: params[:id]})
+		@decks = Deck.where({profile_id: params[:id]})
+		ActiveRecord::Associations::Preloader.new.preload(@decks, cards: [:colors, :card_types])
 		begin
 			render json:  ActiveModel::ArraySerializer.new(@decks, { each_serializer: Api::DeckSerializer })
 		rescue => e
@@ -37,11 +37,23 @@ class Api::DecksController < ApplicationController
 		end
 	end
 
+	def chart_info
+		@deck = Deck.includes(cards: [:colors, :card_types]).find(params[:id])
+
+		begin
+			render json: Api::DeckChartSerializer.new(@deck)
+		rescue => e
+			p "***chart_info***"
+			p e.message
+			p e.backtrace
+			render json: { error: e.message }, status: 404
+		end
+	end
+
 	def update
 		p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 		p deck_params
 		@deck = Deck.includes(cards: [:colors, :card_types]).find(params[:id])
-		ActiveRecord::Associations::Preloader.new.preload(@deck, cards: [:colors, :card_types])
 		begin
 			@deck.update(deck_params)
 			@deck.save

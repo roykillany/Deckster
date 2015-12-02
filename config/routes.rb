@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api, default: { format: :json } do
     get "curr_user", to: "users#curr_user"
     get "user_decks/:id", to: "decks#user_decks"
+    get "chart_info/:id", to: "decks#chart_info"
     resources :users
     resources :decks
     resources :collections

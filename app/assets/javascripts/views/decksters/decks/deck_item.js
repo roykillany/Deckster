@@ -22,9 +22,9 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 		this.counts = {};
 		this.model.cards().each(this._categorizeCard.bind(this));
 		this.collection = this.model.cards();
-		this.colorDistrib = this.model.get("color_distribution");
-		this.curve = this.model.get("curve");
-		this.landDistrib = this.model.get("land_distribution");
+		// this.colorDistrib = this.model.get("color_distribution");
+		// this.curve = this.model.get("curve");
+		// this.landDistrib = this.model.get("land_distribution");
 		this.colors = {
 			"White": "#FFFF66",
 			"Blue": "#0000FF",
@@ -84,7 +84,8 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 	},
 
 	toggleDeckView: function(e) {
-		var viewType = this.$(e.currentTarget).data("view");
+		var viewType = this.$(e.currentTarget).data("view")
+			self = this;
 
 		switch(viewType) {
 			case "deck":
@@ -95,14 +96,20 @@ Deckster.Views.deckItemView = Backbone.CompositeView.extend({
 				this.$(this.ui.imageBox).removeClass("hidden");
 				break;
 			case "charts":
-				this.$(".chart-container").removeClass("hidden");
-				this.$(".content-container").addClass("hidden");
-				this.$(this.ui.imageBox).addClass("hidden");
-				this.$(".view-deck").removeClass("active");
-				this.$(".view-chart").addClass("active");
-				this._renderColorDistribChart();
-				this._renderCurveChart();
-				this._renderLandDistribChart();
+				this.model.getOrFetchChartData(function(resp) {
+					this.model.set(resp);
+					this.colorDistrib = this.model.get("color_distribution");
+					this.curve = this.model.get("curve");
+					this.landDistrib = this.model.get("land_distribution");
+					this.$(".chart-container").removeClass("hidden");
+					this.$(".content-container").addClass("hidden");
+					this.$(this.ui.imageBox).addClass("hidden");
+					this.$(".view-deck").removeClass("active");
+					this.$(".view-chart").addClass("active");
+					this._renderColorDistribChart();
+					this._renderCurveChart();
+					this._renderLandDistribChart();
+				}.bind(self));
 				break;
 			default:
 				break;
