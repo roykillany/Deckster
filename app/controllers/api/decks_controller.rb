@@ -77,6 +77,19 @@ class Api::DecksController < ApplicationController
 		end
 	end
 
+	def destroy
+		@deck = Deck.find(params[:id])
+		begin
+			@deck.destroy!
+			render json: { id: params[:id] }
+		rescue => e
+			p "***destroy***"
+			p e.message
+			p e.backtrace
+			render json: { error: e.message }, status: 422
+		end
+	end
+
 	private
 
 	def deck_params

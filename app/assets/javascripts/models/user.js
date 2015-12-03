@@ -220,6 +220,18 @@ Deckster.Models.CurrentUser = Deckster.Models.User.extend({
 		}
 	},
 
+	deleteDeck: function(id, cb) {
+		var self = this;
+		$.ajax({
+			url: "/api/decks/" + id,
+			type: "DELETE",
+			success: function(resp) {
+				self.decks().remove(resp);
+				cb && cb(resp);
+			}
+		});
+	},
+
 	fireSessionEvent: function() {
 		if(this.isSignedIn()) {
 			this.trigger("signIn");

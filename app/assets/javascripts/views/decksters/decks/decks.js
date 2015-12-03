@@ -15,14 +15,17 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 		"click .decks-nav .deck-item": "showDeck",
 		"click .deck-img-container": "navToDeckView",
 		"click .carousel-indicator": "carouselNav",
+		"click .deck-img-container i": "toggleDeleteConfModal",
+		"click .modal-close": "toggleDeleteConfModal",
+		"click .delete-deck": "deleteDeck"
 	},
 
 	initialize: function(opts) {
 		var self = this;
 
-		console.log("decks view", opts);
-
+		this.subviewSelector = ".decks-container";
 		this.listenTo(this.collection, "add", this.addDeck);
+		this.listenTo(this.collection, "remove", this.removeDeck);
 		this.collection.each(function(item, idx) {
 			self.addDeck(item, idx);
 		});
@@ -48,7 +51,7 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 			model: deck,
 			idx: idx
 		});
-		this.addSubview(".decks-container", deckItemView);
+		this.addSubview(this.subviewSelector, deckItemView);
 	},
 
 	render: function() {
@@ -65,7 +68,6 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 	},
 
 	toggleDeckNav: function(e) {
-		console.log(e);
 		var target = $(e.currentTarget),
 			deckNav = this.$(this.ui.deckNav),
 			showNavBtn = this.$(this.ui.showNavBtn),
@@ -146,6 +148,7 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 	},
 
 	navToDeckView: function(e) {
+		if($(e.target).is("i")) {return;};
 		var id = $(e.currentTarget).parent().data("id");
 
 		Backbone.history.navigate("decks/" + id, { trigger: true });
@@ -175,5 +178,40 @@ Deckster.Views.deckView = Backbone.CompositeView.extend({
 				targetContainer.removeClass("slide-up");
 			}, 1000);
 		}
+	},
+
+	toggleDeleteConfModal: function(e) {
+		var target = $(e.currentTarget),
+			title = target.data("name"),
+			deckId = target.data("id"),
+			modal = this.$(".modal"),
+			modalName = this.$(".modal p");
+
+		if(target.hasClass("modal-close")) {
+			modal.addClass("hidden");
+		} else {
+			modal.data("id", deckId);
+			modalName.html("Do you really want to delete " + title + "?");
+			modal.removeClass("hidden");
+		}
+	},
+
+	// delete deck from db
+	deleteDeck: function(e) {
+		var id = parseInt(this.$(".modal").data("id")),
+			self = this;
+
+		Deckster.currentUser.deleteDeck(id, function(resp) {
+			this.$(".modal").addClass("hidden");
+			this.collection.remove(resp);
+		}.bind(self));
+	},
+
+	// remove deck from view collection
+	removeDeck: function(model) {
+		this.divideDecks();
+		this.render();
+		var subview = this.findSubview(this.subviewSelector, model.id);
+		this.removeSubview(this.subviewSelector, subview);
 	}
 });
